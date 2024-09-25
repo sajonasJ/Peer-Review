@@ -26,6 +26,10 @@
                             <li>Prof. John Doe</li>
                             <li>Ms. Alice Johnson</li>
                         </ul>
+                        <!-- Enroll a Student Button -->
+                        <div class="text-end mt-3">
+                            <a href="#" class="btn btn-danger disabled">Enroll a Student</a>
+                        </div>
                     </div>
                 </div>
 

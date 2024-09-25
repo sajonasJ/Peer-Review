@@ -18,3 +18,12 @@ Route::get('/register', function () {
 Route::get('/teaching-login', function () {
     return view('pages.teaching-login');
 })->name('teaching-login');
+
+
+Route::get('/course-details', function () {
+    return view('pages.course-details');
+})->name('course-details');
+
+Route::get('/home', function () {
+    return view('pages.home');
+})->name('home');
