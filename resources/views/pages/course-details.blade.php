@@ -26,8 +26,10 @@
                             <li>Prof. John Doe</li>
                             <li>Ms. Alice Johnson</li>
                         </ul>
-                        <!-- Enroll a Student Button -->
-                        <div class="text-end mt-3">
+
+                        <!-- Buttons: Go Back to Home & Enroll a Student -->
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="/home" class="btn btn-outline-danger">Go Back to Home</a>
                             <a href="#" class="btn btn-danger disabled">Enroll a Student</a>
                         </div>
                     </div>
@@ -35,26 +37,27 @@
 
                 <!-- Assessments Section -->
                 <div class="mt-5">
-                    <h4 class="text-danger">Peer Review Assessments</h4>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="text-danger">Peer Review Assessments</h4>
+                        <!-- Add Assessment Button -->
+                        <a href="#" class="btn btn-danger disabled">Add Assessment</a>
+                    </div>
 
-                    <ul class="list-group">
+                    <ul class="list-group mt-3">
                         <!-- Static Examples of Assessments -->
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <span>Week 1 Peer Review</span>
                             <span class="badge bg-danger text-white">Due: 2024-09-30</span>
-                            <!-- Placeholder for assessment details -->
                             <a href="#" class="btn btn-outline-danger btn-sm disabled">View Details</a>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <span>Week 3 Peer Review</span>
                             <span class="badge bg-danger text-white">Due: 2024-10-14</span>
-                            <!-- Placeholder for assessment details -->
                             <a href="#" class="btn btn-outline-danger btn-sm disabled">View Details</a>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <span>Week 5 Peer Review</span>
                             <span class="badge bg-danger text-white">Due: 2024-10-28</span>
-                            <!-- Placeholder for assessment details -->
                             <a href="#" class="btn btn-outline-danger btn-sm disabled">View Details</a>
                         </li>
                     </ul>

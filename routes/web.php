@@ -27,3 +27,7 @@ Route::get('/course-details', function () {
 Route::get('/home', function () {
     return view('pages.home');
 })->name('home');
+
+Route::get('/add-assessment', function () {
+    return view('pages.add-assessment');
+})->name('add-assessment');
