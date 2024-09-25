@@ -31,3 +31,7 @@ Route::get('/home', function () {
 Route::get('/add-assessment', function () {
     return view('pages.add-assessment');
 })->name('add-assessment');
+
+Route::get('/add-review', function () {
+    return view('pages.add-review');
+})->name('add-review');
