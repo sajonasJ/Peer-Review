@@ -28,6 +28,11 @@
                                 <input type="password" name="password" class="form-control" placeholder="Create a password" required>
                             </div>
 
+                            <div class="form-group mb-3">
+                                <label for="confirm-password">Confirm Password</label>
+                                <input type="password" name="confirm-password" class="form-control" placeholder="Re-type password" required>
+                            </div>
+
                             <div class="form-group text-center">
                                 <button type="submit" class="btn btn-danger btn-block">Register</button>
                             </div>

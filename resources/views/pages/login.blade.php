@@ -16,14 +16,14 @@
             <div class="col-md-6">
                 <div class="card border-danger">
                     <div class="card-header bg-danger text-white text-center">
-                        <h4>Login to Your Account</h4>
+                        <h4>Student Login</h4>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('login') }}" method="POST">
                             @csrf
                             <div class="form-group mb-3">
-                                <label for="email">Email Address</label>
-                                <input type="email" name="email" class="form-control" placeholder="Enter your email"
+                                <label for="sNumber">Student Number</label>
+                                <input type="text" name="sNumber" class="form-control" placeholder="Enter your sNumber"
                                     >
                             </div>
 
@@ -41,6 +41,10 @@
                         <div class="text-center mt-3">
                             <p>Not yet registered? <a href="{{ route('register') }}" class="text-danger">Create an
                                     account</a></p>
+                        </div>
+                        <div class="text-center mt-3">
+                            <p>Teaching Team: <a href="{{ route('teaching-login') }}" class="text-danger">Sign In
+                                    </a></p>
                         </div>
                     </div>
                 </div>
