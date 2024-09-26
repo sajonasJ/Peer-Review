@@ -1,0 +1,24 @@
+
+To create a table in migrations:
+php artisan make:migration create_products_table
+
+To run the migration:
+php artisan migrate
+
+To rollback most recent migration:
+php artisan migrate:rollback
+
+To rollback all migrations:
+php artisan migrate:reset
+
+To run a seed:
+php artisan db:seed
+
+To run a specific seeder:
+php artisan db:seed -class=ProductsTableSeeder
+
+To refresh:
+php artisan migrate:refresh --seed
+
+To create A model:
+php artisan make:model Product
