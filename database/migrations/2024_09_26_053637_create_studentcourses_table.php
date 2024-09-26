@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('studentcourses', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id(); // Primary key
+            $table->foreignId('student_id')->constrained()->onDelete('cascade'); // Foreign key to students
+            $table->foreignId('course_id')->constrained()->onDelete('cascade'); // Foreign key to courses
+            $table->timestamps(); // created_at and updated_at
         });
     }
 
