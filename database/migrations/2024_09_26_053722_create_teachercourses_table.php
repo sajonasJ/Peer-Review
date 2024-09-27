@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -12,10 +13,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('teacher_courses', function (Blueprint $table) {
-            $table->id(); // Primary key
-            $table->foreignId('teacher_id')->constrained()->onDelete('cascade'); // Foreign key to teachers
-            $table->foreignId('course_id')->constrained()->onDelete('cascade'); // Foreign key to courses
-            $table->timestamps(); // created_at and updated_at
+            $table->id();
+            $table->foreignId('teacher_id')->constrained()->onDelete('cascade');
+            $table->foreignId('course_code')->constrained('courses', 'course_code')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -24,6 +25,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('teachercourses');
+
+        DB::statement('PRAGMA foreign_keys = OFF;');
+
+        Schema::dropIfExists('teacher_courses');
+    
+        // Re-enable foreign key checks
+        DB::statement('PRAGMA foreign_keys = ON;');
     }
 };

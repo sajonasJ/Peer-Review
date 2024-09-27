@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -12,13 +13,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reviews', function (Blueprint $table) {
-            $table->id(); // Primary key
-            $table->text('review_text'); // Text of the review
-            $table->integer('rating'); // Rating for the review (e.g., out of 5)
-            $table->foreignId('reviewer_id')->constrained('students')->onDelete('cascade'); // Foreign key to the student who is the reviewer
-            $table->foreignId('reviewee_id')->constrained('students')->onDelete('cascade'); // Foreign key to the student who is the reviewee
-            $table->foreignId('assessment_id')->constrained('assessments')->onDelete('cascade'); // Foreign key to the assessment
-            $table->timestamps(); // created_at and updated_at
+            $table->id();
+            $table->text('review_text');
+            $table->integer('rating');
+            $table->foreignId('reviewer_id')->constrained('students')->onDelete('cascade');
+            $table->foreignId('reviewee_id')->constrained('students')->onDelete('cascade');
+            $table->foreignId('assessment_id')->constrained('assessments')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,12 @@ return new class extends Migration
      */
     public function down(): void
     {
+    
+        DB::statement('PRAGMA foreign_keys = OFF;');
+
         Schema::dropIfExists('reviews');
+    
+        // Re-enable foreign key checks
+        DB::statement('PRAGMA foreign_keys = ON;');
     }
 };
