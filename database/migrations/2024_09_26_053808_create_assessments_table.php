@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id();
             $table->string('title', 20);
             $table->text('instruction');
-            $table->integer('num_reviews')->unsigned();
-            $table->integer('max_score')->unsigned();
+            $table->unsignedInteger('num_reviews');
+            $table->unsignedInteger('max_score');
             $table->date('due_date');
             $table->time('due_time');
             $table->enum('type', ['student-select', 'teacher-assign']);
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.

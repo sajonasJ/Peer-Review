@@ -15,9 +15,9 @@ class DatabaseSeeder extends Seeder
     {
         // Run all the seeders
         $this->call([
-            TeachersTableSeeder::class,
             CoursesTableSeeder::class,
             StudentsTableSeeder::class,
+            TeachersTableSeeder::class,
             AssessmentsTableSeeder::class,
             ReviewsTableSeeder::class,
         ]);
