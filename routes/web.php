@@ -2,11 +2,19 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\TeacherAuthenticatedSessionController;
 
-// Login route
+
 Route::get('/', function () {
     return view('pages.login');
 })->name('login');
+
+// Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+
+Route::get('/', function () {
+    return redirect()->route('login');
+});
 
 // Registration route
 Route::get('/register', function () {
@@ -17,6 +25,11 @@ Route::get('/teaching-login', function () {
     return view('pages.teaching-login');
 })->name('teaching-login');
 
+// Handle teacher login form submission
+Route::post('/teacher/login', [TeacherAuthenticatedSessionController::class, 'store'])->name('teacher.login');
+
+// Handle teacher logout
+Route::post('/teacher/logout', [TeacherAuthenticatedSessionController::class, 'destroy'])->name('teacher.logout');
 
 Route::get('/course-details', function () {
     return view('pages.course-details');

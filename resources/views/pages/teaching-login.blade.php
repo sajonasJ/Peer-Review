@@ -19,7 +19,7 @@
                         <h4>Teaching Team Login</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('teaching-login') }}" method="POST">
+                        <form action="{{ route('teacher,login') }}" method="POST">
                             @csrf
                             <div class="form-group mb-3">
                                 <label for="sNumber">Staff Number</label>

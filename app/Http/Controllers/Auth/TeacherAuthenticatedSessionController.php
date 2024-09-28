@@ -3,35 +3,34 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-// use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class AuthenticatedSessionController extends Controller
+class TeacherAuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * Display the teacher login view.
      */
     public function create(): View
     {
-        return view('pages.login');
+        return view('pages.teaching-login'); // Use your custom teaching login view
     }
 
     /**
-     * Handle an incoming authentication request.
+     * Handle an incoming authentication request for teachers.
      */
     public function store(Request $request): RedirectResponse
     {
         // Validate the incoming request data
         $request->validate([
-            'sNumber' => 'required|string',
+            'staffNumber' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        // Attempt to authenticate using the sNumber and password
-        if (Auth::attempt(['snumber' => $request->sNumber, 'password' => $request->password], $request->filled('remember'))) {
+        // Attempt to authenticate using the 'teacher' guard and the 'staffNumber' field
+        if (Auth::guard('teacher')->attempt(['staffNumber' => $request->staffNumber, 'password' => $request->password], $request->filled('remember'))) {
             $request->session()->regenerate();
 
             return redirect()->intended(route('dashboard', absolute: false));
@@ -39,16 +38,16 @@ class AuthenticatedSessionController extends Controller
 
         // If authentication fails, redirect back with errors
         return back()->withErrors([
-            'sNumber' => 'The provided credentials do not match our records.',
-        ])->onlyInput('sNumber');
+            'staffNumber' => 'The provided credentials do not match our records.',
+        ])->onlyInput('staffNumber');
     }
 
     /**
-     * Destroy an authenticated session.
+     * Destroy an authenticated teacher session.
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('web')->logout();
+        Auth::guard('teacher')->logout();
 
         $request->session()->invalidate();
 
