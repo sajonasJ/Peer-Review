@@ -6,9 +6,9 @@
     @include('layouts.header')
 @endsection
 
-@section('nav')
+{{-- @section('nav')
     @include('layouts.nav')
-@endsection
+@endsection --}}
 
 @section('content')
 <div class="container-fluid m-5">
