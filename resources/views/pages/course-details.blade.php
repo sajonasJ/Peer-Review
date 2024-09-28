@@ -2,6 +2,10 @@
 
 @section('title', 'Course Details')
 
+@section('nav-top')
+@include('components.nav-top')
+@endsection
+
 @section('header')
     @include('layouts.header')
 @endsection
@@ -11,7 +15,7 @@
 @endsection
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container m-5">
         <div class="row">
             <div class="col-md-12">
                 <!-- Course Header -->

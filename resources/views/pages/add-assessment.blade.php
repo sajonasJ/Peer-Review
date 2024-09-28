@@ -2,6 +2,10 @@
 
 @section('title', 'Add Peer Review Assessment')
 
+@section('nav-top')
+@include('components.nav-top')
+@endsection
+
 @section('header')
     @include('layouts.header')
 @endsection
@@ -11,7 +15,7 @@
 @endsection
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container m-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <!-- Form for Adding Peer Review Assessment -->

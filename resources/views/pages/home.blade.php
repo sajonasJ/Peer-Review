@@ -1,17 +1,13 @@
 @extends('layouts.master')
 
-@section('title', 'My Courses')
-
 @section('nav-top')
 @include('components.nav-top')
 @endsection
 
+@section('title', 'My Courses')
+
 @section('header')
     @include('layouts.header')
-@endsection
-
-@section('nav')
-    @include('layouts.nav')
 @endsection
 
 @section('content')

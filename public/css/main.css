@@ -148,7 +148,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: brightness(0.85); /* Darken image slightly for better text contrast */
+    filter: brightness(0.85);
 }
 
 /* navigation */
@@ -174,10 +174,10 @@ body {
 
 /* Hover effect on navigation tabs */
 .nav-tab:hover {
-    color: #ffffff; /* Same as active-tab */
-    background-color: rgb(62, 62, 62); /* Same as active-tab */
-    border-bottom: 3px solid #c02123; /* Same as active-tab */
-    cursor: pointer; /* Adds a pointer to make it look clickable */
+    color: #ffffff;
+    background-color: rgb(62, 62, 62); 
+    border-bottom: 3px solid #c02123;
+    cursor: pointer;
 }
 
 /* Active tab style */
