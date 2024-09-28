@@ -29,8 +29,8 @@
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="confirm-password">Confirm Password</label>
-                                <input type="password" name="confirm-password" class="form-control" placeholder="Re-type password" required>
+                                <label for="password_confirmation">Confirm Password</label>
+                                <input type="password" name="password_confirmation" class="form-control" placeholder="Re-type password" required>
                             </div>
 
                             <div class="form-group text-center">

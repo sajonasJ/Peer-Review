@@ -5,18 +5,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\TeacherAuthenticatedSessionController;
-
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', function () {
     return view('pages.login');
 })->name('login');
 
-// Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-
-// Registration route
-Route::get('/register', function () {
-    return view('pages.register');
-})->name('register');
+// Registration routes grouped with 'guest' middleware
+Route::middleware('guest')->group(function () {
+    Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::post('/register', [RegisteredUserController::class, 'store']);
+});
 
 Route::get('/teaching-login', function () {
     return view('pages.teaching-login');
@@ -47,6 +46,5 @@ Route::middleware('auth')->group(function () {
         return view('pages.add-review');
     })->name('add-review');
 });
-
 
 require __DIR__.'/auth.php';
