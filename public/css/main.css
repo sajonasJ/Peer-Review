@@ -153,11 +153,11 @@ body {
 
 /* navigation */
 /* Container for the navigation tabs */
+/* Container for the navigation tabs */
 .navigation-tabs {
     display: flex;
     justify-content: center;
-    background-color: #f5f7f8; /* Light grey background */
-
+    background-color: #f5f7f8;
 }
 
 /* Individual navigation tab style */
@@ -166,20 +166,23 @@ body {
     text-align: center;
     padding: 1rem;
     text-decoration: none;
-    color: #4a4a4a; /* Dark grey text color */
+    color: #4a4a4a;
     font-weight: 500;
-    border-bottom: 3px solid transparent; /* Bottom border to highlight the active tab */
+    border-bottom: 3px solid transparent;
     transition: background-color 0.3s, color 0.3s, border-bottom 0.3s;
 }
 
 /* Hover effect on navigation tabs */
 .nav-tab:hover {
-    color: #c02123; /* Hover color */
+    color: #ffffff; /* Same as active-tab */
+    background-color: rgb(62, 62, 62); /* Same as active-tab */
+    border-bottom: 3px solid #c02123; /* Same as active-tab */
+    cursor: pointer; /* Adds a pointer to make it look clickable */
 }
 
 /* Active tab style */
 .active-tab {
-    background-color: rgb(62, 62, 62); /* Dark background for active tab */
-    color: #ffffff; /* White text for the active tab */
-    border-bottom: 3px solid #c02123; /* Highlight with red bottom border */
+    background-color: rgb(62, 62, 62);
+    color: #ffffff;
+    border-bottom: 3px solid #c02123;
 }
