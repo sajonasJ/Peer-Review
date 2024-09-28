@@ -18,6 +18,7 @@
 
 <body>
     <div>
+        @yield('nav-top')
         @yield('header')
         @yield('nav')
         <div class="content">

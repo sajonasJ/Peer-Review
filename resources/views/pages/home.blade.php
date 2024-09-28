@@ -2,6 +2,10 @@
 
 @section('title', 'My Courses')
 
+@section('nav-top')
+@include('components.nav-top')
+@endsection
+
 @section('header')
     @include('layouts.header')
 @endsection

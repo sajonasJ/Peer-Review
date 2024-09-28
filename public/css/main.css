@@ -100,16 +100,14 @@ body {
     transition: color 0.3s;
 }
 
-/* Hover effect for the links */
 .top-header-link:hover {
     text-decoration: none;
-
 }
 
 /* Divider between links */
 .divider {
-    color: #ffffff; /* White color for the divider */
-    margin: 0 0.5rem; /* Space around the divider */
+    color: #ffffff;
+    margin: 0 0.5rem;
 }
 
 
@@ -121,7 +119,7 @@ body {
     position: relative;
     display: flex;
     align-items: center;
-    height: 300px; /* Set a suitable height for the banner */
+    height: 300px;
     overflow: hidden;
 }
 
@@ -130,7 +128,7 @@ body {
     left: 20px;
     top: 20px;
     color: white;
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background for better contrast */
+    background-color: rgba(0, 0, 0, 0.7);
     padding: 10px 20px;
     border-radius: 4px;
 }
