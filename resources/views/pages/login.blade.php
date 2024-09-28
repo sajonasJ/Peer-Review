@@ -19,11 +19,11 @@
                         <h4>Student Login</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('login') }}" method="POST">
+                        <form action="{{ route('student.login') }}" method="POST">
                             @csrf
                             <div class="form-group mb-3">
-                                <label for="sNumber">Student Number</label>
-                                <input type="text" name="sNumber" class="form-control" placeholder="Enter your sNumber"
+                                <label for="snumber">Student Number</label>
+                                <input type="text" name="snumber" class="form-control" placeholder="Enter your sNumber"
                                     >
                             </div>
 

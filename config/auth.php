@@ -35,17 +35,17 @@ return [
     |
     */
 
-   'guards' => [
-    'web' => [
-        'driver' => 'session',
-        'provider' => 'students',
-    ],
+    'guards' => [
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'students',
+        ],
 
-    'teacher' => [
-        'driver' => 'session',
-        'provider' => 'teachers',
+        'teacher' => [
+            'driver' => 'session',
+            'provider' => 'teachers',
+        ],
     ],
-],
 
     /*
     |--------------------------------------------------------------------------
@@ -65,16 +65,16 @@ return [
     */
 
     'providers' => [
-    'students' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Student::class,
-    ],
+        'students' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Student::class,
+        ],
 
-    'teachers' => [
-        'driver' => 'eloquent',
-        'model' => App\Models\Teacher::class,
+        'teachers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Teacher::class,
+        ],
     ],
-],
 
     /*
     |--------------------------------------------------------------------------

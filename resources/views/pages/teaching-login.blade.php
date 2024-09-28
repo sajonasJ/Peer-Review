@@ -19,11 +19,11 @@
                         <h4>Teaching Team Login</h4>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('teacher,login') }}" method="POST">
+                        <form action="{{ route('teacher.login') }}" method="POST">
                             @csrf
                             <div class="form-group mb-3">
-                                <label for="sNumber">Staff Number</label>
-                                <input type="text" name="sNumber" class="form-control" placeholder="Enter your Staff Number" required>
+                                <label for="snumber">sNumber</label>
+                                <input type="text" name="snumber" class="form-control" placeholder="Enter your SNumber" required>
                             </div>
 
                             <div class="form-group mb-3">

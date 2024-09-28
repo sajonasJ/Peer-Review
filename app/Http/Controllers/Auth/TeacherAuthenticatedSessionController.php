@@ -25,12 +25,12 @@ class TeacherAuthenticatedSessionController extends Controller
     {
         // Validate the incoming request data
         $request->validate([
-            'staffNumber' => 'required|string',
+            'snumber' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        // Attempt to authenticate using the 'teacher' guard and the 'staffNumber' field
-        if (Auth::guard('teacher')->attempt(['staffNumber' => $request->staffNumber, 'password' => $request->password], $request->filled('remember'))) {
+        // Attempt to authenticate using the 'teacher' guard
+        if (Auth::guard('teacher')->attempt(['snumber' => $request->snumber, 'password' => $request->password], $request->filled('remember'))) {
             $request->session()->regenerate();
 
             return redirect()->intended(route('home', absolute: false));
@@ -38,8 +38,8 @@ class TeacherAuthenticatedSessionController extends Controller
 
         // If authentication fails, redirect back with errors
         return back()->withErrors([
-            'staffNumber' => 'The provided credentials do not match our records.',
-        ])->onlyInput('staffNumber');
+            'snumber' => 'The provided credentials do not match our records.',
+        ])->onlyInput('snumber');
     }
 
     /**

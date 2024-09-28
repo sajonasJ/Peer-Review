@@ -26,21 +26,22 @@ class AuthenticatedSessionController extends Controller
     {
         // Validate the incoming request data
         $request->validate([
-            'sNumber' => 'required|string',
+            'snumber' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        // Attempt to authenticate using the sNumber and password
-        if (Auth::attempt(['snumber' => $request->sNumber, 'password' => $request->password], $request->filled('remember'))) {
+        // Attempt to authenticate using the 'web' guard which is configured for students
+        if (Auth::guard('web')->attempt(['snumber' => $request->snumber, 'password' => $request->password], $request->filled('remember'))) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('home', absolute: false));
+            // Redirect to intended page after successful login
+            return redirect()->intended('/home');
         }
 
         // If authentication fails, redirect back with errors
         return back()->withErrors([
-            'sNumber' => 'The provided credentials do not match our records.',
-        ])->onlyInput('sNumber');
+            'snumber' => 'The provided credentials do not match our records.',
+        ])->onlyInput('snumber');
     }
 
     /**

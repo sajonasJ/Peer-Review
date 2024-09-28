@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\TeacherAuthenticatedSessionController;
 
 
@@ -20,6 +21,8 @@ Route::get('/register', function () {
 Route::get('/teaching-login', function () {
     return view('pages.teaching-login');
 })->name('teaching-login');
+
+Route::post('/student-login', [AuthenticatedSessionController::class, 'store'])->name('student.login');
 
 // Handle teacher login form submission
 Route::post('/teacher/login', [TeacherAuthenticatedSessionController::class, 'store'])->name('teacher.login');
