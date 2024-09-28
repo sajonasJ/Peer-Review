@@ -33,7 +33,7 @@ class TeacherAuthenticatedSessionController extends Controller
         if (Auth::guard('teacher')->attempt(['staffNumber' => $request->staffNumber, 'password' => $request->password], $request->filled('remember'))) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('dashboard', absolute: false));
+            return redirect()->intended(route('home', absolute: false));
         }
 
         // If authentication fails, redirect back with errors
