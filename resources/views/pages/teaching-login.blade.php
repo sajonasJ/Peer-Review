@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Teaching Team Login')
+@section('title', 'Teaching Team')
 
 @section('header')
     @include('layouts.header')
@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    <div class="container mt-5">
+<div class="container-fluid m-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card border-primary">
@@ -23,12 +23,14 @@
                             @csrf
                             <div class="form-group mb-3">
                                 <label for="snumber">sNumber</label>
-                                <input type="text" name="snumber" class="form-control" placeholder="Enter your SNumber" required>
+                                <input type="text" name="snumber" class="form-control" placeholder="Enter your SNumber"
+                                    required>
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="password">Password</label>
-                                <input type="password" name="password" class="form-control" placeholder="Enter your password" required>
+                                <input type="password" name="password" class="form-control"
+                                    placeholder="Enter your password" required>
                             </div>
 
                             <div class="form-group text-center">
@@ -38,7 +40,14 @@
 
                         <!-- Link for back to student login -->
                         <div class="text-center mt-3">
-                            <p>Student login? <a href="/" class="text-primary">Go to Student Login</a></p>
+                            <p>Switch to: <a href="/"
+                                    class="text-primary
+                                link-offset-0 
+                                    link-offset-1-hover 
+                                    link-primary
+                                    link-underline 
+                                    link-underline-opacity-0 
+                                    link-underline-opacity-75-hover">Student Login</a></p>
                         </div>
                     </div>
                 </div>

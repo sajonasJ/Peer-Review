@@ -11,12 +11,12 @@
 @endsection
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container m-5">
         <div class="row">
             <div class="col-md-12">
                 <!-- Home Page Header -->
-                <div class="card border-danger">
-                    <div class="card-header bg-danger text-white">
+                <div class="card cs-red">
+                    <div class="card-header text-white">
                         <h3 id="greeting"></h3>
                         <p class="mb-0">Here are the courses you're enrolled in:</p>
                         <p class="mb-0"><small id="currentDate"></small></p>
