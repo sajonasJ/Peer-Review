@@ -22,7 +22,8 @@ class AuthController extends Controller
 
         if ($student && Hash::check($request->password, $student->password)) {
             // Manually log in the user
-            Auth::login($student);
+            Auth::guard('web')->login($student);
+
 
             // Redirect to the home page
             return redirect()->route('home');

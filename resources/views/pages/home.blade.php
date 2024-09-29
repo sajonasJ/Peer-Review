@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('nav-top')
-@include('components.nav-top')
+    @include('components.nav-top')
 @endsection
 
 @section('title', 'My Courses')
@@ -28,40 +28,19 @@
                     <h4 class="text-danger">Your Courses</h4>
 
                     <ul class="list-group">
-                        <!-- Static Course Examples -->
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong>Course Code:</strong> CS101 <br>
-                                <strong>Course Name:</strong> Introduction to Computer Science
-                            </div>
-                            <!-- Placeholder for course details -->
-                            <a href="#" class="btn btn-outline-danger btn-sm disabled">Go to Course</a>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong>Course Code:</strong> MTH102 <br>
-                                <strong>Course Name:</strong> Calculus I
-                            </div>
-                            <!-- Placeholder for course details -->
-                            <a href="#" class="btn btn-outline-danger btn-sm disabled">Go to Course</a>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong>Course Code:</strong> PHY103 <br>
-                                <strong>Course Name:</strong> General Physics I
-                            </div>
-                            <!-- Placeholder for course details -->
-                            <a href="#" class="btn btn-outline-danger btn-sm disabled">Go to Course</a>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong>Course Code:</strong> ENG104 <br>
-                                <strong>Course Name:</strong> English Composition
-                            </div>
-                            <!-- Placeholder for course details -->
-                            <a href="#" class="btn btn-outline-danger btn-sm disabled">Go to Course</a>
-                        </li>
+                        @foreach ($courses as $course)
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Course Code:</strong> {{ $course->course_code }} <br>
+                                    <strong>Course Name:</strong> {{ $course->name }}
+                                </div>
+                                <!-- Placeholder for course details -->
+                                <a href="{{ route('course-details', ['id' => $course->id]) }}"
+                                    class="btn btn-outline-danger btn-sm">Go to Course</a>
+                            </li>
+                        @endforeach
                     </ul>
+
                 </div>
             </div>
         </div>

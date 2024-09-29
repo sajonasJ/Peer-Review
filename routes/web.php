@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\TeacherAuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\CourseController;
 
 Route::get('/', function () {
     return view('pages.login');
@@ -29,10 +30,13 @@ Route::post('/teacher/login', [TeacherAuthenticatedSessionController::class, 'st
 // Handle teacher logout
 Route::post('/teacher/logout', [TeacherAuthenticatedSessionController::class, 'destroy'])->name('teacher.logout');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/home', function () {
-        return view('pages.home');
-    })->name('home');
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('logout');
+
+Route::middleware(['auth:web,teacher'])->group(function () {
+    Route::get('/home', [CourseController::class, 'index'])->name('home');
+
 
     Route::get('/course-details', function () {
         return view('pages.course-details');
@@ -47,4 +51,4 @@ Route::middleware('auth')->group(function () {
     })->name('add-review');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

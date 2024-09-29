@@ -6,6 +6,11 @@
         <span class="divider">|</span>
         <a href="#" class="top-header-link">Contact us</a>
         <span class="divider">|</span>
-        <a href="#" class="top-header-link">Logout</a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+            @csrf
+            <a href="#" class="top-header-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                Logout
+            </a>
+        </form>
     </div>
 </div>

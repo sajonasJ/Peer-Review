@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             TeachersTableSeeder::class,
             AssessmentsTableSeeder::class,
             ReviewsTableSeeder::class,
+            StudentCoursesTableSeeder::class,
+            TeacherCoursesTableSeeder::class,
         ]);
     }
 }
