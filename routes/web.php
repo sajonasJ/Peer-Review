@@ -7,6 +7,8 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\TeacherAuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\AssessmentController;
+
 
 Route::get('/', function () {
     return view('pages.login');
@@ -43,11 +45,11 @@ Route::middleware(['auth:web,teacher'])->group(function () {
     })->name('course-details');
     Route::get('/course-details/{courseCode}', [CourseController::class, 'show'])->name('course-details');
 
+    // Route to show the add assessment form
+    Route::get('/course-details/{courseCode}/add-assessment', [AssessmentController::class, 'create'])->name('add-assessment');
 
-
-    Route::get('/add-assessment', function () {
-        return view('pages.add-assessment');
-    })->name('add-assessment');
+    // Route to store the new assessment
+    Route::post('/course-details/{courseCode}/add-assessment', [AssessmentController::class, 'store'])->name('store-assessment');
 
     Route::get('/add-review', function () {
         return view('pages.add-review');

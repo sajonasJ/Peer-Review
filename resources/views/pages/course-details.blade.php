@@ -17,7 +17,7 @@
                 <!-- Course Header -->
                 <div class="card">
                     <div class="card-header bg-danger text-white">
-                        <h3>Course Title: {{ $course->name }}</h3>
+                        <h3>{{ $course->course_code }} {{ $course->name }}</h3>
                     </div>
                     <div class="card-body">
                         <h5><strong>Instructors:</strong></h5>
@@ -40,7 +40,8 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h4 class="text-danger">Peer Review Assessments</h4>
                         <!-- Add Assessment Button -->
-                        <a href="#" class="btn btn-danger disabled">Add Assessment</a>
+                        <a href="{{ route('add-assessment', ['courseCode' => $course->course_code]) }}"
+                            class="btn btn-danger">Add Assessment</a>
                     </div>
 
                     <ul class="list-group mt-3">
