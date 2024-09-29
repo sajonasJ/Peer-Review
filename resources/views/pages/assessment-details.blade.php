@@ -20,7 +20,11 @@
                     <h3>{{ $course->course_code }} {{ $course->name }}</h3>
                 </div>
                 <!-- Button to toggle student list -->
+                @if ($assessment->type === 'student-select')
                 <button id="toggleStudentList" class="btn btn-sm btn-danger">Show Students</button>
+            @else
+                <button class="btn btn-sm btn-secondary" disabled>Show Students (Disabled)</button>
+            @endif
             </div>
         </div>
 
