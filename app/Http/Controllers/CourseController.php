@@ -1,4 +1,4 @@
-<?php
+<?php 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -14,15 +14,17 @@ class CourseController extends Controller
         if (Auth::guard('web')->check()) {
             $student = Auth::guard('web')->user();
             $courses = $student->courses()->get();
+            $userName = $student->name;
         } elseif (Auth::guard('teacher')->check()) {
             $teacher = Auth::guard('teacher')->user();
-            // Logic for fetching courses for the teacher, if applicable
             $courses = $teacher->courses()->get();
+            $userName = $teacher->name;
         } else {
             return redirect()->route('login');
         }
 
-        // Pass the courses to the view
-        return view('pages.home', compact('courses'));
+        // Pass the courses and user name to the view
+
+        return view('pages.home', compact('courses', 'userName'));
     }
 }

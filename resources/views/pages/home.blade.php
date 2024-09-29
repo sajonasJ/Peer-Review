@@ -17,7 +17,7 @@
                 <!-- Home Page Header -->
                 <div class="card cs-red">
                     <div class="card-header text-white">
-                        <h3 id="greeting"></h3>
+                        <h3 id="greeting">{{ $userName }}</h3>
                         <p class="mb-0">Here are the courses you're enrolled in:</p>
                         <p class="mb-0"><small id="currentDate"></small></p>
                     </div>
@@ -45,8 +45,8 @@
             </div>
         </div>
     </div>
-
 @endsection
+
 
 @section('footer')
     @include('layouts.footer')

@@ -5,11 +5,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // If greeting and date elements exist, update them
     if (greetingElement && dateElement) {
+        // Get the current name from the server-rendered greeting
+        const userName = greetingElement.textContent.trim() || 'User';
+
         // Function to determine the greeting based on the current time
         function getGreeting() {
             const today = new Date();
             const hour = today.getHours();
-            let greeting = "Good Evening"; // Default to evening
+            let greeting = "Good Evening";
 
             if (hour >= 5 && hour < 12) {
                 greeting = "Good Morning";
@@ -27,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Set the greeting and date
-        greetingElement.innerHTML = getGreeting() + ", User!";
+        greetingElement.innerHTML = getGreeting() + ", " + userName + "";
         dateElement.innerHTML = "Today's Date: " + getCurrentDate();
     }
 
