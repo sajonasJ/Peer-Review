@@ -25,8 +25,9 @@
 
                 <!-- Assessment Details Card -->
                 <div class="card border-danger">
-                    <div class="card-header bg-danger text-white">
+                    <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
                         <h3>Assessment Details for {{ $assessment->title }}</h3>
+                        <a href="{{ route('edit-assessment', ['courseCode' => $course->course_code, 'assessmentId' => $assessment->id]) }}" class="btn btn-outline-light">Edit</a>
                     </div>
                     <div class="card-body">
                         <p><strong>Course:</strong> {{ $course->course_code }} - {{ $course->name }}</p>
@@ -42,6 +43,7 @@
         </div>
     </div>
 @endsection
+
 
 @section('footer')
     @include('layouts.footer')
