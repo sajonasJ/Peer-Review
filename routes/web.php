@@ -51,9 +51,15 @@ Route::middleware(['auth:web,teacher'])->group(function () {
     // Route to store the new assessment
     Route::post('/course-details/{courseCode}/add-assessment', [AssessmentController::class, 'store'])->name('store-assessment');
 
+    // Route to display the details of a specific assessment
+    Route::get('/course-details/{courseCode}/assessments/{assessmentId}', [AssessmentController::class, 'show'])->name('assessment-details');
+
     Route::get('/add-review', function () {
         return view('pages.add-review');
     })->name('add-review');
+
+    // Route to edit an existing assessment
+    Route::get('/course-details/{courseCode}/assessments/{assessmentId}/edit', [AssessmentController::class, 'edit'])->name('edit-assessment');
 });
 
 require __DIR__ . '/auth.php';

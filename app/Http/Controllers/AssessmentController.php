@@ -51,4 +51,29 @@ class AssessmentController extends Controller
         return redirect()->route('course-details', ['courseCode' => $courseCode])
             ->with('success', 'Assessment added successfully!');
     }
+
+    // Show the details for a specific assessment
+    public function show($courseCode, $assessmentId)
+    {
+        // Find the course by course code
+        $course = Course::where('course_code', $courseCode)->firstOrFail();
+
+        // Find the specific assessment by ID
+        $assessment = $course->assessments()->where('id', $assessmentId)->firstOrFail();
+
+        // Pass the course and assessment to the view
+        return view('pages.assessment-details', compact('course', 'assessment'));
+    }
+    public function edit($courseCode, $assessmentId)
+{
+    // Find the course by course code
+    $course = Course::where('course_code', $courseCode)->firstOrFail();
+
+    // Find the assessment by ID
+    $assessment = $course->assessments()->where('id', $assessmentId)->firstOrFail();
+
+    // Pass the course and assessment to the view
+    return view('pages.add-assessment', compact('course', 'assessment'));
+}
+
 }

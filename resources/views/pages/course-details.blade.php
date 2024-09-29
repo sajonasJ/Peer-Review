@@ -44,13 +44,12 @@
                         <a href="{{ route('add-assessment', ['courseCode' => $course->course_code]) }}"
                             class="btn btn-danger">Add Assessment</a>
                     </div>
-
                     <ul class="list-group mt-3">
                         @foreach ($course->assessments as $assessment)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <span>{{ $assessment->title }}</span>
                                 <span class="badge bg-danger text-white">Due: {{ $assessment->due_date }}</span>
-                                <a href="#" class="btn btn-outline-danger btn-sm disabled">View Details</a>
+                                <a href="{{ route('assessment-details', ['courseCode' => $course->course_code, 'assessmentId' => $assessment->id]) }}" class="btn btn-outline-danger btn-sm">View Details</a>
                             </li>
                         @endforeach
                     </ul>
