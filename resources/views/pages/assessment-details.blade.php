@@ -13,12 +13,45 @@
 @section('content')
     <div class="container-fluid p-0">
         <div class="course-title px-3 py-2">
-            <div class="d-flex gap-4 justify-content-start align-items-center">
-                <a href="{{ route('course-details', ['courseCode' => $course->course_code]) }}"
-                    class="btn btn-sm h-25 btn-warning">Back</a>
-                <h3>Course: {{ $course->course_code }} - {{ $course->name }}</h3>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex gap-4 ">
+                    <a href="{{ route('course-details', ['courseCode' => $course->course_code]) }}"
+                        class="btn btn-sm h-25 btn-warning">Back</a>
+                    <h3>{{ $course->course_code }} {{ $course->name }}</h3>
+                </div>
+                <!-- Button to toggle student list -->
+                <button id="toggleStudentList" class="btn btn-sm btn-danger">Show Students</button>
             </div>
         </div>
+
+        <!-- Student List Section (Initially Hidden) -->
+        <div id="studentList" class="p-3" style="display: none;">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4>Enrolled Students</h4>
+                </div>
+                <div class="card-body">
+                    @if ($course->students->isEmpty())
+                        <p>No students enrolled in this course yet.</p>
+                    @else
+                        <ul class="list-group">
+                            @foreach ($course->students as $student)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <p><strong>Name:</strong> {{ $student->name }}</p>
+                                        <p><strong>Student Number:</strong> {{ $student->snumber }}</p>
+                                    </div>
+                                    <!-- Add Peer Review Button -->
+                                    <a href="{{ route('add-review', ['courseCode' => $course->course_code, 'studentId' => $student->id, 'assessmentId' => $assessment->id]) }}"
+                                        class="btn btn-outline-primary btn-sm">Add Peer Review</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </div>
+            </div>
+        </div>
+
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <!-- Assessment Details Card -->
@@ -93,3 +126,20 @@
 @section('footer')
     @include('layouts.footer')
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleButton = document.getElementById('toggleStudentList');
+        const studentList = document.getElementById('studentList');
+
+        toggleButton.addEventListener('click', function() {
+            if (studentList.style.display === 'none') {
+                studentList.style.display = 'block';
+                toggleButton.textContent = 'Hide Students';
+            } else {
+                studentList.style.display = 'none';
+                toggleButton.textContent = 'Show Students';
+            }
+        });
+    });
+</script>

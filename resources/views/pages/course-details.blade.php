@@ -27,7 +27,7 @@
                     align-items-center
                     bg-danger
                     text-white">
-                    <h3>{{ $course->course_code }} - {{ $course->name }}</h3>
+                    <h3>{{ $course->course_code }}  {{ $course->name }}</h3>
                     <a href="{{ route('add-assessment', [
                         'courseCode' => $course->course_code,
                     ]) }}"
@@ -64,7 +64,7 @@
             <!-- Teaching Staff Content Here -->
             <div class="card">
                 <div class="card-header bg-danger text-white">
-                    <h4>Instructors:</h4>
+                    <h4>Instructors</h4>
                 </div>
                 <div class="card-body">
                     <ul class="list-style">
@@ -82,7 +82,7 @@
             <!-- Students Content Here -->
             <div class="card">
                 <div class="card-header bg-danger text-white">
-                    <h4>Enrolled Students:</h4>
+                    <h4>Enrolled Students</h4>
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
