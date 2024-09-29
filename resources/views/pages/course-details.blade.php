@@ -74,16 +74,22 @@
                     <h4>Enrolled Students:</h4>
                 </div>
                 <div class="card-body">
-                    <ul class="list-style">
+                    <ul class="list-group">
                         @forelse ($course->students as $student)
-                            <li>{{ $student->name }}</li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>{{ $student->name }}</span>
+                                <!-- Add Review Button -->
+                                <a href="{{ route('add-review', ['courseCode' => $course->course_code, 'studentId' => $student->id]) }}"
+                                    class="btn btn-outline-danger btn-sm">Add Review</a>
+                            </li>
                         @empty
-                            <li>No students enrolled yet.</li>
+                            <li class="list-group-item">No students enrolled yet.</li>
                         @endforelse
                     </ul>
                 </div>
             </div>
         </div>
+        
     </main>
 @endsection
 

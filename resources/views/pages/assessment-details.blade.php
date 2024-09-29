@@ -13,15 +13,15 @@
 @section('content')
     <div class="container-fluid p-0">
         <div class="course-title px-3 py-2">
-            <div class="d-flex gap-4 justify-content-start">
+            <div class="d-flex gap-4 justify-content-start align-items-center">
                 <a href="{{ route('course-details', ['courseCode' => $course->course_code]) }}"
-                    class="btn btn-warning">Back</a>
+                    class="btn btn-sm h-25 btn-warning">Back</a>
                 <h3>Course: {{ $course->course_code }} - {{ $course->name }}</h3>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <div class="card my-3 border-danger">
+                <div class="card my-3">
                     <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
                         <h4>Assessment Details</h4>
                         <a href="{{ route('edit-assessment', ['courseCode' => $course->course_code, 'assessmentId' => $assessment->id]) }}"

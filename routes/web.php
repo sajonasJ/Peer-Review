@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\TeacherAuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\AssessmentController;
+use App\Http\Controllers\ReviewController;
 
 
 Route::get('/', function () {
@@ -54,9 +55,12 @@ Route::middleware(['auth:web,teacher'])->group(function () {
     // Route to display the details of a specific assessment
     Route::get('/course-details/{courseCode}/assessments/{assessmentId}', [AssessmentController::class, 'show'])->name('assessment-details');
 
-    Route::get('/add-review', function () {
-        return view('pages.add-review');
-    })->name('add-review');
+// Route to show the add review form
+Route::get('/course-details/{courseCode}/add-review/{studentId}', [ReviewController::class, 'create'])->name('add-review');
+
+// Route to store the new review
+Route::post('/course-details/{courseCode}/add-review/{studentId}', [ReviewController::class, 'store'])->name('store-review');
+
 
     // Route to edit an existing assessment
     Route::get('/course-details/{courseCode}/assessments/{assessmentId}/edit', [AssessmentController::class, 'edit'])->name('edit-assessment');
