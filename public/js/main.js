@@ -62,3 +62,22 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+document.addEventListener('DOMContentLoaded', function () {
+    const tabs = document.querySelectorAll('.nav-tab');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            // Remove active classes from all tabs and content sections
+            tabs.forEach(t => t.classList.remove('active-tab'));
+            contents.forEach(content => content.classList.remove('active-content'));
+
+            // Add active class to the clicked tab and corresponding content
+            tab.classList.add('active-tab');
+            const targetId = tab.getAttribute('data-target');
+            document.getElementById(targetId).classList.add('active-content');
+        });
+    });
+});

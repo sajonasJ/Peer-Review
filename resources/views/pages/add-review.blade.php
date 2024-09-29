@@ -134,3 +134,34 @@
         });
     });
 </script>
+
+
+@section('content')
+    <div class="container m-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <!-- Assessment Details -->
+                <div class="card border-danger mb-4">
+                    <div class="card-header bg-danger text-white">
+                        <h3>Submit Peer Review for {{ $student->name }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('store-review', ['courseCode' => $course->course_code, 'studentId' => $student->id]) }}" method="POST">
+                            @csrf
+                            <!-- Review Text Area -->
+                            <div class="form-group mb-4">
+                                <label for="review">Your Review (at least 5 words)</label>
+                                <textarea id="review" name="review" class="form-control" rows="4" placeholder="Write your review here..." minlength="5" required></textarea>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-danger">Submit Review</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

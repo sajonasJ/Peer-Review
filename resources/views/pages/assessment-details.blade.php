@@ -10,27 +10,25 @@
     @include('layouts.header')
 @endsection
 
-@section('nav')
-    @include('layouts.nav')
-@endsection
-
 @section('content')
-    <div class="container m-5">
+    <div class="container-fluid p-0">
+        <div class="course-title px-3 py-2">
+            <div class="d-flex gap-4 justify-content-start">
+                <a href="{{ route('course-details', ['courseCode' => $course->course_code]) }}"
+                    class="btn btn-warning">Back</a>
+                <h3>Course: {{ $course->course_code }} - {{ $course->name }}</h3>
+            </div>
+        </div>
         <div class="row justify-content-center">
-            <div class="col-md-8">
-                <!-- Back Button on Top Left -->
-                <div class="d-flex justify-content-start mb-3">
-                    <button onclick="history.back()" class="btn btn-outline-danger">Back</button>
-                </div>
-
-                <!-- Assessment Details Card -->
-                <div class="card border-danger">
+            <div class="col-md-10">
+                <div class="card my-3 border-danger">
                     <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
-                        <h3>Assessment Details for {{ $assessment->title }}</h3>
-                        <a href="{{ route('edit-assessment', ['courseCode' => $course->course_code, 'assessmentId' => $assessment->id]) }}" class="btn btn-outline-light">Edit</a>
+                        <h4>Assessment Details</h4>
+                        <a href="{{ route('edit-assessment', ['courseCode' => $course->course_code, 'assessmentId' => $assessment->id]) }}"
+                            class="btn btn-sm btn-warning">Edit</a>
                     </div>
                     <div class="card-body">
-                        <p><strong>Course:</strong> {{ $course->course_code }} - {{ $course->name }}</p>
+                        <p><strong>Assessment Title:</strong> {{ $assessment->title }}</p>
                         <p><strong>Instructions:</strong> {{ $assessment->instruction }}</p>
                         <p><strong>Number of Reviews:</strong> {{ $assessment->num_reviews }}</p>
                         <p><strong>Maximum Score:</strong> {{ $assessment->max_score }}</p>
@@ -41,6 +39,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 @endsection
 

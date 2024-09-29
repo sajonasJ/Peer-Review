@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -32,7 +33,9 @@ class CourseController extends Controller
     public function show($courseCode)
     {
         // Find the course by course code
-        $course = Course::with('students', 'assessments')->where('course_code', $courseCode)->firstOrFail();
+        $course = Course::with('students', 'teachers', 'assessments')
+            ->where('course_code', $courseCode)
+            ->firstOrFail();
 
         // Pass the course and related data to the view
         return view('pages.course-details', compact('course'));

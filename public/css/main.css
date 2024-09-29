@@ -4,7 +4,7 @@ body {
     box-sizing: border-box;
 }
 
-.cs-red{
+.cs-red {
     background-color: #c02123 !important;
 }
 
@@ -75,14 +75,12 @@ body {
     color: #ccc;
 }
 
-
 /* header */
 
-/* Top header container */
 .top-header {
-    background-color: #4a4a4a; /* Dark grey background */
-    padding: 0.5rem; /* Padding for spacing */
-    text-align: right; /* Align links to the right */
+    background-color: rgb(62, 62, 62);
+    padding: 0.5rem;
+    text-align: right;
 }
 
 /* Container for the header links */
@@ -111,7 +109,7 @@ body {
 }
 
 
-.top-section{
+.top-section {
     background-color: rgb(62, 62, 62);
 }
 
@@ -175,8 +173,8 @@ body {
 /* Hover effect on navigation tabs */
 .nav-tab:hover {
     color: #ffffff;
-    background-color: rgb(62, 62, 62); 
-    border-bottom: 3px solid #c02123;
+    background-color: rgb(62, 62, 62);
+
     cursor: pointer;
 }
 
@@ -184,5 +182,22 @@ body {
 .active-tab {
     background-color: rgb(62, 62, 62);
     color: #ffffff;
-    border-bottom: 3px solid #c02123;
+}
+
+.list-style {
+    column-count: 2;
+    column-gap: 20px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.active-content {
+    display: block;
+}
+
+.course-title {
+    background-color: rgb(62, 62, 62);
+    color: #ffffff;
 }

@@ -23,7 +23,7 @@
                             @csrf
                             <div class="form-group mb-3">
                                 <label for="snumber">Enter your Staff Number</label>
-                                <input type="text" name="snumber" class="form-control" placeholder="Enter your SNumber"
+                                <input type="text" name="snumber" class="form-control" placeholder="Enter your sNumber"
                                     required>
                             </div>
 
