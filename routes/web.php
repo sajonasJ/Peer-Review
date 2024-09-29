@@ -62,6 +62,12 @@ Route::middleware(['auth:web,teacher'])->group(function () {
     Route::post('/course-details/{courseCode}/add-review/{studentId}/{assessmentId}', [ReviewController::class, 'store'])->name('store-review');
 
 
+  
+
+    // Route to update an existing assessment (using POST instead of PUT)
+    Route::post('/course-details/{courseCode}/assessment-details/{assessmentId}/update', [AssessmentController::class, 'update'])->name('update-assessment');
+
+
     // Route to edit an existing assessment
     Route::get('/course-details/{courseCode}/assessments/{assessmentId}/edit', [AssessmentController::class, 'edit'])->name('edit-assessment');
 });

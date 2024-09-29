@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Assessment extends Model
 {
@@ -18,9 +17,11 @@ class Assessment extends Model
         'due_date',
         'due_time',
         'type',
+        'course_id',
     ];
 
-    public function reviews(): HasMany
+    // Define the relationship with the Review model
+    public function reviews()
     {
         return $this->hasMany(Review::class, 'assessment_id');
     }

@@ -28,10 +28,19 @@
                         <h3>{{ isset($assessment) ? 'Edit' : 'Add' }} Peer Review Assessment</h3>
                     </div>
                     <div class="card-body">
+
                         <form
-                            action="{{ isset($assessment) ? route('store-assessment', ['courseCode' => $course->course_code]) : route('store-assessment', ['courseCode' => $course->course_code]) }}"
+                            action="{{ isset($assessment)
+                                ? route('update-assessment', [
+                                    'courseCode' => $course->course_code,
+                                    'assessmentId' => $assessment->id,
+                                ])
+                                : route('store-assessment', [
+                                    'courseCode' => $course->course_code,
+                                ]) }}"
                             method="POST">
                             @csrf
+
                             <!-- Assessment Title -->
                             <div class="form-group mb-3">
                                 <label for="title">Assessment Title</label>
