@@ -20,9 +20,17 @@
         <div id="course-overview" class="tab-content active-content">
             <!-- Course Overview Content Here -->
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center bg-danger text-white">
+                <div
+                    class="card-header
+                    d-flex
+                    justify-content-between
+                    align-items-center
+                    bg-danger
+                    text-white">
                     <h3>{{ $course->course_code }} - {{ $course->name }}</h3>
-                    <a href="{{ route('add-assessment', ['courseCode' => $course->course_code]) }}"
+                    <a href="{{ route('add-assessment', [
+                        'courseCode' => $course->course_code,
+                    ]) }}"
                         class="btn btn-warning btn-sm h-25">Add
                         Assessment</a>
                 </div>
@@ -39,7 +47,10 @@
                                 <span>{{ $assessment->title }}</span>
                                 <div>
                                     <span class="badge bg-danger text-white">Due Date: {{ $assessment->due_date }}</span>
-                                    <a href="{{ route('assessment-details', ['courseCode' => $course->course_code, 'assessmentId' => $assessment->id]) }}"
+                                    <a href="{{ route('assessment-details', [
+                                        'courseCode' => $course->course_code,
+                                        'assessmentId' => $assessment->id,
+                                    ]) }}"
                                         class="btn btn-primary btn-sm ">View Details</a>
                                 </div>
                             </li>
@@ -79,8 +90,13 @@
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <span>{{ $student->name }}</span>
                                 <!-- Add Review Button -->
-                                <a href="{{ route('add-review', ['courseCode' => $course->course_code, 'studentId' => $student->id]) }}"
+                                <a href="{{ route('add-review', [
+                                    'courseCode' => $course->course_code,
+                                    'studentId' => $student->id,
+                                    'assessmentId' => $assessment->id,
+                                ]) }}"
                                     class="btn btn-outline-danger btn-sm">Add Review</a>
+
                             </li>
                         @empty
                             <li class="list-group-item">No students enrolled yet.</li>
@@ -89,7 +105,7 @@
                 </div>
             </div>
         </div>
-        
+
     </main>
 @endsection
 

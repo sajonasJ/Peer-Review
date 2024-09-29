@@ -9,19 +9,18 @@ use App\Models\Review;
 
 class ReviewController extends Controller
 {
-    // Show the form for adding a new review for a specific student
-    public function create($courseCode, $studentId)
+    public function create($courseCode, $studentId, $assessmentId)
     {
-        // Get the course and student details
+        // Get the course, student, and assessment details
         $course = Course::where('course_code', $courseCode)->firstOrFail();
         $student = Student::findOrFail($studentId);
+        $assessment = $course->assessments()->findOrFail($assessmentId);
 
         // Pass the data to the view
-        return view('pages.add-review', compact('course', 'student'));
+        return view('pages.add-review', compact('course', 'student', 'assessment'));
     }
 
-    // Store the new review in the database
-    public function store(Request $request, $courseCode, $studentId)
+    public function store(Request $request, $courseCode, $studentId, $assessmentId)
     {
         // Validate the request data
         $request->validate([
@@ -34,7 +33,7 @@ class ReviewController extends Controller
             'rating' => 5, // Example: default rating (you can change this)
             'reviewer_id' => auth()->id(),
             'reviewee_id' => $studentId,
-            'assessment_id' => $request->input('assessment_id'), // Assuming assessment ID is passed
+            'assessment_id' => $assessmentId,
         ]);
 
         // Redirect back to the course details page

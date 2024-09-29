@@ -53,13 +53,13 @@ Route::middleware(['auth:web,teacher'])->group(function () {
     Route::post('/course-details/{courseCode}/add-assessment', [AssessmentController::class, 'store'])->name('store-assessment');
 
     // Route to display the details of a specific assessment
-    Route::get('/course-details/{courseCode}/assessments/{assessmentId}', [AssessmentController::class, 'show'])->name('assessment-details');
+    Route::get('/course-details/{courseCode}/assessment-details/{assessmentId}', [AssessmentController::class, 'show'])->name('assessment-details');
 
-// Route to show the add review form
-Route::get('/course-details/{courseCode}/add-review/{studentId}', [ReviewController::class, 'create'])->name('add-review');
+    // Route to show the add review form
+    Route::get('/course-details/{courseCode}/add-review/{studentId}/{assessmentId}', [ReviewController::class, 'create'])->name('add-review');
 
-// Route to store the new review
-Route::post('/course-details/{courseCode}/add-review/{studentId}', [ReviewController::class, 'store'])->name('store-review');
+    // Route to store the new review
+    Route::post('/course-details/{courseCode}/add-review/{studentId}/{assessmentId}', [ReviewController::class, 'store'])->name('store-review');
 
 
     // Route to edit an existing assessment

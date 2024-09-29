@@ -16,4 +16,14 @@ class Review extends Model
         'reviewee_id',
         'assessment_id',
     ];
+
+    public function reviewer()
+    {
+        return $this->belongsTo(Student::class, 'reviewer_id');
+    }
+
+    public function reviewee()
+    {
+        return $this->belongsTo(Student::class, 'reviewee_id');
+    }
 }

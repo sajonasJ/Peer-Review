@@ -21,6 +21,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-md-10">
+                <!-- Assessment Details Card -->
                 <div class="card my-3">
                     <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
                         <h4>Assessment Details</h4>
@@ -37,11 +38,56 @@
                         <p><strong>Review Type:</strong> {{ $assessment->type }}</p>
                     </div>
                 </div>
+
+                <!-- Peer Reviews Received Card -->
+                <div class="card my-3">
+                    <div class="card-header bg-danger text-white">
+                        <h4>Peer Reviews Received</h4>
+                    </div>
+                    <div class="card-body">
+                        @if ($reviewsReceived->isEmpty())
+                            <p>No peer reviews received yet.</p>
+                        @else
+                            <ul class="list-group">
+                                @foreach ($reviewsReceived as $review)
+                                    <li class="list-group-item">
+                                        <p><strong>Reviewer:</strong> {{ $review->reviewer->name }}</p>
+                                        <p><strong>Review Text:</strong> {{ $review->review_text }}</p>
+                                        <p><strong>Rating:</strong> {{ $review->rating }}</p>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+                </div>
+
+                <!-- Peer Reviews Sent Card -->
+                <div class="card my-3">
+                    <div class="card-header bg-danger text-white">
+                        <h4>Peer Reviews Sent</h4>
+                    </div>
+                    <div class="card-body">
+                        @if ($reviewsSent->isEmpty())
+                            <p>No peer reviews sent yet.</p>
+                        @else
+                            <ul class="list-group">
+                                @foreach ($reviewsSent as $review)
+                                    <li class="list-group-item">
+                                        <p><strong>Reviewee:</strong> {{ $review->reviewee->name }}</p>
+                                        <p><strong>Review Text:</strong> {{ $review->review_text }}</p>
+                                        <p><strong>Rating:</strong> {{ $review->rating }}</p>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+                </div>
+
             </div>
         </div>
-
     </div>
 @endsection
+
 
 
 @section('footer')

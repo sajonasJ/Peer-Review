@@ -11,10 +11,7 @@ class AssessmentController extends Controller
     // Show the form for adding a new assessment
     public function create($courseCode)
     {
-        // Find the course by course code
         $course = Course::where('course_code', $courseCode)->firstOrFail();
-
-        // Pass the course to the view
         return view('pages.add-assessment', compact('course'));
     }
 
@@ -51,8 +48,6 @@ class AssessmentController extends Controller
         return redirect()->route('course-details', ['courseCode' => $courseCode])
             ->with('success', 'Assessment added successfully!');
     }
-
-    // Show the details for a specific assessment
     public function show($courseCode, $assessmentId)
     {
         // Find the course by course code
@@ -61,19 +56,20 @@ class AssessmentController extends Controller
         // Find the specific assessment by ID
         $assessment = $course->assessments()->where('id', $assessmentId)->firstOrFail();
 
-        // Pass the course and assessment to the view
-        return view('pages.assessment-details', compact('course', 'assessment'));
+        // Get all reviews received for the assessment
+        $reviewsReceived = $assessment->reviews()->where('reviewee_id', auth()->id())->get();
+
+        // Get all reviews sent by the authenticated user for the assessment
+        $reviewsSent = $assessment->reviews()->where('reviewer_id', auth()->id())->get();
+
+        // Pass the course, assessment, and reviews to the view
+        return view('pages.assessment-details', compact('course', 'assessment', 'reviewsReceived', 'reviewsSent'));
     }
+
     public function edit($courseCode, $assessmentId)
-{
-    // Find the course by course code
-    $course = Course::where('course_code', $courseCode)->firstOrFail();
-
-    // Find the assessment by ID
-    $assessment = $course->assessments()->where('id', $assessmentId)->firstOrFail();
-
-    // Pass the course and assessment to the view
-    return view('pages.add-assessment', compact('course', 'assessment'));
-}
-
+    {
+        $course = Course::where('course_code', $courseCode)->firstOrFail();
+        $assessment = $course->assessments()->where('id', $assessmentId)->firstOrFail();
+        return view('pages.add-assessment', compact('course', 'assessment'));
+    }
 }

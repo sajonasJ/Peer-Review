@@ -10,6 +10,7 @@
     @include('layouts.header')
 @endsection
 
+
 @section('content')
     <div class="container-fluid p-0">
         <div class="course-title px-3 py-2">
@@ -27,7 +28,7 @@
                         <h3>Submit Peer Review for {{ $student->name }}</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('store-review', ['courseCode' => $course->course_code, 'studentId' => $student->id]) }}" method="POST">
+                        <form action="{{ route('store-review', ['courseCode' => $course->course_code, 'studentId' => $student->id, 'assessmentId' => $assessment->id]) }}" method="POST">
                             @csrf
                             <!-- Review Text Area -->
                             <div class="form-group mb-4">
