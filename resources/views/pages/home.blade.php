@@ -35,7 +35,7 @@
                                     <strong>Course Name:</strong> {{ $course->name }}
                                 </div>
                                 <!-- Placeholder for course details -->
-                                <a href="{{ route('course-details', ['id' => $course->id]) }}"
+                                <a href="{{ route('course-details', ['courseCode' => $course->course_code]) }}"
                                     class="btn btn-outline-danger btn-sm">Go to Course</a>
                             </li>
                         @endforeach

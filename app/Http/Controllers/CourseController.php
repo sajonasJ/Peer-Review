@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Course;
 use App\Models\Student;
+use App\Models\Assessment;
 
 class CourseController extends Controller
 {
@@ -26,5 +27,14 @@ class CourseController extends Controller
         // Pass the courses and user name to the view
 
         return view('pages.home', compact('courses', 'userName'));
+    }
+
+    public function show($courseCode)
+    {
+        // Find the course by course code
+        $course = Course::with('students', 'assessments')->where('course_code', $courseCode)->firstOrFail();
+
+        // Pass the course and related data to the view
+        return view('pages.course-details', compact('course'));
     }
 }

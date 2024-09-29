@@ -41,6 +41,9 @@ Route::middleware(['auth:web,teacher'])->group(function () {
     Route::get('/course-details', function () {
         return view('pages.course-details');
     })->name('course-details');
+    Route::get('/course-details/{courseCode}', [CourseController::class, 'show'])->name('course-details');
+
+
 
     Route::get('/add-assessment', function () {
         return view('pages.add-assessment');
