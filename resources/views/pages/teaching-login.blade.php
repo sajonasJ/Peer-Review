@@ -14,7 +14,7 @@
 <div class="container-fluid m-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card border-primary">
+                <div class="card">
                     <div class="card-header bg-primary text-white text-center">
                         <h4>Teaching Team Login</h4>
                     </div>
@@ -22,7 +22,7 @@
                         <form action="{{ route('teacher.login') }}" method="POST">
                             @csrf
                             <div class="form-group mb-3">
-                                <label for="snumber">sNumber</label>
+                                <label for="snumber">Enter your Staff Number</label>
                                 <input type="text" name="snumber" class="form-control" placeholder="Enter your SNumber"
                                     required>
                             </div>

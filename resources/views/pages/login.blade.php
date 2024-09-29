@@ -50,15 +50,14 @@
                                     account</a></p>
                         </div>
                         <div class="text-center mt-3">
-                            <p>Teaching Team: <a href="{{ route('teaching-login') }}"
+                            <p>Switch to: <a href="{{ route('teaching-login') }}"
                                     class="text-danger 
                                     link-offset-0 
                                     link-offset-1-hover 
                                     link-danger
                                     link-underline 
                                     link-underline-opacity-0 
-                                    link-underline-opacity-75-hover">Sign
-                                    In
+                                    link-underline-opacity-75-hover">Staff Login
                                 </a></p>
                         </div>
                     </div>
