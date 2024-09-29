@@ -16,10 +16,10 @@
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="d-flex justify-content-start mt-3">
-            <button onclick="history.back()" class="btn btn-outline-danger">Back</button>
+        <div class="d-flex justify-content-start m-3">
+            <button onclick="history.back()" class="btn btn-outline-danger">Go Back</button>
         </div>
-        <div class="col-md-8 w-75 mb-5">
+        <div class="col-md-8 w-100 mb-5">
             <!-- Form for Adding Peer Review Assessment -->
             <div class="card border-danger">
                 <div class="card-header bg-danger text-white">

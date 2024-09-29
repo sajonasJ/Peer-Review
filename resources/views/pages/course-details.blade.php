@@ -11,7 +11,8 @@
 @endsection
 
 @section('content')
-    <div class="container m-5">
+    <div class="container-fluid mb-5">
+        <a href="{{ route('home') }}" class="btn btn-outline-danger m-3">Go Back</a>
         <div class="row">
             <div class="col-md-12">
                 <!-- Course Header -->
@@ -28,8 +29,8 @@
                         </ul>
 
                         <!-- Buttons: Go Back to Home & Enroll a Student -->
-                        <div class="d-flex justify-content-between mt-3">
-                            <a href="{{ route('home') }}" class="btn btn-outline-danger">Go Back to Home</a>
+                        <div class="d-flex justify-content-end mt-3">
+               
                             <a href="#" class="btn btn-danger disabled">Enroll a Student</a>
                         </div>
                     </div>
