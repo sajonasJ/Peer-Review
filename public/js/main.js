@@ -1,104 +1,118 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Check if the greeting and currentDate elements exist
+    // Update Greeting and Date
     const greetingElement = document.getElementById('greeting');
     const dateElement = document.getElementById('currentDate');
 
-    // If greeting and date elements exist, update them
     if (greetingElement && dateElement) {
-        // Get the current name from the server-rendered greeting
         const userName = greetingElement.textContent.trim() || 'User';
 
-        // Function to determine the greeting based on the current time
         function getGreeting() {
             const today = new Date();
             const hour = today.getHours();
-            let greeting = "Good Evening";
-
-            if (hour >= 5 && hour < 12) {
-                greeting = "Good Morning";
-            } else if (hour >= 12 && hour < 17) {
-                greeting = "Good Afternoon";
-            }
-            return greeting;
+            return hour >= 5 && hour < 12 ? "Good Morning" : hour >= 12 && hour < 17 ? "Good Afternoon" : "Good Evening";
         }
 
-        // Function to format and display the current date
         function getCurrentDate() {
             const today = new Date();
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             return today.toLocaleDateString('en-US', options);
         }
 
-        // Set the greeting and date
-        greetingElement.innerHTML = getGreeting() + ", " + userName + "";
-        dateElement.innerHTML = "Today's Date: " + getCurrentDate();
+        greetingElement.innerHTML = `${getGreeting()}, ${userName}`;
+        dateElement.innerHTML = `Today's Date: ${getCurrentDate()}`;
     }
 
-    // Initialize Flatpickr for the inline calendar and input field
+    // Initialize Flatpickr
     flatpickr("#due_date_input", {
-        inline: true,          // Always show the calendar inline
-        dateFormat: "Y-m-d",   // Date format for the input field
-        altInput: true,        // Create an alternate input field
-        altFormat: "d/m/Y",    // Format date as "DD/MM/YYYY"
-        minDate: "today",      // Disable previous dates
+        inline: true,
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "d/m/Y",
+        minDate: "today",
     });
 
-    // Initialize Flatpickr for the time picker with 12-hour format (AM/PM) and placeholder
     flatpickr("#due_time", {
-        enableTime: true,        // Enable time selection
-        noCalendar: true,        // Disable the calendar part
-        dateFormat: "h:i K",     // Format time as "H:MM AM/PM"
-        time_24hr: false,        // Use 12-hour format with AM/PM
-        minuteIncrement: 15,     // Set 15-minute increments
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "h:i K",
+        time_24hr: false,
+        minuteIncrement: 15,
         onReady: function(selectedDates, dateStr, instance) {
-            // Set placeholder for time picker if no time is selected
             if (!dateStr) {
                 instance.input.setAttribute('placeholder', 'Select Time..');
             }
         },
         onChange: function(selectedDates, dateStr, instance) {
-            // Remove placeholder when a time is selected
             instance.input.removeAttribute('placeholder');
         }
     });
-});
-document.addEventListener('DOMContentLoaded', function () {
+
+    // Tab Navigation
     const tabs = document.querySelectorAll('.nav-tab');
     const contents = document.querySelectorAll('.tab-content');
 
     tabs.forEach(tab => {
         tab.addEventListener('click', function (event) {
-            // Skip event.preventDefault() for the "Home" link
             if (!tab.getAttribute('data-target')) {
                 return;
             }
-
             event.preventDefault();
-
-            // Remove active classes from all tabs and content sections
             tabs.forEach(t => t.classList.remove('active-tab'));
             contents.forEach(content => content.classList.remove('active-content'));
-
-            // Add active class to the clicked tab and corresponding content
             tab.classList.add('active-tab');
-            const targetId = tab.getAttribute('data-target');
-            document.getElementById(targetId).classList.add('active-content');
+            document.getElementById(tab.getAttribute('data-target')).classList.add('active-content');
         });
     });
-});
 
-
-document.addEventListener('DOMContentLoaded', function () {
+    // Toasts for Success/Error Messages
     const successToastEl = document.getElementById('successToast');
     const errorToastEl = document.getElementById('errorToast');
 
     if (successToastEl) {
-        const toast = new bootstrap.Toast(successToastEl);
-        toast.show();
+        new bootstrap.Toast(successToastEl).show();
+    }
+    if (errorToastEl) {
+        new bootstrap.Toast(errorToastEl).show();
     }
 
-    if (errorToastEl) {
-        const toast = new bootstrap.Toast(errorToastEl);
-        toast.show();
+    // Student Search Filtering
+    const addStudentBtn = document.getElementById('addStudentBtn');
+    const backToEnrolledBtn = document.getElementById('backToEnrolledBtn');
+    const enrolledStudentsCard = document.getElementById('enrolledStudentsCard');
+    const enrollStudentCard = document.getElementById('enrollStudentCard');
+    const searchInput = document.getElementById('studentSearch');
+    const studentList = document.getElementById('studentList');
+    const students = Array.from(studentList.querySelectorAll('.list-group-item'));
+
+    if (addStudentBtn && backToEnrolledBtn && enrolledStudentsCard && enrollStudentCard) {
+        // Show "Enroll Existing Student" card when "Add Student" button is clicked
+        addStudentBtn.addEventListener('click', function () {
+            enrolledStudentsCard.style.display = 'none';
+            enrollStudentCard.style.display = 'block';
+        });
+
+        // Show "Enrolled Students" card when "Back" button is clicked
+        backToEnrolledBtn.addEventListener('click', function () {
+            enrollStudentCard.style.display = 'none';
+            enrolledStudentsCard.style.display = 'block';
+        });
+    }
+
+    if (searchInput && studentList) {
+        // Filter students when typing in the search bar
+        searchInput.addEventListener('input', function () {
+            const filter = searchInput.value.toLowerCase();
+
+            students.forEach(function (student) {
+                const studentInfo = student.querySelector('.student-info').textContent.toLowerCase();
+
+                // Check if student info contains the filter value and adjust display accordingly
+                if (studentInfo.includes(filter)) {
+                    student.classList.remove('hidden');
+                } else {
+                    student.classList.add('hidden');
+                }
+            });
+        });
     }
 });

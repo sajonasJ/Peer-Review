@@ -205,3 +205,11 @@ body {
 .btn-csw10{
     width: 125px;
 }
+
+#studentList .list-group-item {
+    display: flex; /* Default display */
+}
+
+#studentList .list-group-item.hidden {
+    display: none !important;
+}

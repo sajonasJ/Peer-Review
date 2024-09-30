@@ -81,18 +81,17 @@
 
         <!-- Students Section -->
         <div id="students" class="tab-content">
-            <div class="card">
+            <!-- Enrolled Students Card (Default View) -->
+            <div id="enrolledStudentsCard" class="card mt-4">
                 <div class="card-header d-flex justify-content-between align-items-center bg-danger text-white">
                     <h4>Enrolled Students</h4>
-                    <button id="addStudentBtn" class="btn btn-warning btn-sm h-25" data-bs-toggle="modal"
-                        data-bs-target="#addStudentModal">Add Student</button>
+                    <button id="addStudentBtn" class="btn btn-warning btn-sm">Add Student</button>
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
                         @forelse ($course->students as $student)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>{{ $student->name }}</span>
-                                <span>Student Number: {{ $student->snumber }}</span>
+                                <span>{{ $student->name }} ({{ $student->snumber }})</span>
                             </li>
                         @empty
                             <li class="list-group-item">No students enrolled yet.</li>
@@ -100,6 +99,39 @@
                     </ul>
                 </div>
             </div>
+
+            <!-- Enroll Existing Student Card (Hidden by Default) -->
+            <div id="enrollStudentCard" class="card mt-4" style="display: none;">
+                <div class="card-header d-flex justify-content-between align-items-center bg-danger text-white">
+                    <h5>Enroll Existing Student</h5>
+                    <button id="backToEnrolledBtn" class="btn btn-secondary btn-sm">Back</button>
+                </div>
+                <div class="card-body">
+                    <!-- Search Bar -->
+                    <div class="mb-3">
+                        <input type="text" id="studentSearch" class="form-control"
+                            placeholder="Search student by name or sNumber">
+                    </div>
+                    <!-- Student List -->
+                    <ul class="list-group" id="studentList">
+                        @forelse ($unenrolledStudents as $student)
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span class="student-info">{{ $student->name }} ({{ $student->snumber }})</span>
+                                <form
+                                    action="{{ route('enroll-student', ['courseCode' => $course->course_code, 'studentId' => $student->id]) }}"
+                                    method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-success btn-sm">Enroll</button>
+                                </form>
+                            </li>
+                        @empty
+                            <li class="list-group-item">All students are already enrolled in this course.</li>
+                        @endforelse
+                    </ul>
+                </div>
+            </div>
+
+
         </div>
 
     </main>
@@ -110,32 +142,6 @@
     @include('layouts.footer')
 @endsection
 
-<!-- Add Student Modal -->
-<div id="addStudentModal" class="modal fade" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="addStudentModalLabel">Enroll Existing Student</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <ul class="list-group">
-                    @forelse ($unenrolledStudents as $student)
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>{{ $student->name }} ({{ $student->snumber }})</span>
-                            <form action="{{ route('enroll-student', ['courseCode' => $course->course_code, 'studentId' => $student->id]) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-outline-success btn-sm">Enroll</button>
-                            </form>
-                        </li>
-                    @empty
-                        <li class="list-group-item">All students are already enrolled in this course.</li>
-                    @endforelse
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
 
 @if (session('error'))
     <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 11">
