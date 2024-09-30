@@ -104,11 +104,11 @@
 
                             <div class="d-flex d-grid d-md-flex justify-content-md-evenly mb-3">
                                 <button type="submit"
-                                    class="btn btn-primary">{{ isset($assessment) ? 'Save' : 'Add' }}</button>
+                                    class="btn btn-primary btn-csw10">{{ isset($assessment) ? 'Save' : 'Add' }}</button>
 
                                 <!-- Updated Cancel Button Redirect -->
                                 <a href="{{ isset($assessment) ? route('assessment-details', ['courseCode' => $course->course_code, 'assessmentId' => $assessment->id]) : route('course-details', ['courseCode' => $course->course_code]) }}"
-                                    class="btn btn-danger">Cancel</a>
+                                    class="btn btn-danger btn-csw10">Cancel</a>
                             </div>
 
                         </form>
