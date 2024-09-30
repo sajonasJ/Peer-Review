@@ -117,11 +117,15 @@ body {
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 300px;
-    overflow: hidden;
+    background-image: url('/griffith.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.85);
 }
 
-.course-banner__text {
+.course-banner-text {
     position: absolute;
     left: 20px;
     top: 20px;
@@ -131,22 +135,14 @@ body {
     border-radius: 4px;
 }
 
-.course-banner__code {
+.course-banner-code {
     margin: 0;
     font-weight: bold;
 }
 
-.course-banner__title {
+.course-banner-title {
     margin: 5px 0 0;
     font-size: 1.8em;
-}
-
-.course-banner__image {
-    flex-shrink: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.85);
 }
 
 /* navigation */

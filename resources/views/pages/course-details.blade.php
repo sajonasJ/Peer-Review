@@ -82,10 +82,10 @@
         <!-- Students Section -->
         <div id="students" class="tab-content">
             <!-- Enrolled Students Card (Default View) -->
-            <div id="enrolledStudentsCard" class="card mt-4">
+            <div id="enrolledStudentsCard" class="card mt-3">
                 <div class="card-header d-flex justify-content-between align-items-center bg-danger text-white">
                     <h4>Enrolled Students</h4>
-                    <button id="addStudentBtn" class="btn btn-warning btn-sm">Add Student</button>
+                    <button id="addStudentBtn" class="btn btn-warning btn-csw10 btn-sm">Add Student</button>
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
@@ -103,8 +103,8 @@
             <!-- Enroll Existing Student Card (Hidden by Default) -->
             <div id="enrollStudentCard" class="card mt-4" style="display: none;">
                 <div class="card-header d-flex justify-content-between align-items-center bg-danger text-white">
-                    <h5>Enroll Existing Student</h5>
-                    <button id="backToEnrolledBtn" class="btn btn-secondary btn-sm">Back</button>
+                    <h4>Enroll Existing Student</h4>
+                    <button id="backToEnrolledBtn" class="btn btn-warning btn-csw10 btn-sm">Back</button>
                 </div>
                 <div class="card-body">
                     <!-- Search Bar -->

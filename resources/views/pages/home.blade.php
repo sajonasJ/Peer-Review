@@ -11,9 +11,9 @@
 @endsection
 
 @section('content')
-    <div class="container m-5">
-        <div class="row">
-            <div class="col-md-12">
+    <div class="container-fluid my-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10">
                 <!-- Home Page Header -->
                 <div class="card">
                     <div class="card-header cs-red text-white">

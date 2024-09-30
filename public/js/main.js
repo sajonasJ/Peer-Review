@@ -23,46 +23,52 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Initialize Flatpickr
-    flatpickr("#due_date_input", {
-        inline: true,
-        dateFormat: "Y-m-d",
-        altInput: true,
-        altFormat: "d/m/Y",
-        minDate: "today",
-    });
+    if (document.querySelector("#due_date_input")) {
+        flatpickr("#due_date_input", {
+            inline: true,
+            dateFormat: "Y-m-d",
+            altInput: true,
+            altFormat: "d/m/Y",
+            minDate: "today",
+        });
+    }
 
-    flatpickr("#due_time", {
-        enableTime: true,
-        noCalendar: true,
-        dateFormat: "h:i K",
-        time_24hr: false,
-        minuteIncrement: 15,
-        onReady: function(selectedDates, dateStr, instance) {
-            if (!dateStr) {
-                instance.input.setAttribute('placeholder', 'Select Time..');
+    if (document.querySelector("#due_time")) {
+        flatpickr("#due_time", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "h:i K",
+            time_24hr: false,
+            minuteIncrement: 15,
+            onReady: function (selectedDates, dateStr, instance) {
+                if (!dateStr) {
+                    instance.input.setAttribute('placeholder', 'Select Time..');
+                }
+            },
+            onChange: function (selectedDates, dateStr, instance) {
+                instance.input.removeAttribute('placeholder');
             }
-        },
-        onChange: function(selectedDates, dateStr, instance) {
-            instance.input.removeAttribute('placeholder');
-        }
-    });
+        });
+    }
 
     // Tab Navigation
     const tabs = document.querySelectorAll('.nav-tab');
     const contents = document.querySelectorAll('.tab-content');
 
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function (event) {
-            if (!tab.getAttribute('data-target')) {
-                return;
-            }
-            event.preventDefault();
-            tabs.forEach(t => t.classList.remove('active-tab'));
-            contents.forEach(content => content.classList.remove('active-content'));
-            tab.classList.add('active-tab');
-            document.getElementById(tab.getAttribute('data-target')).classList.add('active-content');
+    if (tabs && contents) {
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function (event) {
+                if (!tab.getAttribute('data-target')) {
+                    return;
+                }
+                event.preventDefault();
+                tabs.forEach(t => t.classList.remove('active-tab'));
+                contents.forEach(content => content.classList.remove('active-content'));
+                tab.classList.add('active-tab');
+                document.getElementById(tab.getAttribute('data-target')).classList.add('active-content');
+            });
         });
-    });
+    }
 
     // Toasts for Success/Error Messages
     const successToastEl = document.getElementById('successToast');
@@ -75,14 +81,13 @@ document.addEventListener('DOMContentLoaded', function () {
         new bootstrap.Toast(errorToastEl).show();
     }
 
-    // Student Search Filtering
+    // Student Search Filtering (only if elements are present)
     const addStudentBtn = document.getElementById('addStudentBtn');
     const backToEnrolledBtn = document.getElementById('backToEnrolledBtn');
     const enrolledStudentsCard = document.getElementById('enrolledStudentsCard');
     const enrollStudentCard = document.getElementById('enrollStudentCard');
     const searchInput = document.getElementById('studentSearch');
     const studentList = document.getElementById('studentList');
-    const students = Array.from(studentList.querySelectorAll('.list-group-item'));
 
     if (addStudentBtn && backToEnrolledBtn && enrolledStudentsCard && enrollStudentCard) {
         // Show "Enroll Existing Student" card when "Add Student" button is clicked
@@ -98,7 +103,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    if (searchInput && studentList) {
+    if (studentList && searchInput) {
+        const students = Array.from(studentList.querySelectorAll('.list-group-item'));
+
         // Filter students when typing in the search bar
         searchInput.addEventListener('input', function () {
             const filter = searchInput.value.toLowerCase();

@@ -1,10 +1,9 @@
 <main>
-    
-    <div id="courseBanner" class="course-banner">
-        <div class="course-banner__text">
-            <p class="course-banner__code">3813ICT</p>
-            <h2 class="course-banner__title">Software Frameworks</h2>
+    <div id="courseBanner">
+        <div class="course-banner-text">
+            <h3 class="course-banner-code">Web App Development</h3>
+            <p class="course-banner-title">2703 ICT</p>
         </div>
-        <img class="course-banner__image" src="{{ asset('griffith.jpg') }}" alt="Course Banner Image">
     </div>
+    
 </main>
