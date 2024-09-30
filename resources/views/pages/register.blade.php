@@ -7,9 +7,9 @@
 @endsection
 
 @section('content')
-<div class="container-fluid m-5">
+    <div class="container-fluid m-5">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="card border-danger">
                     <div class="card-header bg-danger text-white text-center">
                         <h4>Create an Account</h4>
@@ -30,6 +30,12 @@
                             </div>
 
                             <div class="form-group mb-3">
+                                <label for="snumber">sNumber</label>
+                                <input type="text" name="snumber" class="form-control" placeholder="Enter your sNumber"
+                                    required>
+                            </div>
+
+                            <div class="form-group mb-3">
                                 <label for="password">Password</label>
                                 <input type="password" name="password" class="form-control" placeholder="Create a password"
                                     required>
@@ -41,6 +47,17 @@
                                     placeholder="Re-type password" required>
                             </div>
 
+                            <!-- Display Validation Errors -->
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
                             <div class="form-group text-center">
                                 <button type="submit" class="btn btn-danger btn-block">Register</button>
                             </div>
@@ -50,13 +67,7 @@
                 <!-- Back to login link -->
                 <div class="text-center mt-3">
                     <p>Already have an account? <a href="/"
-                            class="text-danger 
-                                    link-offset-0 
-                                    link-offset-1-hover 
-                                    link-danger
-                                    link-underline 
-                                    link-underline-opacity-0 
-                                    link-underline-opacity-75-hover">Back
+                            class="text-danger link-offset-0 link-offset-1-hover link-danger link-underline link-underline-opacity-0 link-underline-opacity-75-hover">Back
                             to Login</a></p>
                 </div>
             </div>
