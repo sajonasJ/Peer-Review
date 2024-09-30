@@ -68,6 +68,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     tabs.forEach(tab => {
         tab.addEventListener('click', function (event) {
+            // Skip event.preventDefault() for the "Home" link
+            if (!tab.getAttribute('data-target')) {
+                return;
+            }
+
             event.preventDefault();
 
             // Remove active classes from all tabs and content sections
@@ -81,3 +86,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
