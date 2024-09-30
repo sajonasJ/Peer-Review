@@ -87,3 +87,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
+document.addEventListener('DOMContentLoaded', function () {
+    const successToastEl = document.getElementById('successToast');
+    const errorToastEl = document.getElementById('errorToast');
+
+    if (successToastEl) {
+        const toast = new bootstrap.Toast(successToastEl);
+        toast.show();
+    }
+
+    if (errorToastEl) {
+        const toast = new bootstrap.Toast(errorToastEl);
+        toast.show();
+    }
+});

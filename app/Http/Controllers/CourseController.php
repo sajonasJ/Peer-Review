@@ -36,8 +36,34 @@ class CourseController extends Controller
         $course = Course::with('students', 'teachers', 'assessments')
             ->where('course_code', $courseCode)
             ->firstOrFail();
-
-        // Pass the course and related data to the view
-        return view('pages.course-details', compact('course'));
+    
+        // Fetch the students that are not enrolled in the course
+        $unenrolledStudents = Student::whereNotIn('id', $course->students->pluck('id'))->get();
+    
+        // Pass the course and related data, as well as unenrolled students, to the view
+        return view('pages.course-details', compact('course', 'unenrolledStudents'));
     }
+    
+    public function enrollStudent($courseCode, $studentId)
+    {
+        // Find the course by course code
+        $course = Course::where('course_code', $courseCode)->firstOrFail();
+    
+        // Find the student by student id
+        $student = Student::findOrFail($studentId);
+    
+        // Check if the student is already enrolled in the course
+        if ($course->students->contains($student->id)) {
+            return redirect()->route('course-details', ['courseCode' => $courseCode])
+                ->with('error', 'The student is already enrolled in this course.');
+        }
+    
+        // Enroll the student in the course
+        $course->students()->attach($student->id);
+    
+        return redirect()->route('course-details', ['courseCode' => $courseCode])
+            ->with('success', 'Student enrolled in the course successfully!');
+    }
+    
+    
 }

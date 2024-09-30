@@ -82,8 +82,10 @@
         <!-- Students Section -->
         <div id="students" class="tab-content">
             <div class="card">
-                <div class="card-header bg-danger text-white">
+                <div class="card-header d-flex justify-content-between align-items-center bg-danger text-white">
                     <h4>Enrolled Students</h4>
+                    <button id="addStudentBtn" class="btn btn-warning btn-sm h-25" data-bs-toggle="modal"
+                        data-bs-target="#addStudentModal">Add Student</button>
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
@@ -100,7 +102,6 @@
             </div>
         </div>
 
-
     </main>
 @endsection
 
@@ -108,3 +109,67 @@
 @section('footer')
     @include('layouts.footer')
 @endsection
+
+<!-- Add Student Modal -->
+<div id="addStudentModal" class="modal fade" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="addStudentModalLabel">Enroll Existing Student</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    @forelse ($unenrolledStudents as $student)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{{ $student->name }} ({{ $student->snumber }})</span>
+                            <form action="{{ route('enroll-student', ['courseCode' => $course->course_code, 'studentId' => $student->id]) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-success btn-sm">Enroll</button>
+                            </form>
+                        </li>
+                    @empty
+                        <li class="list-group-item">All students are already enrolled in this course.</li>
+                    @endforelse
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (session('error'))
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert"
+            aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ session('error') }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var errorToast = new bootstrap.Toast(document.getElementById('errorToast'));
+            errorToast.show();
+        });
+    </script>
+@endif
+
+@if (session('success'))
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert"
+            aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    {{ session('success') }}
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+@endif

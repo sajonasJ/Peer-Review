@@ -112,6 +112,10 @@ Route::middleware(['auth:web,teacher'])->group(function () {
         '/course-details/{courseCode}/assessments/{assessmentId}/edit',
         [AssessmentController::class, 'edit']
     )->name('edit-assessment');
+
+    Route::post('/course-details/{courseCode}/enroll-student/{studentId}', [CourseController::class, 'enrollStudent'])->name('enroll-student');
+
+
 });
 
 require __DIR__ . '/auth.php';
