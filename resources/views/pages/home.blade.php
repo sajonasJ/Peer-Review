@@ -22,11 +22,41 @@
                         <p class="mb-0"><small id="currentDate"></small></p>
                     </div>
 
+                    <!-- File Upload Section -->
+                    <!-- Add Course with Students and Teachers Form -->
+                    <div class="card mt-4">
+                        <div class="card-header bg-danger text-white">
+                            <h5>Add New Course, Students, Teachers, and Assessments</h5>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ route('import-course-data') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="courseFile" class="form-label">Upload Course File (Text File)</label>
+                                    <input type="file" name="courseFile" id="courseFile" class="form-control"
+                                        accept=".txt" required>
+                                </div>
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                <div class="d-flex justify-content-end">
+                                    <button type="submit" class="btn btn-danger">Import Course Data</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
 
                     <!-- Courses Section -->
                     <div class="card-body mt-3">
                         <h4 class="text-danger">Your Courses</h4>
-
                         @if ($courses->isEmpty())
                             <div class="alert alert-warning mt-3" role="alert">
                                 You are not currently enrolled in any courses. Please reach out to the Teaching Team for
@@ -52,6 +82,7 @@
         </div>
     </div>
 @endsection
+
 
 
 
