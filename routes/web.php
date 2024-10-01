@@ -116,6 +116,7 @@ Route::middleware(['auth:web,teacher'])->group(function () {
     Route::post('/course-details/{courseCode}/enroll-student/{studentId}', [CourseController::class, 'enrollStudent'])->name('enroll-student');
 
     Route::post('/import-course-data', [CourseController::class, 'importCourseData'])->name('import-course-data');
+    Route::delete('/delete-course/{courseCode}', [CourseController::class, 'deleteCourse'])->name('delete-course');
 
 });
 

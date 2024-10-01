@@ -12,6 +12,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Drop the existing `reviews` table if it exists
+        Schema::dropIfExists('reviews');
+
+        // Recreate the `reviews` table
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->text('review_text');
@@ -23,18 +27,11 @@ return new class extends Migration
         });
     }
 
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-
-        DB::statement('PRAGMA foreign_keys = OFF;');
-
         Schema::dropIfExists('reviews');
-
-        // Re-enable foreign key checks
-        DB::statement('PRAGMA foreign_keys = ON;');
     }
 };

@@ -62,18 +62,27 @@
                                 assistance in enrolling.
                             </div>
                         @else
-                            <ul class="list-group">
-                                @foreach ($courses as $course)
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <strong>Course Code:</strong> {{ $course->course_code }} <br>
-                                            <strong>Course Name:</strong> {{ $course->name }}
-                                        </div>
+                        <ul class="list-group">
+                            @foreach ($courses as $course)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>Course Code:</strong> {{ $course->course_code }} <br>
+                                        <strong>Course Name:</strong> {{ $course->name }}
+                                    </div>
+                                    <div class="d-flex">
                                         <a href="{{ route('course-details', ['courseCode' => $course->course_code]) }}"
-                                            class="btn btn-outline-danger btn-sm">Go to Course</a>
-                                    </li>
-                                @endforeach
-                            </ul>
+                                            class="btn btn-outline-danger btn-sm me-2">Go to Course</a>
+                                        <form action="{{ route('delete-course', ['courseCode' => $course->course_code]) }}" method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete this course? This action cannot be undone.');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                        
                         @endif
                     </div>
                 </div>

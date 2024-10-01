@@ -1,15 +1,14 @@
 <?php
 
 namespace Database\Factories;
-use App\Models\Teacher;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Teacher>
- */
+use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Teacher;
+
 class TeacherFactory extends Factory
 {
     protected $model = Teacher::class;
+
     /**
      * Define the model's default state.
      *
@@ -23,5 +22,20 @@ class TeacherFactory extends Factory
             'snumber' => $this->faker->unique()->regexify('s[0-9]{7}'),
             'password' => bcrypt('123456'),
         ];
+    }
+
+    /**
+     * Predefined state for a specific teacher.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function predefinedTeacher()
+    {
+        return $this->state([
+            'name' => 'Predefined Teacher',
+            'email' => 'teacher@example.com',
+            'snumber' => 's0123456',
+            'password' => bcrypt('1234'),
+        ]);
     }
 }

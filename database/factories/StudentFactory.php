@@ -1,13 +1,10 @@
 <?php
 
 namespace Database\Factories;
-use App\Models\Student;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Student;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Student>
- */
 class StudentFactory extends Factory
 {
     protected $model = Student::class;
@@ -25,5 +22,20 @@ class StudentFactory extends Factory
             'snumber' => $this->faker->unique()->regexify('s[0-9]{7}'),
             'password' => bcrypt('123456'),
         ];
+    }
+
+    /**
+     * Predefined state for a specific student.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function predefinedStudent()
+    {
+        return $this->state([
+            'name' => 'Predefined Student',
+            'email' => 'student@example.com',
+            'snumber' => 's1234567',
+            'password' => bcrypt('1234'),
+        ]);
     }
 }

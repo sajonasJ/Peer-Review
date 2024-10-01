@@ -80,19 +80,19 @@ class CourseController extends Controller
             $request->validate([
                 'courseFile' => 'required|file|mimes:json',
             ]);
-    
+
             // Read the uploaded file
             $file = $request->file('courseFile');
             $fileContent = file_get_contents($file->getRealPath());
             Log::info('Uploaded File Content:', ['content' => $fileContent]);
-    
+
             $courseData = json_decode($fileContent, true);
             if (is_null($courseData)) {
                 Log::error('JSON Decode Error', ['error' => json_last_error_msg(), 'content' => $fileContent]);
                 session()->flash('error', 'Failed to decode JSON.');
                 return redirect()->back();
             }
-    
+
             foreach ($courseData as $data) {
                 // Validate that each data entry has the required fields
                 if (!isset(
@@ -105,9 +105,9 @@ class CourseController extends Controller
                     session()->flash('error', 'Incomplete data found in the JSON file.');
                     return redirect()->back();
                 }
-    
+
                 $courseCode = $data['course_code'];
-    
+
                 // Check if the course already exists
                 $course = Course::where('course_code', $courseCode)->first();
                 if ($course) {
@@ -115,32 +115,32 @@ class CourseController extends Controller
                     session()->flash('error', "A course with code '{$courseCode}' already exists. Import aborted.");
                     return redirect()->back();
                 }
-    
+
                 $courseName = $data['course_name'];
                 $teachersData = $data['teachers'];
                 $studentsData = $data['students'];
                 $assessmentsData = $data['assessments'];
-    
+
                 // Create the course if it doesn't exist
                 $course = Course::create([
                     'course_code' => $courseCode,
                     'name' => $courseName,
                 ]);
-    
+
                 // Get the logged-in teacher
                 $loggedInTeacher = Auth::guard('teacher')->user();
-    
+
                 // Process each teacher
                 foreach ($teachersData as $teacherData) {
                     $teacherSnumber = $teacherData['snumber'];
                     $teacherName = $teacherData['name'];
                     $teacherEmail = $teacherData['email'];
-    
+
                     // Check if the teacher already exists by snumber or email
                     $teacher = Teacher::where('snumber', $teacherSnumber)
                         ->orWhere('email', $teacherEmail)
                         ->first();
-    
+
                     if (!$teacher) {
                         // Create the teacher if they don't exist
                         $teacher = Teacher::create([
@@ -150,7 +150,7 @@ class CourseController extends Controller
                             'password' => bcrypt($teacherSnumber),
                         ]);
                     }
-    
+
                     // Insert into teacher_courses pivot table
                     DB::table('teacher_courses')->updateOrInsert(
                         [
@@ -163,14 +163,14 @@ class CourseController extends Controller
                         ]
                     );
                 }
-    
+
                 // Add the logged-in teacher to the course if not already included
                 if ($loggedInTeacher) {
                     $loggedInTeacherExists = DB::table('teacher_courses')
                         ->where('teacher_id', $loggedInTeacher->id)
                         ->where('course_code', $courseCode)
                         ->exists();
-    
+
                     if (!$loggedInTeacherExists) {
                         DB::table('teacher_courses')->insert([
                             'teacher_id' => $loggedInTeacher->id,
@@ -180,18 +180,18 @@ class CourseController extends Controller
                         ]);
                     }
                 }
-    
+
                 // Process each student
                 foreach ($studentsData as $studentData) {
                     $studentSnumber = $studentData['snumber'];
                     $studentName = $studentData['name'];
                     $studentEmail = $studentData['email'];
-    
+
                     // Check if the student already exists by snumber or email
                     $student = Student::where('snumber', $studentSnumber)
                         ->orWhere('email', $studentEmail)
                         ->first();
-    
+
                     if (!$student) {
                         // Create the student if they don't exist
                         $student = Student::create([
@@ -201,7 +201,7 @@ class CourseController extends Controller
                             'password' => bcrypt($studentSnumber),
                         ]);
                     }
-    
+
                     // Insert into student_courses pivot table
                     DB::table('student_courses')->updateOrInsert(
                         [
@@ -214,7 +214,7 @@ class CourseController extends Controller
                         ]
                     );
                 }
-    
+
                 // Process each assessment
                 foreach ($assessmentsData as $assessmentData) {
                     $assessmentTitle = $assessmentData['title'];
@@ -222,12 +222,12 @@ class CourseController extends Controller
                     $assessmentDueDate = $assessmentData['due_date'];
                     $assessmentDueTime = $assessmentData['due_time'];
                     $assessmentType = $assessmentData['type'];
-    
+
                     // Check if the assessment already exists
                     $existingAssessment = Assessment::where('title', $assessmentTitle)
                         ->where('course_id', $course->id)
                         ->first();
-    
+
                     if (!$existingAssessment) {
                         // Create assessment and associate it with the course if it doesn't already exist
                         $assessment = new Assessment([
@@ -240,7 +240,7 @@ class CourseController extends Controller
                             'type' => $assessmentType,
                             'course_id' => $course->id,
                         ]);
-    
+
                         $assessment->save();
                     }
                 }
@@ -253,6 +253,31 @@ class CourseController extends Controller
             return redirect()->back();
         }
     }
+    public function deleteCourse($courseCode)
+    {
+        try {
+            // Find the course by course code using Eloquent
+            Log::info("Attempting to find course with course_code: {$courseCode}");
+            $course = Course::where('course_code', $courseCode)->firstOrFail();
     
+            // Detach all relationships with teachers and students using Eloquent
+            Log::info("Detaching all teachers and students from course: {$courseCode}");
+            $course->teachers()->detach();
+            $course->students()->detach();
+            Log::info("Successfully detached all teachers and students.");
+    
+            // Delete the course itself using Eloquent
+            Log::info("Deleting course: {$courseCode}");
+            $course->delete();
+            Log::info("Course deleted successfully.");
+    
+            session()->flash('success', 'Course deleted successfully.');
+            return redirect()->route('home');
+        } catch (\Exception $e) {
+            Log::error('Error deleting course', ['error' => $e->getMessage()]);
+            session()->flash('error', 'An error occurred while deleting the course.');
+            return redirect()->route('home');
+        }
+    }
     
 }
