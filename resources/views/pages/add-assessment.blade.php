@@ -24,7 +24,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card my-3 border-danger">
-                    <div class="card-header bg-danger text-white">
+                    <div class="card-header cs-red text-white">
                         <h3>{{ isset($assessment) ? 'Edit' : 'Add' }} Peer Review Assessment</h3>
                     </div>
                     <div class="card-body">

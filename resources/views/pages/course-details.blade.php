@@ -38,17 +38,16 @@
                     @else
                         <ul class="list-group mt-3">
                             @foreach ($course->assessments as $assessment)
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <li class="list-group-item d-flex flex-row justify-content-between align-items-center">
                                     <span>{{ $assessment->title }}</span>
-                                    <div>
-                                        <span class="badge bg-danger text-white">Due Date:
-                                            {{ $assessment->due_date }}</span>
+                                    <div class="col-lg-3 d-flex justify-content-between align-items-center">
+                                        <span><strong>Due Date:</strong> {{ \Carbon\Carbon::parse($assessment->due_date)->format('d F, Y') }}</span>
                                         <a href="{{ route('assessment-details', [
                                             'courseCode' => $course->course_code,
                                             'assessmentId' => $assessment->id,
-                                        ]) }}"
-                                            class="btn btn-primary btn-sm">View Details</a>
+                                        ]) }}" class="btn btn-primary mx-1 btn-sm">View Details</a>
                                     </div>
+                                    
                                 </li>
                             @endforeach
                         </ul>
@@ -90,7 +89,7 @@
                 <div class="card-body">
                     <ul class="list-group">
                         @forelse ($course->students as $student)
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div>
                                     <p><strong>Name:</strong> {{ $student->name }}</p>
                                     <p><strong>Student Number:</strong> {{ $student->snumber }}</p>
@@ -119,12 +118,15 @@
                     <ul class="list-group" id="studentList">
                         @forelse ($unenrolledStudents as $student)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="student-info">{{ $student->name }} ({{ $student->snumber }})</span>
+                                <div>
+                                    <p><strong>Name:</strong> {{ $student->name }}</p>
+                                    <p><strong>Student Number:</strong> {{ $student->snumber }}</p>
+                                </div>
                                 <form
                                     action="{{ route('enroll-student', ['courseCode' => $course->course_code, 'studentId' => $student->id]) }}"
                                     method="POST">
                                     @csrf
-                                    <button type="submit" class="btn btn-outline-success btn-sm">Enroll</button>
+                                    <button type="submit" class="btn btn-primary btn-csw10 btn-sm">Enroll</button>
                                 </form>
                             </li>
                         @empty

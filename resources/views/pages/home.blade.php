@@ -21,10 +21,8 @@
                             <h4 id="userName" class="mb-2">{{ $userName }}</h4>
                             <div class="text-start">
                                 @if (Auth::guard('teacher')->check())
-                                    <span class="fw-bold">Logged in as: Teacher</span>
                                     <p id="userTypeText mb-0">Here are the courses you are teaching:</p>
                                 @elseif (Auth::guard('web')->check())
-                                    <p class="fw-bold">Logged in as: Student</p>
                                     <p id="userTypeText mb-0">Here are the courses you're enrolled in:</p>
                                 @else
                                     <p class="text-muted">You are not logged in.</p>

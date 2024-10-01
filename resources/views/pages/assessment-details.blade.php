@@ -40,23 +40,26 @@
                     @if ($course->students->isEmpty())
                         <p>No students enrolled in this course yet.</p>
                     @else
-                        <ul class="list-group">
-                            @foreach ($course->students as $student)
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <p><strong>Name:</strong> {{ $student->name }}</p>
-                                        <p><strong>Student Number:</strong> {{ $student->snumber }}</p>
-                                    </div>
-                                    <!-- Add Peer Review Button -->
+                    <ul class="list-group">
+                        @foreach ($course->students as $student)
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <p><strong>Name:</strong> {{ $student->name }}</p>
+                                    <p><strong>Student Number:</strong> {{ $student->snumber }}</p>
+                                </div>
+                                <!-- Add Peer Review Button - Only visible if the logged-in user is a student -->
+                                @if (Auth::guard('web')->check())
                                     <a href="{{ route('add-review', [
                                         'courseCode' => $course->course_code,
                                         'studentId' => $student->id,
                                         'assessmentId' => $assessment->id,
                                     ]) }}"
                                         class="btn btn-primary btn-sm">Add Peer Review</a>
-                                </li>
-                            @endforeach
-                        </ul>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                    
                     @endif
                 </div>
             </div>
@@ -74,7 +77,7 @@
                                     'courseCode' => $course->course_code,
                                     'assessmentId' => $assessment->id,
                                 ]) }}"
-                                    class="btn btn-sm btn-warning">Edit</a>
+                                    class="btn btn-sm btn-csw10 btn-warning">Edit</a>
                             @endif
                         </div>
                     </div>

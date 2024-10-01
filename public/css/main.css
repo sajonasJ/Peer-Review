@@ -209,3 +209,7 @@ body {
 #studentList .list-group-item.hidden {
     display: none !important;
 }
+
+.w-35 {
+    width: 35%;
+}
