@@ -1,15 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Update Greeting and Date
     const greetingElement = document.getElementById('greeting');
+    const userNameElement = document.getElementById('userName');
     const dateElement = document.getElementById('currentDate');
+    const userTypeTextElement = document.getElementById('userTypeText');
 
-    if (greetingElement && dateElement) {
-        const userName = greetingElement.textContent.trim() || 'User';
+    if (greetingElement && userNameElement && dateElement) {
+        const userName = userNameElement.textContent.trim() || 'User';
 
         function getGreeting() {
             const today = new Date();
             const hour = today.getHours();
-            return hour >= 5 && hour < 12 ? "Good Morning" : hour >= 12 && hour < 17 ? "Good Afternoon" : "Good Evening";
+            return hour >= 5 && hour < 12 ? "Good Morning," : hour >= 12 && hour < 17 ? "Good Afternoon," : "Good Evening,";
         }
 
         function getCurrentDate() {
@@ -18,7 +20,8 @@ document.addEventListener('DOMContentLoaded', function () {
             return today.toLocaleDateString('en-US', options);
         }
 
-        greetingElement.innerHTML = `${getGreeting()}, ${userName}`;
+        greetingElement.innerHTML = `${getGreeting()}`;
+        userNameElement.innerHTML = `${userName}`;
         dateElement.innerHTML = `Today's Date: ${getCurrentDate()}`;
     }
 
@@ -125,18 +128,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // toggle course button
     const addCourseButton = document.getElementById('addCourseButton');
-            const addCourseCard = document.getElementById('addCourseCard');
+    const addCourseCard = document.getElementById('addCourseCard');
 
-            if (addCourseButton) {
-                addCourseButton.addEventListener('click', function () {
-                    addCourseCard.classList.toggle('d-none');
-                    if (addCourseCard.classList.contains('d-none')) {
-                        addCourseButton.textContent = 'Add Course';
-                    } else {
-                        addCourseButton.textContent = 'Hide';
-                    }
-                });
+    if (addCourseButton) {
+        addCourseButton.addEventListener('click', function () {
+            addCourseCard.classList.toggle('d-none');
+            if (addCourseCard.classList.contains('d-none')) {
+                addCourseButton.textContent = 'Add Course';
+            } else {
+                addCourseButton.textContent = 'Hide';
             }
-
+        });
+    }
 });
-
