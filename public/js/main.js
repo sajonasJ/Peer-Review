@@ -123,4 +123,20 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // toggle course button
+    const addCourseButton = document.getElementById('addCourseButton');
+            const addCourseCard = document.getElementById('addCourseCard');
+
+            if (addCourseButton) {
+                addCourseButton.addEventListener('click', function () {
+                    addCourseCard.classList.toggle('d-none');
+                    if (addCourseCard.classList.contains('d-none')) {
+                        addCourseButton.textContent = 'Add Course';
+                    } else {
+                        addCourseButton.textContent = 'Hide';
+                    }
+                });
+            }
+
 });
+

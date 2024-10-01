@@ -9,22 +9,26 @@
 @section('header')
     @include('layouts.header')
 @endsection
-
 @section('content')
     <div class="container-fluid my-5">
         <div class="row d-flex justify-content-center">
             <div class="col-md-10">
                 <!-- Home Page Header -->
                 <div class="card d-flex w-100 justify-content-center align-items-center">
-                    <div class="card-header w-100 cs-red text-white">
-                        <h3 id="greeting">{{ $userName }}</h3>
-                        <p class="mb-0">Here are the courses you're enrolled in:</p>
-                        <p class="mb-0"><small id="currentDate"></small></p>
+                    <div class="card-header w-100 cs-red text-white d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 id="greeting">{{ $userName }}</h3>
+                            <p class="mb-0">Here are the courses you're enrolled in:</p>
+                            <p class="mb-0"><small id="currentDate"></small></p>
+                        </div>
+                        @if (Auth::guard('teacher')->check())
+                            <button id="addCourseButton" class="btn btn-outline-light">Add Course</button>
+                        @endif
                     </div>
 
                     <!-- File Upload Section -->
                     <!-- Add Course with Students and Teachers Form -->
-                    <div class="card col-md-8 mt-4">
+                    <div id="addCourseCard" class="card col-md-8 mt-4 d-none">
                         <div class="card-header cs-red text-white">
                             <h5>Add New Course</h5>
                         </div>
@@ -50,9 +54,9 @@
                                     <button type="submit" class="btn btn-danger">Import Course Data</button>
                                 </div>
                             </form>
-                            
                         </div>
                     </div>
+
                     <!-- Courses Section -->
                     <div class="card-body w-100 mt-3">
                         <h4 class="text-danger">Your Courses</h4>
@@ -62,27 +66,28 @@
                                 assistance in enrolling.
                             </div>
                         @else
-                        <ul class="list-group">
-                            @foreach ($courses as $course)
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <strong>Course Code:</strong> {{ $course->course_code }} <br>
-                                        <strong>Course Name:</strong> {{ $course->name }}
-                                    </div>
-                                    <div class="d-flex">
-                                        <a href="{{ route('course-details', ['courseCode' => $course->course_code]) }}"
-                                            class="btn btn-outline-danger btn-sm me-2">Go to Course</a>
-                                        <form action="{{ route('delete-course', ['courseCode' => $course->course_code]) }}" method="POST"
-                                            onsubmit="return confirm('Are you sure you want to delete this course? This action cannot be undone.');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                        </form>
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                        
+                            <ul class="list-group">
+                                @foreach ($courses as $course)
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>Course Code:</strong> {{ $course->course_code }} <br>
+                                            <strong>Course Name:</strong> {{ $course->name }}
+                                        </div>
+                                        <div class="d-flex">
+                                            <a href="{{ route('course-details', ['courseCode' => $course->course_code]) }}"
+                                               class="btn btn-outline-danger btn-sm me-2">Go to Course</a>
+                                            @if (Auth::guard('teacher')->check())
+                                                <form action="{{ route('delete-course', ['courseCode' => $course->course_code]) }}" method="POST"
+                                                      onsubmit="return confirm('Are you sure you want to delete this course? This action cannot be undone.');">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    </li>
+                                @endforeach
+                            </ul>
                         @endif
                     </div>
                 </div>
@@ -90,6 +95,7 @@
         </div>
     </div>
 @endsection
+
 
 
 
