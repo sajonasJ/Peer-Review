@@ -92,49 +92,53 @@
                     </div>
                 </div>
 
-                <!-- Peer Reviews Received Card -->
-                <div class="card my-3">
-                    <div class="card-header cs-red text-white">
-                        <h4>Peer Reviews Received</h4>
-                    </div>
-                    <div class="card-body">
-                        @if ($reviewsReceived->isEmpty())
-                            <p>No peer reviews received yet.</p>
-                        @else
-                            <ul class="list-group">
-                                @foreach ($reviewsReceived as $review)
-                                    <li class="list-group-item">
-                                        <p><strong>Reviewer:</strong> {{ $review->reviewer->name }}</p>
-                                        <p><strong>Review Text:</strong> {{ $review->review_text }}</p>
-                                        <p><strong>Rating:</strong> {{ $review->rating }}</p>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
-                    </div>
-                </div>
+               <!-- Peer Reviews Received Card -->
+@if (Auth::guard('web')->check())
+<div class="card my-3">
+    <div class="card-header cs-red text-white">
+        <h4>Peer Reviews Received</h4>
+    </div>
+    <div class="card-body">
+        @if ($reviewsReceived->isEmpty())
+            <p>No peer reviews received yet.</p>
+        @else
+            <ul class="list-group">
+                @foreach ($reviewsReceived as $review)
+                    <li class="list-group-item">
+                        <p><strong>Reviewer:</strong> {{ $review->reviewer->name }}</p>
+                        <p><strong>Review Text:</strong> {{ $review->review_text }}</p>
+                        <p><strong>Rating:</strong> {{ $review->rating }}</p>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+    </div>
+</div>
+@endif
 
-                <!-- Peer Reviews Sent Card -->
-                <div class="card my-3">
-                    <div class="card-header cs-red text-white">
-                        <h4>Peer Reviews Sent</h4>
-                    </div>
-                    <div class="card-body">
-                        @if ($reviewsSent->isEmpty())
-                            <p>No peer reviews sent yet.</p>
-                        @else
-                            <ul class="list-group">
-                                @foreach ($reviewsSent as $review)
-                                    <li class="list-group-item">
-                                        <p><strong>Reviewee:</strong> {{ $review->reviewee->name }}</p>
-                                        <p><strong>Review Text:</strong> {{ $review->review_text }}</p>
-                                        <p><strong>Rating:</strong> {{ $review->rating }}</p>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        @endif
-                    </div>
-                </div>
+<!-- Peer Reviews Sent Card -->
+@if (Auth::guard('web')->check())
+<div class="card my-3">
+    <div class="card-header cs-red text-white">
+        <h4>Peer Reviews Sent</h4>
+    </div>
+    <div class="card-body">
+        @if ($reviewsSent->isEmpty())
+            <p>No peer reviews sent yet.</p>
+        @else
+            <ul class="list-group">
+                @foreach ($reviewsSent as $review)
+                    <li class="list-group-item">
+                        <p><strong>Reviewee:</strong> {{ $review->reviewee->name }}</p>
+                        <p><strong>Review Text:</strong> {{ $review->review_text }}</p>
+                        <p><strong>Rating:</strong> {{ $review->rating }}</p>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+    </div>
+</div>
+@endif
 
             </div>
         </div>
