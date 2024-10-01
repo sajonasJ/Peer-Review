@@ -17,14 +17,14 @@
             <div class="d-flex gap-4 justify-content-start align-items-center">
                 <a href="{{ route('course-details', ['courseCode' => $course->course_code]) }}"
                     class="btn btn-sm h-25 btn-warning">Back</a>
-                <h3>Course: {{ $course->course_code }} - {{ $course->name }}</h3>
+                <h3>{{ $course->course_code }} {{ $course->name }}</h3>
             </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <!-- Assessment Details -->
                 <div class="card my-3">
-                    <div class="card-header bg-danger text-white">
+                    <div class="card-header cs-red text-white">
                         <h3>Peer Review</h3>
                     </div>
                     <div class="card-body">

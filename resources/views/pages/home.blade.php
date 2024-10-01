@@ -35,11 +35,12 @@
                             <p class="mb-0"><small id="currentDate"></small></p>
                             <div class="align-self-end">
                                 @if (Auth::guard('teacher')->check())
-                                    <button id="addCourseButton" class="btn btn-warning btn-sm btn-csw10">Add Course</button>
+                                    <button id="addCourseButton" class="btn btn-warning btn-sm btn-csw10">Add
+                                        Course</button>
                                 @endif
                             </div>
                         </div>
-                        
+
                     </div>
 
                     <!-- File Upload Section -->
@@ -93,7 +94,7 @@
                                         </div>
                                         <div class="d-flex">
                                             <a href="{{ route('course-details', ['courseCode' => $course->course_code]) }}"
-                                                class="btn btn-outline-danger btn-sm me-2">Go to Course</a>
+                                                class="btn btn-primary btn-sm me-2">Go to Course</a>
                                             @if (Auth::guard('teacher')->check())
                                                 <form
                                                     action="{{ route('delete-course', ['courseCode' => $course->course_code]) }}"

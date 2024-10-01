@@ -20,18 +20,20 @@
                     <h3>{{ $course->course_code }} {{ $course->name }}</h3>
                 </div>
                 <!-- Button to toggle student list -->
-                @if ($assessment->type === 'student-select')
-                <button id="toggleStudentList" class="btn btn-sm btn-danger">Show Students</button>
-            @else
-                <button class="btn btn-sm btn-secondary" disabled>Show Students (Disabled)</button>
-            @endif
+                <div>
+                    @if ($assessment->type === 'student-select')
+                        <button id="toggleStudentList" class="btn btn-sm btn-csw10 btn-danger">Show Students</button>
+                    @else
+                        <button class="btn btn-sm btn-secondary" disabled>Show Students (Disabled)</button>
+                    @endif
+                </div>
             </div>
         </div>
 
         <!-- Student List Section (Initially Hidden) -->
         <div id="studentList" class="p-3" style="display: none;">
             <div class="card">
-                <div class="card-header bg-danger text-white">
+                <div class="card-header cs-red text-white">
                     <h4>Enrolled Students</h4>
                 </div>
                 <div class="card-body">
@@ -46,8 +48,12 @@
                                         <p><strong>Student Number:</strong> {{ $student->snumber }}</p>
                                     </div>
                                     <!-- Add Peer Review Button -->
-                                    <a href="{{ route('add-review', ['courseCode' => $course->course_code, 'studentId' => $student->id, 'assessmentId' => $assessment->id]) }}"
-                                        class="btn btn-outline-primary btn-sm">Add Peer Review</a>
+                                    <a href="{{ route('add-review', [
+                                        'courseCode' => $course->course_code,
+                                        'studentId' => $student->id,
+                                        'assessmentId' => $assessment->id,
+                                    ]) }}"
+                                        class="btn btn-primary btn-sm">Add Peer Review</a>
                                 </li>
                             @endforeach
                         </ul>
@@ -60,10 +66,17 @@
             <div class="col-md-10">
                 <!-- Assessment Details Card -->
                 <div class="card my-3">
-                    <div class="card-header bg-danger text-white d-flex justify-content-between align-items-center">
+                    <div class="card-header cs-red text-white d-flex justify-content-between align-items-center">
                         <h4>Assessment Details</h4>
-                        <a href="{{ route('edit-assessment', ['courseCode' => $course->course_code, 'assessmentId' => $assessment->id]) }}"
-                            class="btn btn-sm btn-warning">Edit</a>
+                        <div>
+                            @if (Auth::guard('teacher')->check())
+                                <a href="{{ route('edit-assessment', [
+                                    'courseCode' => $course->course_code,
+                                    'assessmentId' => $assessment->id,
+                                ]) }}"
+                                    class="btn btn-sm btn-warning">Edit</a>
+                            @endif
+                        </div>
                     </div>
                     <div class="card-body">
                         <p><strong>Assessment Title:</strong> {{ $assessment->title }}</p>
@@ -78,7 +91,7 @@
 
                 <!-- Peer Reviews Received Card -->
                 <div class="card my-3">
-                    <div class="card-header bg-danger text-white">
+                    <div class="card-header cs-red text-white">
                         <h4>Peer Reviews Received</h4>
                     </div>
                     <div class="card-body">
@@ -100,7 +113,7 @@
 
                 <!-- Peer Reviews Sent Card -->
                 <div class="card my-3">
-                    <div class="card-header bg-danger text-white">
+                    <div class="card-header cs-red text-white">
                         <h4>Peer Reviews Sent</h4>
                     </div>
                     <div class="card-body">

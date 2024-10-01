@@ -20,16 +20,12 @@
         <div id="course-overview" class="tab-content active-content">
             <!-- Course Overview Content Here -->
             <div class="card">
-                <div
-                    class="card-header
-            d-flex
-            justify-content-between
-            align-items-center
-            bg-danger
-            text-white">
+                <div class="card-header d-flex justify-content-between align-items-center cs-red text-white">
                     <h3>{{ $course->course_code }} {{ $course->name }}</h3>
-                    <a href="{{ route('add-assessment', ['courseCode' => $course->course_code]) }}"
-                        class="btn btn-warning btn-sm h-25">Add Assessment</a>
+                    @if (Auth::guard('teacher')->check())
+                        <a href="{{ route('add-assessment', ['courseCode' => $course->course_code]) }}"
+                            class="btn btn-warning btn-sm h-25">Add Assessment</a>
+                    @endif
                 </div>
 
                 <!-- Assessments Section -->
@@ -61,10 +57,11 @@
             </div>
         </div>
 
+
         <div id="teaching-staff" class="tab-content">
             <!-- Teaching Staff Content Here -->
             <div class="card">
-                <div class="card-header bg-danger text-white">
+                <div class="card-header cs-red text-white">
                     <h4>Instructors</h4>
                 </div>
                 <div class="card-body">
@@ -83,15 +80,21 @@
         <div id="students" class="tab-content">
             <!-- Enrolled Students Card (Default View) -->
             <div id="enrolledStudentsCard" class="card mt-3">
-                <div class="card-header d-flex justify-content-between align-items-center bg-danger text-white">
+                <div class="card-header d-flex justify-content-between align-items-center cs-red text-white">
                     <h4>Enrolled Students</h4>
-                    <button id="addStudentBtn" class="btn btn-warning btn-csw10 btn-sm">Add Student</button>
+                    @if (Auth::guard('teacher')->check())
+                        <button id="addStudentBtn" class="btn btn-warning btn-csw10 btn-sm">Add Student</button>
+                    @endif
                 </div>
+
                 <div class="card-body">
                     <ul class="list-group">
                         @forelse ($course->students as $student)
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>{{ $student->name }} ({{ $student->snumber }})</span>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <p><strong>Name:</strong> {{ $student->name }}</p>
+                                    <p><strong>Student Number:</strong> {{ $student->snumber }}</p>
+                                </div>
                             </li>
                         @empty
                             <li class="list-group-item">No students enrolled yet.</li>
@@ -102,7 +105,7 @@
 
             <!-- Enroll Existing Student Card (Hidden by Default) -->
             <div id="enrollStudentCard" class="card mt-4" style="display: none;">
-                <div class="card-header d-flex justify-content-between align-items-center bg-danger text-white">
+                <div class="card-header d-flex justify-content-between align-items-center cs-red text-white">
                     <h4>Enroll Existing Student</h4>
                     <button id="backToEnrolledBtn" class="btn btn-warning btn-csw10 btn-sm">Back</button>
                 </div>
