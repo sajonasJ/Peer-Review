@@ -15,8 +15,8 @@
         <div class="row d-flex justify-content-center">
             <div class="col-md-10">
                 <!-- Home Page Header -->
-                <div class="card">
-                    <div class="card-header cs-red text-white">
+                <div class="card d-flex w-100 justify-content-center align-items-center">
+                    <div class="card-header w-100 cs-red text-white">
                         <h3 id="greeting">{{ $userName }}</h3>
                         <p class="mb-0">Here are the courses you're enrolled in:</p>
                         <p class="mb-0"><small id="currentDate"></small></p>
@@ -24,18 +24,20 @@
 
                     <!-- File Upload Section -->
                     <!-- Add Course with Students and Teachers Form -->
-                    <div class="card mt-4">
-                        <div class="card-header bg-danger text-white">
-                            <h5>Add New Course, Students, Teachers, and Assessments</h5>
+                    <div class="card col-md-8 mt-4">
+                        <div class="card-header cs-red text-white">
+                            <h5>Add New Course</h5>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('import-course-data') }}" method="POST" enctype="multipart/form-data">
+                            <form id="uploadForm" action="{{ route('import-course-data') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
-                                    <label for="courseFile" class="form-label">Upload Course File (Text File)</label>
+                                    <label for="courseFile" class="form-label">Upload Course File ( .json file )</label>
                                     <input type="file" name="courseFile" id="courseFile" class="form-control"
-                                        accept=".txt" required>
+                                        accept=".json" required>
                                 </div>
+
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
                                         <ul>
@@ -45,17 +47,36 @@
                                         </ul>
                                     </div>
                                 @endif
-                                <div class="d-flex justify-content-end">
-                                    <button type="submit" class="btn btn-danger">Import Course Data</button>
+
+                                <div id="fileList" class="mt-3">
+                                    <h5>Uploaded Files:</h5>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>File Name</th>
+                                                <th>Size</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="fileTableBody">
+                                            <!-- File entries will be added here dynamically -->
+                                        </tbody>
+                                    </table>
                                 </div>
 
+                                <div class="d-flex justify-content-end">
+                                    <button type="button" id="saveFile" class="btn btn-warning me-2">Save File</button>
+                                    <button type="submit" class="btn btn-danger">Import Course Data</button>
+                                </div>
                             </form>
+
+
                         </div>
                     </div>
 
 
                     <!-- Courses Section -->
-                    <div class="card-body mt-3">
+                    <div class="card-body w-100 mt-3">
                         <h4 class="text-danger">Your Courses</h4>
                         @if ($courses->isEmpty())
                             <div class="alert alert-warning mt-3" role="alert">
@@ -88,4 +109,8 @@
 
 @section('footer')
     @include('layouts.footer')
+@endsection
+
+@section('toasts')
+    @include('components.toasts')
 @endsection
