@@ -29,15 +29,13 @@
                             <h5>Add New Course</h5>
                         </div>
                         <div class="card-body">
-                            <form id="uploadForm" action="{{ route('import-course-data') }}" method="POST"
-                                enctype="multipart/form-data">
+                            <form id="uploadForm" action="{{ route('import-course-data') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="mb-3">
                                     <label for="courseFile" class="form-label">Upload Course File ( .json file )</label>
-                                    <input type="file" name="courseFile" id="courseFile" class="form-control"
-                                        accept=".json" required>
+                                    <input type="file" name="courseFile" id="courseFile" class="form-control" accept=".json" required>
                                 </div>
-
+                            
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
                                         <ul>
@@ -47,34 +45,14 @@
                                         </ul>
                                     </div>
                                 @endif
-
-                                <div id="fileList" class="mt-3">
-                                    <h5>Uploaded Files:</h5>
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>File Name</th>
-                                                <th>Size</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="fileTableBody">
-                                            <!-- File entries will be added here dynamically -->
-                                        </tbody>
-                                    </table>
-                                </div>
-
+                            
                                 <div class="d-flex justify-content-end">
-                                    <button type="button" id="saveFile" class="btn btn-warning me-2">Save File</button>
                                     <button type="submit" class="btn btn-danger">Import Course Data</button>
                                 </div>
                             </form>
-
-
+                            
                         </div>
                     </div>
-
-
                     <!-- Courses Section -->
                     <div class="card-body w-100 mt-3">
                         <h4 class="text-danger">Your Courses</h4>
