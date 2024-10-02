@@ -114,23 +114,25 @@ document.addEventListener('DOMContentLoaded', function () {
             const filter = searchInput.value.toLowerCase();
 
             students.forEach(function (student) {
-                const studentInfo = student.querySelector('.student-info').textContent.toLowerCase();
-
-                // Check if student info contains the filter value and adjust display accordingly
-                if (studentInfo.includes(filter)) {
-                    student.classList.remove('hidden');
-                } else {
-                    student.classList.add('hidden');
+                const studentInfoElement = student.querySelector('div');
+                if (studentInfoElement) {
+                    const studentInfo = studentInfoElement.textContent.toLowerCase();
+                    // Check if student info contains the filter value and adjust display accordingly
+                    if (studentInfo.includes(filter)) {
+                        student.classList.remove('hidden');
+                    } else {
+                        student.classList.add('hidden');
+                    }
                 }
             });
         });
     }
 
-    // toggle course button
+    // Toggle course button
     const addCourseButton = document.getElementById('addCourseButton');
     const addCourseCard = document.getElementById('addCourseCard');
 
-    if (addCourseButton) {
+    if (addCourseButton && addCourseCard) {
         addCourseButton.addEventListener('click', function () {
             addCourseCard.classList.toggle('d-none');
             if (addCourseCard.classList.contains('d-none')) {
@@ -140,30 +142,36 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-});
 
-document.addEventListener('DOMContentLoaded', function() {
+    // Toggle Student List
     const toggleButton = document.getElementById('toggleStudentList');
-    const studentList = document.getElementById('studentList');
+    if (toggleButton && studentList) {
+        toggleButton.addEventListener('click', function () {
+            if (studentList.style.display === 'none') {
+                studentList.style.display = 'block';
+                toggleButton.textContent = 'Hide Students';
+            } else {
+                studentList.style.display = 'none';
+                toggleButton.textContent = 'Show Students';
+            }
+        });
+    }
 
-    toggleButton.addEventListener('click', function() {
-        if (studentList.style.display === 'none') {
-            studentList.style.display = 'block';
-            toggleButton.textContent = 'Hide Students';
-        } else {
-            studentList.style.display = 'none';
-            toggleButton.textContent = 'Show Students';
-        }
-    });
+    // Toggle Assign Reviewee List
+    const toggleAssignRevieweeButton = document.getElementById('toggleAssignRevieweeList');
+    const assignRevieweeList = document.getElementById('assignRevieweeList');
+    if (toggleAssignRevieweeButton && assignRevieweeList) {
+        toggleAssignRevieweeButton.addEventListener('click', function () {
+            assignRevieweeList.style.display = (assignRevieweeList.style.display === 'none' || assignRevieweeList.style.display === '') ? 'block' : 'none';
+        });
+    }
 
-    document.getElementById('toggleAssignRevieweeList').addEventListener('click', function () {
-        const list = document.getElementById('assignRevieweeList');
-        list.style.display = (list.style.display === 'none' || list.style.display === '') ? 'block' : 'none';
-    });
-
-    document.getElementById('toggleAssignReviewerList').addEventListener('click', function () {
-        const list = document.getElementById('assignReviewerList');
-        list.style.display = (list.style.display === 'none' || list.style.display === '') ? 'block' : 'none';
-    });
+    // Toggle Assign Reviewer List
+    const toggleAssignReviewerButton = document.getElementById('toggleAssignReviewerList');
+    const assignReviewerList = document.getElementById('assignReviewerList');
+    if (toggleAssignReviewerButton && assignReviewerList) {
+        toggleAssignReviewerButton.addEventListener('click', function () {
+            assignReviewerList.style.display = (assignReviewerList.style.display === 'none' || assignReviewerList.style.display === '') ? 'block' : 'none';
+        });
+    }
 });
-

@@ -90,10 +90,11 @@
                     <ul class="list-group">
                         @forelse ($course->students as $student)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <div>
+                                <div class="student-info">
                                     <p><strong>Name:</strong> {{ $student->name }}</p>
                                     <p><strong>Student Number:</strong> {{ $student->snumber }}</p>
                                 </div>
+                                
                             </li>
                         @empty
                             <li class="list-group-item">No students enrolled yet.</li>
@@ -110,7 +111,7 @@
                 </div>
                 <div class="card-body p-0">
                     <!-- Search Bar -->
-                    <div class="mb-3">
+                    <div>
                         <input type="text" id="studentSearch" class="form-control"
                             placeholder="Search student by name or sNumber">
                     </div>
