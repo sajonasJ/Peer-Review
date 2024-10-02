@@ -41,13 +41,15 @@
                                 <li class="list-group-item d-flex flex-row justify-content-between align-items-center">
                                     <span>{{ $assessment->title }}</span>
                                     <div class="col-lg-3 d-flex justify-content-between align-items-center">
-                                        <span><strong>Due Date:</strong> {{ \Carbon\Carbon::parse($assessment->due_date)->format('d F, Y') }}</span>
+                                        <span><strong>Due Date:</strong>
+                                            {{ \Carbon\Carbon::parse($assessment->due_date)->format('d F, Y') }}</span>
                                         <a href="{{ route('assessment-details', [
                                             'courseCode' => $course->course_code,
                                             'assessmentId' => $assessment->id,
-                                        ]) }}" class="btn btn-primary mx-1 btn-sm">View Details</a>
+                                        ]) }}"
+                                            class="btn btn-primary mx-1 btn-sm">View Details</a>
                                     </div>
-                                    
+
                                 </li>
                             @endforeach
                         </ul>
@@ -88,20 +90,24 @@
 
                 <div class="card-body p-0">
                     <ul class="list-group">
-                        @forelse ($course->students as $student)
+                        @forelse ($enrolledStudents as $student)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div class="student-info">
                                     <p><strong>Name:</strong> {{ $student->name }}</p>
                                     <p><strong>Student Number:</strong> {{ $student->snumber }}</p>
                                 </div>
-                                
                             </li>
                         @empty
                             <li class="list-group-item">No students enrolled yet.</li>
                         @endforelse
                     </ul>
+                    <!-- Pagination Links for Enrolled Students -->
+                    <div class="mt-3 d-flex justify-content-center">
+                        {!! $enrolledStudents->appends(['showEnrolledStudents' => request('showEnrolledStudents')])->links('pagination::bootstrap-4') !!}
+                    </div>
                 </div>
             </div>
+
 
             <!-- Enroll Existing Student Card (Hidden by Default) -->
             <div id="enrollStudentCard" class="card mt-4" style="display: none;">
@@ -134,8 +140,13 @@
                             <li class="list-group-item">All students are already enrolled in this course.</li>
                         @endforelse
                     </ul>
+                    <!-- Pagination Links for Unenrolled Students -->
+                    <div class="mt-3 d-flex justify-content-center">
+                        {!! $unenrolledStudents->appends(['showUnenrolledStudents' => request('showUnenrolledStudents')])->links('pagination::bootstrap-4') !!}
+                    </div>
                 </div>
             </div>
+
 
 
         </div>
@@ -152,3 +163,4 @@
 @section('toasts')
     @include('components.toasts')
 @endsection
+

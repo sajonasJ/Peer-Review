@@ -154,7 +154,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Reusable function to toggle visibility and update button text with persistent state in localStorage
     function toggleVisibility(button, element, showText, hideText) {
         button.addEventListener("click", function () {
-            if (element.style.display === "none" || element.style.display === "") {
+            if (
+                element.style.display === "none" ||
+                element.style.display === ""
+            ) {
                 element.style.display = "block";
                 button.textContent = hideText;
                 localStorage.setItem(button.id, "true");
@@ -178,14 +181,23 @@ document.addEventListener("DOMContentLoaded", function () {
             toggleButton.textContent = "Show Students";
         }
 
-        toggleVisibility(toggleButton, studentList, "Show Students", "Hide Students");
+        toggleVisibility(
+            toggleButton,
+            studentList,
+            "Show Students",
+            "Hide Students"
+        );
     }
 
     // Toggle Assign Reviewee List
-    const toggleAssignRevieweeButton = document.getElementById("toggleAssignRevieweeList");
+    const toggleAssignRevieweeButton = document.getElementById(
+        "toggleAssignRevieweeList"
+    );
     const assignRevieweeList = document.getElementById("assignRevieweeList");
     if (toggleAssignRevieweeButton && assignRevieweeList) {
-        const showRevieweeList = localStorage.getItem("toggleAssignRevieweeList");
+        const showRevieweeList = localStorage.getItem(
+            "toggleAssignRevieweeList"
+        );
         if (showRevieweeList === "true") {
             assignRevieweeList.style.display = "block";
             toggleAssignRevieweeButton.textContent = "Hide Reviewee List";
@@ -194,14 +206,23 @@ document.addEventListener("DOMContentLoaded", function () {
             toggleAssignRevieweeButton.textContent = "Add Reviewee";
         }
 
-        toggleVisibility(toggleAssignRevieweeButton, assignRevieweeList, "Add Reviewee", "Hide Reviewee List");
+        toggleVisibility(
+            toggleAssignRevieweeButton,
+            assignRevieweeList,
+            "Add Reviewee",
+            "Hide Reviewee List"
+        );
     }
 
     // Toggle Assign Reviewer List
-    const toggleAssignReviewerButton = document.getElementById("toggleAssignReviewerList");
+    const toggleAssignReviewerButton = document.getElementById(
+        "toggleAssignReviewerList"
+    );
     const assignReviewerList = document.getElementById("assignReviewerList");
     if (toggleAssignReviewerButton && assignReviewerList) {
-        const showReviewerList = localStorage.getItem("toggleAssignReviewerList");
+        const showReviewerList = localStorage.getItem(
+            "toggleAssignReviewerList"
+        );
         if (showReviewerList === "true") {
             assignReviewerList.style.display = "block";
             toggleAssignReviewerButton.textContent = "Hide Reviewer List";
@@ -210,6 +231,11 @@ document.addEventListener("DOMContentLoaded", function () {
             toggleAssignReviewerButton.textContent = "Add Reviewer";
         }
 
-        toggleVisibility(toggleAssignReviewerButton, assignReviewerList, "Add Reviewer", "Hide Reviewer List");
+        toggleVisibility(
+            toggleAssignReviewerButton,
+            assignReviewerList,
+            "Add Reviewer",
+            "Hide Reviewer List"
+        );
     }
 });

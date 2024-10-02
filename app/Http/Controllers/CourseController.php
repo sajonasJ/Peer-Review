@@ -36,16 +36,20 @@ class CourseController extends Controller
     public function show($courseCode)
     {
         // Find the course by course code
-        $course = Course::with('students', 'teachers', 'assessments')
+        $course = Course::with('teachers', 'assessments')
             ->where('course_code', $courseCode)
             ->firstOrFail();
 
-        // Fetch the students that are not enrolled in the course
-        $unenrolledStudents = Student::whereNotIn('id', $course->students->pluck('id'))->get();
+        // Fetch enrolled students with pagination
+        $enrolledStudents = $course->students()->paginate(10);
+
+        // Fetch the students that are not enrolled in the course with pagination
+        $unenrolledStudents = Student::whereNotIn('id', $course->students->pluck('id'))->paginate(10);
 
         // Pass the course and related data, as well as unenrolled students, to the view
-        return view('pages.course-details', compact('course', 'unenrolledStudents'));
+        return view('pages.course-details', compact('course', 'enrolledStudents', 'unenrolledStudents'));
     }
+
 
     public function enrollStudent($courseCode, $studentId)
     {
@@ -76,7 +80,6 @@ class CourseController extends Controller
     public function importCourseData(Request $request)
     {
         try {
-            // Validate the uploaded file
             $request->validate([
                 'courseFile' => 'required|file|mimes:json',
             ]);
@@ -259,18 +262,18 @@ class CourseController extends Controller
             // Find the course by course code using Eloquent
             Log::info("Attempting to find course with course_code: {$courseCode}");
             $course = Course::where('course_code', $courseCode)->firstOrFail();
-    
+
             // Detach all relationships with teachers and students using Eloquent
             Log::info("Detaching all teachers and students from course: {$courseCode}");
             $course->teachers()->detach();
             $course->students()->detach();
             Log::info("Successfully detached all teachers and students.");
-    
+
             // Delete the course itself using Eloquent
             Log::info("Deleting course: {$courseCode}");
             $course->delete();
             Log::info("Course deleted successfully.");
-    
+
             session()->flash('success', 'Course deleted successfully.');
             return redirect()->route('home');
         } catch (\Exception $e) {
@@ -279,5 +282,4 @@ class CourseController extends Controller
             return redirect()->route('home');
         }
     }
-    
 }
