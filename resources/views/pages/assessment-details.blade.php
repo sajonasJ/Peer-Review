@@ -67,6 +67,10 @@
                         <div class="card-header cs-red text-white">
                             <h4>Enrolled Students</h4>
                         </div>
+                        <div>
+                            <input type="text" id="studentSearch" class="form-control"
+                                placeholder="Search student by name or sNumber">
+                        </div>
                         <div class="card-body p-0">
                             @if ($course->students->isEmpty())
                                 <p>No students enrolled in this course yet.</p>
@@ -134,6 +138,10 @@
                         <div class="card-header cs-red text-white">
                             <h4>Assign Reviewer</h4>
                         </div>
+                        <div>
+                            <input type="text" id="studentSearchAssignReviewer" class="form-control" placeholder="Search student by name or sNumber">
+
+                        </div>
                         <div class="card-body p-0">
                             <ul class="list-group p-0">
                                 @foreach ($course->students as $student)
@@ -148,7 +156,8 @@
                                                 method="POST">
                                                 @csrf
                                                 <input type="hidden" name="student_id" value="{{ $student->id }}">
-                                                <button type="submit" class="btn btn-primary btn-sm disabled">Add Reviewer</button>
+                                                <button type="submit" class="btn btn-primary btn-sm disabled">Add
+                                                    Reviewer</button>
                                             </form>
 
                                         </li>
@@ -189,6 +198,10 @@
                     <div class="card-header cs-red text-white">
                         <h4>Assign Reviewee</h4>
                     </div>
+                    <div>
+                        <input type="text" id="studentSearchAssignReviewee" class="form-control" placeholder="Search student by name or sNumber">
+
+                    </div>
                     <div class="card-body p-0">
                         <ul class="list-group p-0">
                             @foreach ($course->students as $student)
@@ -203,7 +216,8 @@
                                             method="POST">
                                             @csrf
                                             <input type="hidden" name="student_id" value="{{ $student->id }}">
-                                            <button type="submit" class="btn btn-primary btn-sm disabled">Add Reviewee</button>
+                                            <button type="submit" class="btn btn-primary btn-sm disabled">Add
+                                                Reviewee</button>
                                         </form>
 
                                     </li>
