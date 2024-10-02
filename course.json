@@ -1,0 +1,56 @@
+[
+    {
+        "course_code": "CS105",
+        "course_name": "Introduction to Machine Learning",
+        "teachers": [
+            {
+                "snumber": "T4455661",
+                "name": "Prof. Alice Cooper",
+                "email": "alice.cooper@example.com"
+            },
+            {
+                "snumber": "T4455662",
+                "name": "Dr. Robert Lang",
+                "email": "robert.lang@example.com"
+            }
+        ],
+        "students": [
+            {
+                "snumber": "S1234567",
+                "name": "Michael Bluth",
+                "email": "michael.bluth@example.com"
+            },
+            {
+                "snumber": "S2345678",
+                "name": "Gob Bluth",
+                "email": "gob.bluth@example.com"
+            },
+            {
+                "snumber": "S3456789",
+                "name": "Lindsay Funke",
+                "email": "lindsay.funke@example.com"
+            },
+            {
+                "snumber": "S4567890",
+                "name": "George Michael Bluth",
+                "email": "george.michael@example.com"
+            }
+        ],
+        "assessments": [
+            {
+                "title": "Linear Regression Assignment",
+                "instruction": "Implement linear regression from scratch and evaluate its performance on a dataset.",
+                "due_date": "2024-10-30",
+                "due_time": "23:59",
+                "type": "student-select"
+            },
+            {
+                "title": "Neural Network Project",
+                "instruction": "Build and train a neural network to classify images from a given dataset.",
+                "due_date": "2024-12-15",
+                "due_time": "17:00",
+                "type": "teacher-assign"
+            }
+        ]
+    }
+]

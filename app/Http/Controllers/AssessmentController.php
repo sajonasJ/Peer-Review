@@ -1,9 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\Assessment;
+use App\Models\Student;
+use App\Models\Review;
 
 class AssessmentController extends Controller
 {
@@ -41,15 +44,55 @@ class AssessmentController extends Controller
             ->with('success', 'Assessment added successfully!');
     }
 
-    public function show($courseCode, $assessmentId)
+    public function show($courseCode, $assessmentId, Request $request)
     {
         $course = Course::where('course_code', $courseCode)->firstOrFail();
         $assessment = $course->assessments()->where('id', $assessmentId)->firstOrFail();
 
-        $reviewsReceived = $assessment->reviews()->where('reviewee_id', auth()->id())->get();
-        $reviewsSent = $assessment->reviews()->where('reviewer_id', auth()->id())->get();
+        // Get reviews received and sent for authenticated user for the specific assessment
+        $reviewsReceived = $assessment->reviews()
+            ->where('reviewee_id', auth()->id())
+            ->where('assessment_id', $assessment->id)
+            ->get();
 
-        return view('pages.assessment-details', compact('course', 'assessment', 'reviewsReceived', 'reviewsSent'));
+        $reviewsSent = $assessment->reviews()
+            ->where('reviewer_id', auth()->id())
+            ->where('assessment_id', $assessment->id)
+            ->get();
+
+        // Additional data for the selected student
+        $selectedStudent = null;
+        $studentReviewsReceived = collect();
+        $studentReviewsSent = collect();
+
+        $studentId = $request->input('studentId');
+
+        if ($studentId) {
+            $selectedStudent = Student::findOrFail($studentId);
+
+            // Fetch reviews received and sent by the selected student, but only for the given assessment
+            $studentReviewsReceived = $selectedStudent->reviewsReceived()
+                ->where('assessment_id', $assessment->id)
+                ->get();
+
+            $studentReviewsSent = $selectedStudent->reviewsGiven()
+                ->where('assessment_id', $assessment->id)
+                ->get();
+        }
+
+        // Get the total count of reviews for the assessment
+        $reviewCount = $assessment->reviews()->count();
+
+        return view('pages.assessment-details', compact(
+            'course',
+            'assessment',
+            'reviewsReceived',
+            'reviewsSent',
+            'selectedStudent',
+            'studentReviewsReceived',
+            'studentReviewsSent',
+            'reviewCount'
+        ));
     }
 
     public function edit($courseCode, $assessmentId)
@@ -86,5 +129,49 @@ class AssessmentController extends Controller
 
         return redirect()->route('assessment-details', ['courseCode' => $courseCode, 'assessmentId' => $assessmentId])
             ->with('success', 'Assessment updated successfully!');
+    }
+    public function assignReviewee(Request $request, $courseCode, $assessmentId)
+    {
+        $assessment = Assessment::where('id', $assessmentId)->firstOrFail();
+        $studentId = $request->input('student_id');
+
+        // Ensure the student is enrolled in the course
+        $course = Course::where('course_code', $courseCode)->firstOrFail();
+        $student = $course->students()->findOrFail($studentId);
+
+        // Check if the student is already a reviewee for this assessment
+        if (!$assessment->reviews()->where('reviewee_id', $student->id)->exists()) {
+            Review::create([
+                'assessment_id' => $assessment->id,
+                'reviewee_id' => $student->id,
+                'review_text' => '',
+                'rating' => 0, // Set initial rating to 0
+            ]);
+        }
+
+        return redirect()->route('assessment-details', ['courseCode' => $courseCode, 'assessmentId' => $assessmentId]);
+    }
+
+
+    public function assignReviewer(Request $request, $courseCode, $assessmentId)
+    {
+        $assessment = Assessment::where('id', $assessmentId)->firstOrFail();
+        $studentId = $request->input('student_id');
+
+        // Ensure the student is enrolled in the course
+        $course = Course::where('course_code', $courseCode)->firstOrFail();
+        $student = $course->students()->findOrFail($studentId);
+
+        // Check if the student is already a reviewer for this assessment
+        if (!$assessment->reviews()->where('reviewer_id', $student->id)->exists()) {
+            Review::create([
+                'assessment_id' => $assessment->id,
+                'reviewer_id' => $student->id,
+                'review_text' => '',
+                'rating' => 0, // Set initial rating to 0
+            ]);
+        }
+
+        return redirect()->route('assessment-details', ['courseCode' => $courseCode, 'assessmentId' => $assessmentId]);
     }
 }

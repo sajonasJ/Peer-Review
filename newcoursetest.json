@@ -1,0 +1,56 @@
+[
+    {
+        "course_code": "CS305",
+        "course_name": "Advanced Database Systems",
+        "teachers": [
+            {
+                "snumber": "T4455665",
+                "name": "Prof. Sarah Connor",
+                "email": "sarah.connor@example.com"
+            },
+            {
+                "snumber": "T4455666",
+                "name": "Dr. Henry Wu",
+                "email": "henry.wu@example.com"
+            }
+        ],
+        "students": [
+            {
+                "snumber": "S9012345",
+                "name": "John Doe",
+                "email": "john.doe@example.com"
+            },
+            {
+                "snumber": "S0123456",
+                "name": "Jane Roe",
+                "email": "jane.roe@example.com"
+            },
+            {
+                "snumber": "S1234567",
+                "name": "Richard Roe",
+                "email": "richard.roe@example.com"
+            },
+            {
+                "snumber": "S2345678",
+                "name": "Emily Davis",
+                "email": "emily.davis@example.com"
+            }
+        ],
+        "assessments": [
+            {
+                "title": "SQL Query Optimization",
+                "instruction": "Write optimized SQL queries for the given scenarios and compare their execution plans.",
+                "due_date": "2024-11-20",
+                "due_time": "22:00",
+                "type": "student-select"
+            },
+            {
+                "title": "NoSQL Database Design",
+                "instruction": "Design a NoSQL database for a social media application and justify your choices.",
+                "due_date": "2024-12-05",
+                "due_time": "16:00",
+                "type": "teacher-assign"
+            }
+        ]
+    }
+]

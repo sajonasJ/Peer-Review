@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\StudentController;
 
 
 Route::get('/', function () {
@@ -118,6 +119,19 @@ Route::middleware(['auth:web,teacher'])->group(function () {
     Route::post('/import-course-data', [CourseController::class, 'importCourseData'])->name('import-course-data');
     Route::delete('/delete-course/{courseCode}', [CourseController::class, 'deleteCourse'])->name('delete-course');
 
+    // Route to assign a reviewee to an assessment
+    // Route to assign a reviewee to an assessment
+    Route::post(
+        '/course-details/{courseCode}/assessment-details/{assessmentId}/assign-reviewee',
+        [AssessmentController::class, 'assignReviewee']
+    )->name('assign-reviewee');
+
+    // Route to assign a reviewer to an assessment
+    Route::post(
+        '/course-details/{courseCode}/assessment-details/{assessmentId}/assign-reviewer',
+        [AssessmentController::class, 'assignReviewer']
+    )->name('assign-reviewer');
 });
+
 
 require __DIR__ . '/auth.php';

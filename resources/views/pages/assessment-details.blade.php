@@ -30,41 +30,6 @@
             </div>
         </div>
 
-        <!-- Student List Section (Initially Hidden) -->
-        <div id="studentList" class="p-3" style="display: none;">
-            <div class="card">
-                <div class="card-header cs-red text-white">
-                    <h4>Enrolled Students</h4>
-                </div>
-                <div class="card-body">
-                    @if ($course->students->isEmpty())
-                        <p>No students enrolled in this course yet.</p>
-                    @else
-                    <ul class="list-group">
-                        @foreach ($course->students as $student)
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <div>
-                                    <p><strong>Name:</strong> {{ $student->name }}</p>
-                                    <p><strong>Student Number:</strong> {{ $student->snumber }}</p>
-                                </div>
-                                <!-- Add Peer Review Button - Only visible if the logged-in user is a student -->
-                                @if (Auth::guard('web')->check())
-                                    <a href="{{ route('add-review', [
-                                        'courseCode' => $course->course_code,
-                                        'studentId' => $student->id,
-                                        'assessmentId' => $assessment->id,
-                                    ]) }}"
-                                        class="btn btn-primary btn-sm">Add Peer Review</a>
-                                @endif
-                            </li>
-                        @endforeach
-                    </ul>
-                    
-                    @endif
-                </div>
-            </div>
-        </div>
-
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <!-- Assessment Details Card -->
@@ -73,11 +38,15 @@
                         <h4>Assessment Details</h4>
                         <div>
                             @if (Auth::guard('teacher')->check())
-                                <a href="{{ route('edit-assessment', [
-                                    'courseCode' => $course->course_code,
-                                    'assessmentId' => $assessment->id,
-                                ]) }}"
-                                    class="btn btn-sm btn-csw10 btn-warning">Edit</a>
+                                @if ($reviewCount == 0)
+                                    <a href="{{ route('edit-assessment', [
+                                        'courseCode' => $course->course_code,
+                                        'assessmentId' => $assessment->id,
+                                    ]) }}"
+                                        class="btn btn-sm btn-csw10 btn-warning">Edit</a>
+                                @else
+                                    <button class="btn btn-sm bg-dark" disabled>Edit (Reviews Exist)</button>
+                                @endif
                             @endif
                         </div>
                     </div>
@@ -92,78 +61,162 @@
                     </div>
                 </div>
 
-               <!-- Peer Reviews Received Card -->
-@if (Auth::guard('web')->check())
-<div class="card my-3">
-    <div class="card-header cs-red text-white">
-        <h4>Peer Reviews Received</h4>
-    </div>
-    <div class="card-body">
-        @if ($reviewsReceived->isEmpty())
-            <p>No peer reviews received yet.</p>
-        @else
-            <ul class="list-group">
-                @foreach ($reviewsReceived as $review)
-                    <li class="list-group-item">
-                        <p><strong>Reviewer:</strong> {{ $review->reviewer->name }}</p>
-                        <p><strong>Review Text:</strong> {{ $review->review_text }}</p>
-                        <p><strong>Rating:</strong> {{ $review->rating }}</p>
-                    </li>
-                @endforeach
-            </ul>
-        @endif
-    </div>
-</div>
-@endif
+                <!-- Student List Section (Initially Hidden) -->
+                <div id="studentList" class="p-0" style="display: none;">
+                    <div class="card my-3">
+                        <div class="card-header cs-red text-white">
+                            <h4>Enrolled Students</h4>
+                        </div>
+                        <div class="card-body p-0">
+                            @if ($course->students->isEmpty())
+                                <p>No students enrolled in this course yet.</p>
+                            @else
+                                <ul class="list-group p-0">
+                                    @foreach ($course->students as $student)
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <p><strong>Name:</strong> {{ $student->name }}</p>
+                                                <p><strong>Student Number:</strong> {{ $student->snumber }}</p>
+                                            </div>
+                                            <!-- Buttons for Add Peer Review and View Student Details -->
+                                            <div class="d-flex gap-2">
+                                                @if (Auth::guard('web')->check())
+                                                    <a href="{{ route('add-review', [
+                                                        'courseCode' => $course->course_code,
+                                                        'studentId' => $student->id,
+                                                        'assessmentId' => $assessment->id,
+                                                    ]) }}"
+                                                        class="btn btn-primary btn-sm">Add Peer Review</a>
+                                                @endif
+                                                @if (Auth::guard('teacher')->check())
+                                                    <a href="{{ route('assessment-details', [
+                                                        'courseCode' => $course->course_code,
+                                                        'assessmentId' => $assessment->id,
+                                                    ]) }}?studentId={{ $student->id }}"
+                                                        class="btn btn-primary btn-sm btn-csw10">View</a>
+                                                @endif
 
-<!-- Peer Reviews Sent Card -->
-@if (Auth::guard('web')->check())
-<div class="card my-3">
-    <div class="card-header cs-red text-white">
-        <h4>Peer Reviews Sent</h4>
-    </div>
-    <div class="card-body">
-        @if ($reviewsSent->isEmpty())
-            <p>No peer reviews sent yet.</p>
-        @else
-            <ul class="list-group">
-                @foreach ($reviewsSent as $review)
-                    <li class="list-group-item">
-                        <p><strong>Reviewee:</strong> {{ $review->reviewee->name }}</p>
-                        <p><strong>Review Text:</strong> {{ $review->review_text }}</p>
-                        <p><strong>Rating:</strong> {{ $review->rating }}</p>
-                    </li>
-                @endforeach
-            </ul>
-        @endif
-    </div>
-</div>
-@endif
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </div>
+                    </div>
+                </div>
 
+                @if ($selectedStudent)
+                    <div class="card my-3">
+                        <div class="card-header cs-red text-white d-flex justify-content-between align-items-center">
+                            <h4>Reviews Received by {{ $selectedStudent->name }}</h4>
+                            <button id="toggleAssignReviewerList" class="btn btn-sm btn-csw10 btn-warning">Add
+                                Reviewer</button>
+                        </div>
+                        <div class="card-body p-0">
+                            @if ($studentReviewsReceived->isEmpty())
+                                <p class="p-2">No reviews received yet.</p>
+                            @else
+                                <ul class="list-group">
+                                    @foreach ($studentReviewsReceived as $review)
+                                        <li class="list-group-item">
+                                            <p><strong>Reviewer:</strong> {{ $review->reviewer->name }}</p>
+                                            <p><strong>Review Text:</strong> {{ $review->review_text }}</p>
+                                            <p><strong>Rating:</strong> {{ $review->rating }}</p>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </div>
+                    </div>
+                    <!-- Add Reviewer List Section -->
+
+                    <div id="assignReviewerList" class="card p-0" style="display: none;">
+                        <div class="card-header cs-red text-white">
+                            <h4>Assign Reviewer</h4>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="list-group p-0">
+                                @foreach ($course->students as $student)
+                                    @if ($selectedStudent == null || $selectedStudent->id !== $student->id)
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <p><strong>Name:</strong> {{ $student->name }}</p>
+                                                <p><strong>Student Number:</strong> {{ $student->snumber }}</p>
+                                            </div>
+                                            <form
+                                                action="{{ route('assign-reviewer', ['courseCode' => $course->course_code, 'assessmentId' => $assessment->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                <input type="hidden" name="student_id" value="{{ $student->id }}">
+                                                <button type="submit" class="btn btn-primary btn-sm disabled">Add Reviewer</button>
+                                            </form>
+
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card my-3">
+                        <div class="card-header cs-red text-white d-flex justify-content-between align-items-center">
+                            <h4>Reviews Sent by {{ $selectedStudent->name }}</h4>
+                            <button id="toggleAssignRevieweeList" class="btn btn-sm btn-csw10 btn-warning">Add
+                                Reviewee</button>
+                        </div>
+                        <div class="card-body p-0">
+                            @if ($studentReviewsSent->isEmpty())
+                                <p class="p-2">No reviews sent yet.</p>
+                            @else
+                                <ul class="list-group">
+                                    @foreach ($studentReviewsSent as $review)
+                                        <li class="list-group-item">
+                                            <p><strong>Reviewee:</strong> {{ $review->reviewee->name }}</p>
+                                            <p><strong>Review Text:</strong> {{ $review->review_text }}</p>
+                                            <p><strong>Rating:</strong> {{ $review->rating }}</p>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </div>
+                    </div>
+                @endif
+
+
+
+                <!-- Add Reviewee List Section -->
+                <div id="assignRevieweeList" class="card p-0 my-3" style="display: none;">
+                    <div class="card-header cs-red text-white">
+                        <h4>Assign Reviewee</h4>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group p-0">
+                            @foreach ($course->students as $student)
+                                @if ($selectedStudent == null || $selectedStudent->id !== $student->id)
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <p><strong>Name:</strong> {{ $student->name }}</p>
+                                            <p><strong>Student Number:</strong> {{ $student->snumber }}</p>
+                                        </div>
+                                        <form
+                                            action="{{ route('assign-reviewee', ['courseCode' => $course->course_code, 'assessmentId' => $assessment->id]) }}"
+                                            method="POST">
+                                            @csrf
+                                            <input type="hidden" name="student_id" value="{{ $student->id }}">
+                                            <button type="submit" class="btn btn-primary btn-sm disabled">Add Reviewee</button>
+                                        </form>
+
+                                    </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 @endsection
 
-
-
 @section('footer')
     @include('layouts.footer')
 @endsection
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const toggleButton = document.getElementById('toggleStudentList');
-        const studentList = document.getElementById('studentList');
-
-        toggleButton.addEventListener('click', function() {
-            if (studentList.style.display === 'none') {
-                studentList.style.display = 'block';
-                toggleButton.textContent = 'Hide Students';
-            } else {
-                studentList.style.display = 'none';
-                toggleButton.textContent = 'Show Students';
-            }
-        });
-    });
-</script>

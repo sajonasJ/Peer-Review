@@ -141,3 +141,29 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const toggleButton = document.getElementById('toggleStudentList');
+    const studentList = document.getElementById('studentList');
+
+    toggleButton.addEventListener('click', function() {
+        if (studentList.style.display === 'none') {
+            studentList.style.display = 'block';
+            toggleButton.textContent = 'Hide Students';
+        } else {
+            studentList.style.display = 'none';
+            toggleButton.textContent = 'Show Students';
+        }
+    });
+
+    document.getElementById('toggleAssignRevieweeList').addEventListener('click', function () {
+        const list = document.getElementById('assignRevieweeList');
+        list.style.display = (list.style.display === 'none' || list.style.display === '') ? 'block' : 'none';
+    });
+
+    document.getElementById('toggleAssignReviewerList').addEventListener('click', function () {
+        const list = document.getElementById('assignReviewerList');
+        list.style.display = (list.style.display === 'none' || list.style.display === '') ? 'block' : 'none';
+    });
+});
+

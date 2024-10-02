@@ -1,0 +1,56 @@
+[
+    {
+        "course_code": "CS205",
+        "course_name": "Data Structures and Algorithms",
+        "teachers": [
+            {
+                "snumber": "T4455663",
+                "name": "Prof. John Smith",
+                "email": "john.smith@example.com"
+            },
+            {
+                "snumber": "T4455664",
+                "name": "Dr. Mary Johnson",
+                "email": "mary.johnson@example.com"
+            }
+        ],
+        "students": [
+            {
+                "snumber": "S5678901",
+                "name": "Buster Bluth",
+                "email": "buster.bluth@example.com"
+            },
+            {
+                "snumber": "S6789012",
+                "name": "Maeby Funke",
+                "email": "maeby.funke@example.com"
+            },
+            {
+                "snumber": "S7890123",
+                "name": "Oscar Bluth",
+                "email": "oscar.bluth@example.com"
+            },
+            {
+                "snumber": "S8901234",
+                "name": "Lucille Bluth",
+                "email": "lucille.bluth@example.com"
+            }
+        ],
+        "assessments": [
+            {
+                "title": "Binary Search Tree Implementation",
+                "instruction": "Implement a binary search tree with insertion, deletion, and search functionalities.",
+                "due_date": "2024-11-15",
+                "due_time": "23:00",
+                "type": "student-select"
+            },
+            {
+                "title": "Sorting Algorithm Analysis",
+                "instruction": "Compare the performance of various sorting algorithms on different datasets.",
+                "due_date": "2024-12-10",
+                "due_time": "12:00",
+                "type": "teacher-assign"
+            }
+        ]
+    }
+]

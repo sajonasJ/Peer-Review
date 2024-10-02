@@ -86,7 +86,7 @@
                     @endif
                 </div>
 
-                <div class="card-body">
+                <div class="card-body p-0">
                     <ul class="list-group">
                         @forelse ($course->students as $student)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -108,7 +108,7 @@
                     <h4>Enroll Existing Student</h4>
                     <button id="backToEnrolledBtn" class="btn btn-warning btn-csw10 btn-sm">Back</button>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-0">
                     <!-- Search Bar -->
                     <div class="mb-3">
                         <input type="text" id="studentSearch" class="form-control"
