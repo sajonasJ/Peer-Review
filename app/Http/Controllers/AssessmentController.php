@@ -45,59 +45,59 @@ class AssessmentController extends Controller
     }
 
     public function show($courseCode, $assessmentId, Request $request)
-{
-    $course = Course::where('course_code', $courseCode)->firstOrFail();
-    $assessment = $course->assessments()->where('id', $assessmentId)->firstOrFail();
+    {
+        $course = Course::where('course_code', $courseCode)->firstOrFail();
+        $assessment = $course->assessments()->where('id', $assessmentId)->firstOrFail();
 
-    // Paginate students with 10 students per page
-    $students = $course->students()->paginate(10);
+        // Paginate students with 10 students per page
+        $students = $course->students()->paginate(10);
 
-    // Get reviews received and sent for authenticated user for the specific assessment
-    $reviewsReceived = $assessment->reviews()
-        ->where('reviewee_id', auth()->id())
-        ->where('assessment_id', $assessment->id)
-        ->get();
-
-    $reviewsSent = $assessment->reviews()
-        ->where('reviewer_id', auth()->id())
-        ->where('assessment_id', $assessment->id)
-        ->get();
-
-    // Additional data for the selected student
-    $selectedStudent = null;
-    $studentReviewsReceived = collect();
-    $studentReviewsSent = collect();
-
-    $studentId = $request->input('studentId');
-
-    if ($studentId) {
-        $selectedStudent = Student::findOrFail($studentId);
-
-        // Fetch reviews received and sent by the selected student, but only for the given assessment
-        $studentReviewsReceived = $selectedStudent->reviewsReceived()
+        // Get reviews received and sent for authenticated user for the specific assessment
+        $reviewsReceived = $assessment->reviews()
+            ->where('reviewee_id', auth()->id())
             ->where('assessment_id', $assessment->id)
             ->get();
 
-        $studentReviewsSent = $selectedStudent->reviewsGiven()
+        $reviewsSent = $assessment->reviews()
+            ->where('reviewer_id', auth()->id())
             ->where('assessment_id', $assessment->id)
             ->get();
+
+        // Additional data for the selected student
+        $selectedStudent = null;
+        $studentReviewsReceived = collect();
+        $studentReviewsSent = collect();
+
+        $studentId = $request->input('studentId');
+
+        if ($studentId) {
+            $selectedStudent = Student::findOrFail($studentId);
+
+            // Fetch reviews received and sent by the selected student, but only for the given assessment
+            $studentReviewsReceived = $selectedStudent->reviewsReceived()
+                ->where('assessment_id', $assessment->id)
+                ->get();
+
+            $studentReviewsSent = $selectedStudent->reviewsGiven()
+                ->where('assessment_id', $assessment->id)
+                ->get();
+        }
+
+        // Get the total count of reviews for the assessment
+        $reviewCount = $assessment->reviews()->count();
+
+        return view('pages.assessment-details', compact(
+            'course',
+            'assessment',
+            'students', // Paginated students
+            'reviewsReceived',
+            'reviewsSent',
+            'selectedStudent',
+            'studentReviewsReceived',
+            'studentReviewsSent',
+            'reviewCount'
+        ));
     }
-
-    // Get the total count of reviews for the assessment
-    $reviewCount = $assessment->reviews()->count();
-
-    return view('pages.assessment-details', compact(
-        'course',
-        'assessment',
-        'students', // Paginated students
-        'reviewsReceived',
-        'reviewsSent',
-        'selectedStudent',
-        'studentReviewsReceived',
-        'studentReviewsSent',
-        'reviewCount'
-    ));
-}
 
 
     public function edit($courseCode, $assessmentId)
@@ -178,5 +178,32 @@ class AssessmentController extends Controller
         }
 
         return redirect()->route('assessment-details', ['courseCode' => $courseCode, 'assessmentId' => $assessmentId]);
+    }
+
+    public function viewAssessment($courseCode, $assessmentId)
+    {
+        // Get the course and the assessment
+        $course = Course::where('course_code', $courseCode)->firstOrFail();
+        $assessment = $course->assessments()->where('id', $assessmentId)->firstOrFail();
+
+        // Paginate students enrolled in the course with 10 students per page
+        $students = $course->students()->paginate(10);
+
+        // Get reviews sent and received for the authenticated user for the specific assessment
+        $reviewsReceived = $assessment->reviews()
+            ->where('reviewee_id', auth()->id())
+            ->get();
+
+        $reviewsSent = $assessment->reviews()
+            ->where('reviewer_id', auth()->id())
+            ->get();
+
+        return view('pages.view-assessments', compact(
+            'course',
+            'assessment',
+            'students', // Include the students
+            'reviewsReceived',
+            'reviewsSent'
+        ));
     }
 }

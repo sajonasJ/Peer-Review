@@ -13,7 +13,6 @@
     @include('layouts.nav')
 @endsection
 
-
 @section('content')
     <main class="container mt-3 mb-3">
         <!-- Content Sections -->
@@ -28,36 +27,45 @@
                     @endif
                 </div>
 
-                <!-- Assessments Section -->
-                <div class="card-body mt-2">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h4 class="text-danger">Peer Review Assessments</h4>
-                    </div>
-                    @if ($course->assessments->isEmpty())
-                        <p>No assessments available. Please add one to get started.</p>
-                    @else
-                        <ul class="list-group mt-3">
-                            @foreach ($course->assessments as $assessment)
-                                <li class="list-group-item d-flex flex-row justify-content-between align-items-center">
-                                    <span>{{ $assessment->title }}</span>
-                                    <div class="col-lg-3 d-flex justify-content-between align-items-center">
-                                        <span><strong>Due Date:</strong>
-                                            {{ \Carbon\Carbon::parse($assessment->due_date)->format('d F, Y') }}</span>
-                                        <a href="{{ route('assessment-details', [
-                                            'courseCode' => $course->course_code,
-                                            'assessmentId' => $assessment->id,
-                                        ]) }}"
-                                            class="btn btn-primary mx-1 btn-sm">View Details</a>
-                                    </div>
+          <!-- Assessments Section -->
+<div class="card-body mt-2">
+    <div class="d-flex justify-content-between align-items-center">
+        <h4 class="text-danger">Peer Review Assessments</h4>
+    </div>
+    @if ($course->assessments->isEmpty())
+        <p>No assessments available. Please add one to get started.</p>
+    @else
+        <ul class="list-group mt-3">
+            @foreach ($course->assessments as $assessment)
+                <li class="list-group-item d-flex flex-row justify-content-between align-items-center">
+                    <span>{{ $assessment->title }}</span>
+                    <div class="col-md-4 d-flex justify-content-between align-items-center">
+                        <span><strong>Due Date:</strong> {{ \Carbon\Carbon::parse($assessment->due_date)->format('d F, Y') }}</span>
+                        
+                        @if (Auth::guard('teacher')->check())
+                            <!-- View Details Button - Only for Teachers -->
+                            <a href="{{ route('assessment-details', [
+                                'courseCode' => $course->course_code,
+                                'assessmentId' => $assessment->id,
+                            ]) }}" class="btn btn-primary mx-1 btn-sm">View Details</a>
+                        @endif
 
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endif
-                </div>
+                        @if (Auth::guard('web')->check())
+                            <!-- View Assessment Button - Only for Students -->
+                            <a href="{{ route('view-assessment', [
+                                'courseCode' => $course->course_code,
+                                'assessmentId' => $assessment->id,
+                            ]) }}" class="btn btn-primary mx-1 btn-sm">View Assessment</a>
+                        @endif
+                    </div>
+                </li>
+            @endforeach
+        </ul>
+    @endif
+</div>
+
             </div>
         </div>
-
 
         <div id="teaching-staff" class="tab-content">
             <!-- Teaching Staff Content Here -->
@@ -108,7 +116,6 @@
                 </div>
             </div>
 
-
             <!-- Enroll Existing Student Card (Hidden by Default) -->
             <div id="enrollStudentCard" class="card mt-4" style="display: none;">
                 <div class="card-header d-flex justify-content-between align-items-center cs-red text-white">
@@ -146,21 +153,14 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
-
     </main>
 @endsection
-
 
 @section('footer')
     @include('layouts.footer')
 @endsection
 
-
 @section('toasts')
     @include('components.toasts')
 @endsection
-

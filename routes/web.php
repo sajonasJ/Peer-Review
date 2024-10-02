@@ -131,6 +131,12 @@ Route::middleware(['auth:web,teacher'])->group(function () {
         '/course-details/{courseCode}/assessment-details/{assessmentId}/assign-reviewer',
         [AssessmentController::class, 'assignReviewer']
     )->name('assign-reviewer');
+
+    // Route to view assessment (Student View)
+    Route::get(
+        '/course-details/{courseCode}/assessment/{assessmentId}/view',
+        [AssessmentController::class, 'viewAssessment']
+    )->name('view-assessment');
 });
 
 
