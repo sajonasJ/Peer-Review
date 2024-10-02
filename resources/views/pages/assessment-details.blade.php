@@ -61,7 +61,6 @@
                     </div>
                 </div>
 
-                <!-- Student List Section (Initially Hidden) -->
                 <div id="studentList" class="p-0" style="display: none;">
                     <div class="card my-3">
                         <div class="card-header cs-red text-white">
@@ -72,11 +71,11 @@
                                 placeholder="Search student by name or sNumber">
                         </div>
                         <div class="card-body p-0">
-                            @if ($course->students->isEmpty())
+                            @if ($students->isEmpty())
                                 <p>No students enrolled in this course yet.</p>
                             @else
                                 <ul class="list-group p-0">
-                                    @foreach ($course->students as $student)
+                                    @foreach ($students as $student)
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             <div>
                                                 <p><strong>Name:</strong> {{ $student->name }}</p>
@@ -99,11 +98,15 @@
                                                     ]) }}?studentId={{ $student->id }}"
                                                         class="btn btn-primary btn-sm btn-csw10">View</a>
                                                 @endif
-
                                             </div>
                                         </li>
                                     @endforeach
                                 </ul>
+                                <!-- Pagination Links -->
+                                <div class="mt-3 d-flex justify-content-center">
+                                    {!! $students->appends(['showStudents' => request('showStudents')])->links('pagination::bootstrap-4') !!}
+                                </div>
+
                             @endif
                         </div>
                     </div>
@@ -139,7 +142,8 @@
                             <h4>Assign Reviewer</h4>
                         </div>
                         <div>
-                            <input type="text" id="studentSearchAssignReviewer" class="form-control" placeholder="Search student by name or sNumber">
+                            <input type="text" id="studentSearchAssignReviewer" class="form-control"
+                                placeholder="Search student by name or sNumber">
 
                         </div>
                         <div class="card-body p-0">
@@ -199,7 +203,8 @@
                         <h4>Assign Reviewee</h4>
                     </div>
                     <div>
-                        <input type="text" id="studentSearchAssignReviewee" class="form-control" placeholder="Search student by name or sNumber">
+                        <input type="text" id="studentSearchAssignReviewee" class="form-control"
+                            placeholder="Search student by name or sNumber">
 
                     </div>
                     <div class="card-body p-0">

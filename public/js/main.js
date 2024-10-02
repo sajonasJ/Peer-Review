@@ -1,23 +1,32 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
     // Update Greeting and Date
-    const greetingElement = document.getElementById('greeting');
-    const userNameElement = document.getElementById('userName');
-    const dateElement = document.getElementById('currentDate');
-    const userTypeTextElement = document.getElementById('userTypeText');
+    const greetingElement = document.getElementById("greeting");
+    const userNameElement = document.getElementById("userName");
+    const dateElement = document.getElementById("currentDate");
+    const userTypeTextElement = document.getElementById("userTypeText");
 
     if (greetingElement && userNameElement && dateElement) {
-        const userName = userNameElement.textContent.trim() || 'User';
+        const userName = userNameElement.textContent.trim() || "User";
 
         function getGreeting() {
             const today = new Date();
             const hour = today.getHours();
-            return hour >= 5 && hour < 12 ? "Good Morning," : hour >= 12 && hour < 17 ? "Good Afternoon," : "Good Evening,";
+            return hour >= 5 && hour < 12
+                ? "Good Morning,"
+                : hour >= 12 && hour < 17
+                ? "Good Afternoon,"
+                : "Good Evening,";
         }
 
         function getCurrentDate() {
             const today = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            return today.toLocaleDateString('en-US', options);
+            const options = {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+            };
+            return today.toLocaleDateString("en-US", options);
         }
 
         greetingElement.innerHTML = `${getGreeting()}`;
@@ -45,37 +54,41 @@ document.addEventListener('DOMContentLoaded', function () {
             minuteIncrement: 15,
             onReady: function (selectedDates, dateStr, instance) {
                 if (!dateStr) {
-                    instance.input.setAttribute('placeholder', 'Select Time..');
+                    instance.input.setAttribute("placeholder", "Select Time..");
                 }
             },
             onChange: function (selectedDates, dateStr, instance) {
-                instance.input.removeAttribute('placeholder');
-            }
+                instance.input.removeAttribute("placeholder");
+            },
         });
     }
 
     // Tab Navigation
-    const tabs = document.querySelectorAll('.nav-tab');
-    const contents = document.querySelectorAll('.tab-content');
+    const tabs = document.querySelectorAll(".nav-tab");
+    const contents = document.querySelectorAll(".tab-content");
 
     if (tabs && contents) {
-        tabs.forEach(tab => {
-            tab.addEventListener('click', function (event) {
-                if (!tab.getAttribute('data-target')) {
+        tabs.forEach((tab) => {
+            tab.addEventListener("click", function (event) {
+                if (!tab.getAttribute("data-target")) {
                     return;
                 }
                 event.preventDefault();
-                tabs.forEach(t => t.classList.remove('active-tab'));
-                contents.forEach(content => content.classList.remove('active-content'));
-                tab.classList.add('active-tab');
-                document.getElementById(tab.getAttribute('data-target')).classList.add('active-content');
+                tabs.forEach((t) => t.classList.remove("active-tab"));
+                contents.forEach((content) =>
+                    content.classList.remove("active-content")
+                );
+                tab.classList.add("active-tab");
+                document
+                    .getElementById(tab.getAttribute("data-target"))
+                    .classList.add("active-content");
             });
         });
     }
 
     // Toasts for Success/Error Messages
-    const successToastEl = document.getElementById('successToast');
-    const errorToastEl = document.getElementById('errorToast');
+    const successToastEl = document.getElementById("successToast");
+    const errorToastEl = document.getElementById("errorToast");
 
     if (successToastEl) {
         new bootstrap.Toast(successToastEl).show();
@@ -85,94 +98,118 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Student Search Filtering (only if elements are present)
-    const addStudentBtn = document.getElementById('addStudentBtn');
-    const backToEnrolledBtn = document.getElementById('backToEnrolledBtn');
-    const enrolledStudentsCard = document.getElementById('enrolledStudentsCard');
-    const enrollStudentCard = document.getElementById('enrollStudentCard');
-    const searchInput = document.getElementById('studentSearch');
-    const studentList = document.getElementById('studentList');
+    const addStudentBtn = document.getElementById("addStudentBtn");
+    const backToEnrolledBtn = document.getElementById("backToEnrolledBtn");
+    const enrolledStudentsCard = document.getElementById(
+        "enrolledStudentsCard"
+    );
+    const enrollStudentCard = document.getElementById("enrollStudentCard");
+    const searchInput = document.getElementById("studentSearch");
+    const studentList = document.getElementById("studentList");
 
-    if (addStudentBtn && backToEnrolledBtn && enrolledStudentsCard && enrollStudentCard) {
+    if (
+        addStudentBtn &&
+        backToEnrolledBtn &&
+        enrolledStudentsCard &&
+        enrollStudentCard
+    ) {
         // Show "Enroll Existing Student" card when "Add Student" button is clicked
-        addStudentBtn.addEventListener('click', function () {
-            enrolledStudentsCard.style.display = 'none';
-            enrollStudentCard.style.display = 'block';
+        addStudentBtn.addEventListener("click", function () {
+            enrolledStudentsCard.style.display = "none";
+            enrollStudentCard.style.display = "block";
         });
 
         // Show "Enrolled Students" card when "Back" button is clicked
-        backToEnrolledBtn.addEventListener('click', function () {
-            enrollStudentCard.style.display = 'none';
-            enrolledStudentsCard.style.display = 'block';
+        backToEnrolledBtn.addEventListener("click", function () {
+            enrollStudentCard.style.display = "none";
+            enrolledStudentsCard.style.display = "block";
         });
     }
 
     if (studentList && searchInput) {
-        const students = Array.from(studentList.querySelectorAll('.list-group-item'));
+        const students = Array.from(
+            studentList.querySelectorAll(".list-group-item")
+        );
 
         // Filter students when typing in the search bar
-        searchInput.addEventListener('input', function () {
+        searchInput.addEventListener("input", function () {
             const filter = searchInput.value.toLowerCase();
 
             students.forEach(function (student) {
-                const studentInfoElement = student.querySelector('div');
+                const studentInfoElement = student.querySelector("div");
                 if (studentInfoElement) {
-                    const studentInfo = studentInfoElement.textContent.toLowerCase();
+                    const studentInfo =
+                        studentInfoElement.textContent.toLowerCase();
                     // Check if student info contains the filter value and adjust display accordingly
                     if (studentInfo.includes(filter)) {
-                        student.classList.remove('hidden');
+                        student.classList.remove("hidden");
                     } else {
-                        student.classList.add('hidden');
+                        student.classList.add("hidden");
                     }
                 }
             });
         });
     }
 
-    // Toggle course button
-    const addCourseButton = document.getElementById('addCourseButton');
-    const addCourseCard = document.getElementById('addCourseCard');
-
-    if (addCourseButton && addCourseCard) {
-        addCourseButton.addEventListener('click', function () {
-            addCourseCard.classList.toggle('d-none');
-            if (addCourseCard.classList.contains('d-none')) {
-                addCourseButton.textContent = 'Add Course';
+    // Reusable function to toggle visibility and update button text with persistent state in localStorage
+    function toggleVisibility(button, element, showText, hideText) {
+        button.addEventListener("click", function () {
+            if (element.style.display === "none" || element.style.display === "") {
+                element.style.display = "block";
+                button.textContent = hideText;
+                localStorage.setItem(button.id, "true");
             } else {
-                addCourseButton.textContent = 'Hide';
+                element.style.display = "none";
+                button.textContent = showText;
+                localStorage.setItem(button.id, "false");
             }
         });
     }
 
-    // Toggle Student List
-    const toggleButton = document.getElementById('toggleStudentList');
+    // Toggle Student List with persistent state using localStorage
+    const toggleButton = document.getElementById("toggleStudentList");
     if (toggleButton && studentList) {
-        toggleButton.addEventListener('click', function () {
-            if (studentList.style.display === 'none') {
-                studentList.style.display = 'block';
-                toggleButton.textContent = 'Hide Students';
-            } else {
-                studentList.style.display = 'none';
-                toggleButton.textContent = 'Show Students';
-            }
-        });
+        const showStudents = localStorage.getItem("toggleStudentList");
+        if (showStudents === "true") {
+            studentList.style.display = "block";
+            toggleButton.textContent = "Hide Students";
+        } else {
+            studentList.style.display = "none";
+            toggleButton.textContent = "Show Students";
+        }
+
+        toggleVisibility(toggleButton, studentList, "Show Students", "Hide Students");
     }
 
     // Toggle Assign Reviewee List
-    const toggleAssignRevieweeButton = document.getElementById('toggleAssignRevieweeList');
-    const assignRevieweeList = document.getElementById('assignRevieweeList');
+    const toggleAssignRevieweeButton = document.getElementById("toggleAssignRevieweeList");
+    const assignRevieweeList = document.getElementById("assignRevieweeList");
     if (toggleAssignRevieweeButton && assignRevieweeList) {
-        toggleAssignRevieweeButton.addEventListener('click', function () {
-            assignRevieweeList.style.display = (assignRevieweeList.style.display === 'none' || assignRevieweeList.style.display === '') ? 'block' : 'none';
-        });
+        const showRevieweeList = localStorage.getItem("toggleAssignRevieweeList");
+        if (showRevieweeList === "true") {
+            assignRevieweeList.style.display = "block";
+            toggleAssignRevieweeButton.textContent = "Hide Reviewee List";
+        } else {
+            assignRevieweeList.style.display = "none";
+            toggleAssignRevieweeButton.textContent = "Add Reviewee";
+        }
+
+        toggleVisibility(toggleAssignRevieweeButton, assignRevieweeList, "Add Reviewee", "Hide Reviewee List");
     }
 
     // Toggle Assign Reviewer List
-    const toggleAssignReviewerButton = document.getElementById('toggleAssignReviewerList');
-    const assignReviewerList = document.getElementById('assignReviewerList');
+    const toggleAssignReviewerButton = document.getElementById("toggleAssignReviewerList");
+    const assignReviewerList = document.getElementById("assignReviewerList");
     if (toggleAssignReviewerButton && assignReviewerList) {
-        toggleAssignReviewerButton.addEventListener('click', function () {
-            assignReviewerList.style.display = (assignReviewerList.style.display === 'none' || assignReviewerList.style.display === '') ? 'block' : 'none';
-        });
+        const showReviewerList = localStorage.getItem("toggleAssignReviewerList");
+        if (showReviewerList === "true") {
+            assignReviewerList.style.display = "block";
+            toggleAssignReviewerButton.textContent = "Hide Reviewer List";
+        } else {
+            assignReviewerList.style.display = "none";
+            toggleAssignReviewerButton.textContent = "Add Reviewer";
+        }
+
+        toggleVisibility(toggleAssignReviewerButton, assignReviewerList, "Add Reviewer", "Hide Reviewer List");
     }
 });
-
