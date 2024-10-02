@@ -106,27 +106,27 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // if (studentList && searchInput) {
-    //     const students = Array.from(studentList.querySelectorAll('.list-group-item'));
+    if (studentList && searchInput) {
+        const students = Array.from(studentList.querySelectorAll('.list-group-item'));
 
-    //     // Filter students when typing in the search bar
-    //     searchInput.addEventListener('input', function () {
-    //         const filter = searchInput.value.toLowerCase();
+        // Filter students when typing in the search bar
+        searchInput.addEventListener('input', function () {
+            const filter = searchInput.value.toLowerCase();
 
-    //         students.forEach(function (student) {
-    //             const studentInfoElement = student.querySelector('div');
-    //             if (studentInfoElement) {
-    //                 const studentInfo = studentInfoElement.textContent.toLowerCase();
-    //                 // Check if student info contains the filter value and adjust display accordingly
-    //                 if (studentInfo.includes(filter)) {
-    //                     student.classList.remove('hidden');
-    //                 } else {
-    //                     student.classList.add('hidden');
-    //                 }
-    //             }
-    //         });
-    //     });
-    // }
+            students.forEach(function (student) {
+                const studentInfoElement = student.querySelector('div');
+                if (studentInfoElement) {
+                    const studentInfo = studentInfoElement.textContent.toLowerCase();
+                    // Check if student info contains the filter value and adjust display accordingly
+                    if (studentInfo.includes(filter)) {
+                        student.classList.remove('hidden');
+                    } else {
+                        student.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    }
 
     // Toggle course button
     const addCourseButton = document.getElementById('addCourseButton');
