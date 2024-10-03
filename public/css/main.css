@@ -213,3 +213,7 @@ body {
 .w-35 {
     width: 35%;
 }
+
+.content{
+    min-height: 60vh;
+}
