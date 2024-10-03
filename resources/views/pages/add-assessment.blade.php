@@ -34,7 +34,6 @@
                         <h3>{{ isset($assessment) ? 'Edit' : 'Add' }} Peer Review Assessment</h3>
                     </div>
                     <div class="card-body">
-
                         <form
                             action="{{ isset($assessment)
                                 ? route('update-assessment', [
@@ -46,7 +45,6 @@
                                 ]) }}"
                             method="POST">
                             @csrf
-
                             <!-- Assessment Title -->
                             <div class="form-group mb-3">
                                 <label for="title">Assessment Title</label>
@@ -57,16 +55,15 @@
                                     <div class="text-danger mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <!-- Assessment Instructions -->
                             <div class="form-group mb-3">
                                 <label for="instructions">Instructions</label>
-                                <textarea id="instructions" name="instructions" class="form-control" rows="4" placeholder="Enter instructions">{{ old('instructions', isset($assessment) ? $assessment->instruction : '') }}</textarea>
+                                <textarea id="instructions" name="instructions" class="form-control" rows="4" placeholder="Enter instructions">{
+                                    { old('instructions', isset($assessment) ? $assessment->instruction : '') }}</textarea>
                                 @error('instructions')
                                     <div class="text-danger mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <!-- Number of Reviews -->
                             <div class="form-group mb-3">
                                 <label for="num_reviews">Number of Reviews</label>
@@ -77,7 +74,6 @@
                                     <div class="text-danger mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <!-- Maximum Score -->
                             <div class="form-group mb-3">
                                 <label for="max_score">Maximum Score</label>
@@ -127,7 +123,6 @@
                                     <div class="text-danger mt-1">{{ $message }}</div>
                                 @enderror
                             </div>
-
                             <div class="d-flex d-grid d-md-flex justify-content-md-evenly mb-3">
                                 <button type="submit"
                                     class="btn btn-primary btn-csw10">{{ isset($assessment) ? 'Save' : 'Add' }}</button>
