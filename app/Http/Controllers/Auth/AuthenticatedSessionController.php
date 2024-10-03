@@ -19,6 +19,8 @@ class AuthenticatedSessionController extends Controller
     public function store(Request $request): RedirectResponse
     {
         // Validation with custom error handling
+        Auth::guard('web')->logout();
+        Auth::guard('teacher')->logout();
         try {
             $request->validate([
                 'snumber' => 'required|string',
@@ -58,6 +60,7 @@ class AuthenticatedSessionController extends Controller
     {
         try {
             Auth::guard('web')->logout();
+            Auth::guard('teacher')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 

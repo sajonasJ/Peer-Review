@@ -10,7 +10,6 @@
     @include('layouts.header')
 @endsection
 
-
 @section('content')
     <div class="container-fluid p-0">
         <div class="course-title px-3 py-2">
@@ -36,13 +35,25 @@
                             ]) }}"
                             method="POST">
                             @csrf
+
                             <!-- Review Text Area -->
                             <div class="form-group mb-4">
                                 <h5>Reviewee: {{ $student->name }}</h5>
                                 <label for="review">Your Review (at least 5 words)</label>
-        
-                                <textarea id="review" name="review" class="form-control mt-2" rows="4" placeholder="Write your review here..."
-                                    minlength="5" ></textarea>
+                                <textarea id="review" name="review" class="form-control mt-2" rows="4" placeholder="Write your review here..." minlength="5">{{ old('review') }}</textarea>
+                            </div>
+
+                            <!-- Rating Input -->
+                            <div class="form-group mb-4">
+                                <label for="rating">Rating (1 to 5)</label>
+                                <select id="rating" name="rating" class="form-control">
+                                    <option value="" disabled selected>Select a rating</option>
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <option value="{{ $i }}" {{ old('rating') == $i ? 'selected' : '' }}>
+                                            {{ $i }}
+                                        </option>
+                                    @endfor
+                                </select>
                             </div>
 
                             <!-- Submit Button -->

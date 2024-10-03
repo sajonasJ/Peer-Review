@@ -25,6 +25,8 @@ class TeacherAuthenticatedSessionController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        Auth::guard('web')->logout();
+        Auth::guard('teacher')->logout();
         // Validate the request data
         $request->validate([
             'snumber' => 'required|string',
@@ -59,6 +61,7 @@ class TeacherAuthenticatedSessionController extends Controller
     {
         try {
             // Log out the teacher
+            Auth::guard('web')->logout();
             Auth::guard('teacher')->logout();
 
             // Invalidate the session
