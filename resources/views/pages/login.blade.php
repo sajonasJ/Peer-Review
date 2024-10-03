@@ -6,10 +6,6 @@
     @include('layouts.header')
 @endsection
 
-{{-- @section('nav')
-    @include('layouts.nav')
-@endsection --}}
-
 @section('content')
     <div class="container-fluid m-5">
         <div class="row justify-content-center">
@@ -25,18 +21,15 @@
                                 <label for="snumber">Student Number</label>
                                 <input type="text" name="snumber" class="form-control" placeholder="Enter your sNumber">
                             </div>
-
                             <div class="form-group mb-3">
                                 <label for="password">Password</label>
                                 <input type="password" name="password" class="form-control"
                                     placeholder="Enter your password">
                             </div>
-
                             <div class="form-group text-center">
                                 <button type="submit" class="btn btn-danger btn-block">Login</button>
                             </div>
                         </form>
-
                         <div class="text-center mt-3">
                             <p>Not yet registered? <a href="{{ route('register') }}"
                                     class="text-danger 
@@ -45,9 +38,8 @@
                                     link-danger
                                     link-underline 
                                     link-underline-opacity-0 
-                                    link-underline-opacity-75-hover">Create
-                                    an
-                                    account</a></p>
+                                    link-underline-opacity-75-hover">
+                                    Create an account</a></p>
                         </div>
                         <div class="text-center mt-3">
                             <p>Switch to: <a href="{{ route('teaching-login') }}"
@@ -57,7 +49,8 @@
                                     link-danger
                                     link-underline 
                                     link-underline-opacity-0 
-                                    link-underline-opacity-75-hover">Staff Login
+                                    link-underline-opacity-75-hover">
+                                    Staff Login
                                 </a></p>
                         </div>
                     </div>
