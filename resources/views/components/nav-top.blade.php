@@ -6,7 +6,8 @@
         <span class="divider">|</span>
         <a href="#" class="top-header-link">Contact us</a>
         <span class="divider">|</span>
-        <a href="#" class="top-header-link my-0" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        <a href="#" class="top-header-link my-0"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             Logout
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

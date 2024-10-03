@@ -9,11 +9,11 @@
 @section('header')
     @include('layouts.header')
 @endsection
+
 @section('content')
     <div class="container-fluid my-5">
         <div class="row d-flex justify-content-center">
             <div class="col-md-10">
-                <!-- Home Page Header -->
                 <div class="card d-flex w-100 justify-content-center align-items-center">
                     <div class="card-header w-100 cs-red text-white d-flex justify-content-between align-items-stretch">
                         <div class="p-0">
@@ -33,16 +33,12 @@
                             <p class="mb-0"><small id="currentDate"></small></p>
                             <div class="align-self-end">
                                 @if (Auth::guard('teacher')->check())
-                                    <button id="addCourseButton" class="btn btn-warning btn-sm btn-csw10">Add
-                                        Course</button>
+                                    <button id="addCourseButton" class="btn btn-warning btn-sm btn-csw10">
+                                        Add Course</button>
                                 @endif
                             </div>
                         </div>
-
                     </div>
-
-                    <!-- File Upload Section -->
-                    <!-- Add Course with Students and Teachers Form -->
                     <div id="addCourseCard" class="card col-md-8 mt-4 d-none">
                         <div class="card-header cs-red text-white">
                             <h5>Add New Course</h5>
@@ -56,7 +52,6 @@
                                     <input type="file" name="courseFile" id="courseFile" class="form-control"
                                         accept=".json">
                                 </div>
-
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
                                         <ul>
@@ -66,14 +61,12 @@
                                         </ul>
                                     </div>
                                 @endif
-
                                 <div class="d-flex justify-content-end">
                                     <button type="submit" class="btn btn-sm btn-danger">Import Course Data</button>
                                 </div>
                             </form>
                         </div>
                     </div>
-
                     <!-- Courses Section -->
                     <div class="card-body w-100 mt-3">
                         <h4 class="text-danger">Your Courses</h4>
@@ -91,11 +84,13 @@
                                             <strong>Course Name:</strong> {{ $course->name }}
                                         </div>
                                         <div class="d-flex">
-                                            <a href="{{ route('course-details', ['courseCode' => $course->course_code]) }}"
+                                            <a href="{{ route('course-details', [
+                                            'courseCode' => $course->course_code]) }}"
                                                 class="btn btn-primary btn-sm me-2">Go to Course</a>
                                             @if (Auth::guard('teacher')->check())
                                                 <form
-                                                    action="{{ route('delete-course', ['courseCode' => $course->course_code]) }}"
+                                                    action="{{ route('delete-course', [
+                                                    'courseCode' => $course->course_code]) }}"
                                                     method="POST"
                                                     onsubmit="return confirm('Are you sure you want to delete this course? This action cannot be undone.');">
                                                     @csrf
@@ -114,10 +109,6 @@
         </div>
     </div>
 @endsection
-
-
-
-
 
 @section('footer')
     @include('layouts.footer')
