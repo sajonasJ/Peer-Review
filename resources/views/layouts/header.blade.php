@@ -8,7 +8,6 @@
                 <h3 class="course-banner-code">Web App Development Assignment #2</h3>
                 <p class="course-banner-title">2703 ICT</p>
             @endisset
-
             <p class="mt-2">
                 @if (Auth::guard('teacher')->check())
                     <strong>Logged in as: Teacher</strong>
