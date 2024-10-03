@@ -238,4 +238,18 @@ document.addEventListener("DOMContentLoaded", function () {
             "Hide Reviewer List"
         );
     }
+
+    const addCourseButton = document.getElementById("addCourseButton");
+    const addCourseCard = document.getElementById("addCourseCard");
+    if (addCourseButton && addCourseCard) {
+        addCourseButton.addEventListener("click", function () {
+            if (addCourseCard.classList.contains("d-none")) {
+                addCourseCard.classList.remove("d-none");
+                addCourseButton.textContent = "Hide Add Course Form";
+            } else {
+                addCourseCard.classList.add("d-none");
+                addCourseButton.textContent = "Add Course";
+            }
+        });
+    }
 });
