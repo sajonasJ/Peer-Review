@@ -70,3 +70,7 @@
 @section('footer')
     @include('layouts.footer')
 @endsection
+
+@section('toasts')
+    @include('components.toasts')
+@endsection
