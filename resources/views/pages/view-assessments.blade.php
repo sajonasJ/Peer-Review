@@ -45,19 +45,28 @@
                     <div class="card-header cs-red text-white">
                         <h4>Your Reviews Sent for This Assessment</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-0">
                         @if($reviewsSent->isEmpty())
-                            <p>You have not submitted any reviews for this assessment yet.</p>
+                            <p class="p-2">You have not submitted any reviews for this assessment yet.</p>
                         @else
-                            <ul class="list-group">
-                                @foreach ($reviewsSent as $review)
-                                    <li class="list-group-item">
-                                        <p><strong>Review for:</strong> {{ $review->reviewee->name }}</p>
-                                        <p><strong>Rating:</strong> {{ $review->rating }}</p>
-                                        <p><strong>Comments:</strong> {{ $review->review_text }}</p>
-                                    </li>
-                                @endforeach
-                            </ul>
+                        <ul class="list-group">
+                            @foreach ($reviewsSent as $review)
+                                <li class="list-group-item">
+                                    <p><strong>Review for:</strong> {{ $review->reviewee->name }}</p>
+                                    <p><strong>Rating:</strong> 
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            @if ($i <= $review->rating)
+                                                <i class="bi bi-star-fill text-warning"></i> <!-- Filled star for rating -->
+                                            @else
+                                                <i class="bi bi-star text-muted"></i> <!-- Unfilled star for the rest -->
+                                            @endif
+                                        @endfor
+                                    </p>
+                                    <p><strong>Comments:</strong> {{ $review->review_text }}</p>
+                                </li>
+                            @endforeach
+                        </ul>
+                        
                         @endif
                     </div>
                 </div>
@@ -67,19 +76,28 @@
                     <div class="card-header cs-red text-white">
                         <h4>Reviews You Have Received for This Assessment</h4>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-0">
                         @if($reviewsReceived->isEmpty())
-                            <p>No reviews have been submitted for you yet.</p>
+                            <p class="p-2">No reviews have been submitted for you yet.</p>
                         @else
-                            <ul class="list-group">
-                                @foreach ($reviewsReceived as $review)
-                                    <li class="list-group-item">
-                                        <p><strong>Reviewer:</strong> {{ $review->reviewer->name }}</p>
-                                        <p><strong>Rating:</strong> {{ $review->rating }}</p>
-                                        <p><strong>Comments:</strong> {{ $review->review_text }}</p>
-                                    </li>
-                                @endforeach
-                            </ul>
+                        <ul class="list-group">
+                            @foreach ($reviewsReceived as $review)
+                                <li class="list-group-item">
+                                    <p><strong>Reviewer:</strong> {{ $review->reviewer->name }}</p>
+                                    <p><strong>Rating:</strong> 
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            @if ($i <= $review->rating)
+                                                <i class="bi bi-star-fill text-warning"></i> <!-- Filled star for rating -->
+                                            @else
+                                                <i class="bi bi-star text-muted"></i> <!-- Unfilled star for rest -->
+                                            @endif
+                                        @endfor
+                                    </p>
+                                    <p><strong>Comments:</strong> {{ $review->review_text }}</p>
+                                </li>
+                            @endforeach
+                        </ul>
+                        
                         @endif
                     </div>
                 </div>

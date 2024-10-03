@@ -34,59 +34,58 @@ class ReviewController extends Controller
         // Validate the request data including review text and rating
         $request->validate([
             'review' => 'required|string|min:5',
+            'positive_feedback' => 'required|string|min:5',
+            'improvement_feedback' => 'required|string|min:5',
             'rating' => 'required|integer|min:1|max:5', // Ensure rating is between 1 and 5
         ]);
-
+    
         try {
             // Fetch the course and assessment
             $course = Course::where('course_code', $courseCode)->firstOrFail();
             $assessment = $course->assessments()->findOrFail($assessmentId);
-
+    
             // Ensure the student being reviewed exists in the course
             $reviewee = $course->students()->findOrFail($studentId);
-
+    
             // Check if the current student (logged-in user) has already reviewed the target student for this assessment
             $existingReview = Review::where('reviewer_id', auth()->id())
                 ->where('reviewee_id', $studentId)
                 ->where('assessment_id', $assessmentId)
                 ->first();
-
+    
             if ($existingReview) {
                 return redirect()->route('view-assessment', [
                     'courseCode' => $courseCode,
                     'assessmentId' => $assessmentId
                 ])->with('error', 'You have already reviewed this student for this assessment.');
             }
-
-            // Check if the number of reviews already meets or exceeds the allowed limit for this assessment
-            $totalReviews = Review::where('assessment_id', $assessmentId)->count();
-            if ($totalReviews >= $assessment->num_reviews) {
-                return redirect()->route('view-assessment', [
-                    'courseCode' => $courseCode,
-                    'assessmentId' => $assessmentId
-                ])->with('error', 'The maximum number of reviews for this assessment has been reached.');
-            }
-
+    
+            // Concatenate review sections into a single review text
+            $concatenatedReviewText = $request->review . "\n\n"
+                . "What did the student do well?\n" . $request->positive_feedback . "\n\n"
+                . "What could be improved?\n" . $request->improvement_feedback;
+    
             // Create a new review
             Review::create([
-                'review_text' => $request->review,
+                'review_text' => $concatenatedReviewText,
                 'rating' => $request->rating,
                 'reviewer_id' => auth()->id(),
                 'reviewee_id' => $studentId,
                 'assessment_id' => $assessmentId,
             ]);
-
+    
             // Redirect back to the assessment view page with a success message
             return redirect()->route('view-assessment', [
                 'courseCode' => $courseCode,
                 'assessmentId' => $assessmentId
             ])->with('success', 'Review submitted successfully!');
         } catch (\Exception $e) {
-            Log::error('Error submitting review', ['error' => $e->getMessage()]);
+            // Log the error (you can also use Log::error)
             return redirect()->route('view-assessment', [
                 'courseCode' => $courseCode,
                 'assessmentId' => $assessmentId
             ])->with('error', 'An error occurred while submitting your review. Please try again.');
         }
     }
+    
 }

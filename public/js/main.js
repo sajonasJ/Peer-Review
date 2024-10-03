@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const greetingElement = document.getElementById("greeting");
     const userNameElement = document.getElementById("userName");
     const dateElement = document.getElementById("currentDate");
-    const userTypeTextElement = document.getElementById("userTypeText");
 
     if (greetingElement && userNameElement && dateElement) {
         const userName = userNameElement.textContent.trim() || "User";
@@ -100,9 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Student Search Filtering (only if elements are present)
     const addStudentBtn = document.getElementById("addStudentBtn");
     const backToEnrolledBtn = document.getElementById("backToEnrolledBtn");
-    const enrolledStudentsCard = document.getElementById(
-        "enrolledStudentsCard"
-    );
+    const enrolledStudentsCard = document.getElementById("enrolledStudentsCard");
     const enrollStudentCard = document.getElementById("enrollStudentCard");
     const searchInput = document.getElementById("studentSearch");
     const studentList = document.getElementById("studentList");
@@ -127,9 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (studentList && searchInput) {
-        const students = Array.from(
-            studentList.querySelectorAll(".list-group-item")
-        );
+        const students = Array.from(studentList.querySelectorAll(".list-group-item"));
 
         // Filter students when typing in the search bar
         searchInput.addEventListener("input", function () {
@@ -138,8 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
             students.forEach(function (student) {
                 const studentInfoElement = student.querySelector("div");
                 if (studentInfoElement) {
-                    const studentInfo =
-                        studentInfoElement.textContent.toLowerCase();
+                    const studentInfo = studentInfoElement.textContent.toLowerCase();
                     // Check if student info contains the filter value and adjust display accordingly
                     if (studentInfo.includes(filter)) {
                         student.classList.remove("hidden");
@@ -154,10 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Reusable function to toggle visibility and update button text with persistent state in localStorage
     function toggleVisibility(button, element, showText, hideText) {
         button.addEventListener("click", function () {
-            if (
-                element.style.display === "none" ||
-                element.style.display === ""
-            ) {
+            if (element.style.display === "none" || element.style.display === "") {
                 element.style.display = "block";
                 button.textContent = hideText;
                 localStorage.setItem(button.id, "true");
@@ -181,23 +172,14 @@ document.addEventListener("DOMContentLoaded", function () {
             toggleButton.textContent = "Show Students";
         }
 
-        toggleVisibility(
-            toggleButton,
-            studentList,
-            "Show Students",
-            "Hide Students"
-        );
+        toggleVisibility(toggleButton, studentList, "Show Students", "Hide Students");
     }
 
     // Toggle Assign Reviewee List
-    const toggleAssignRevieweeButton = document.getElementById(
-        "toggleAssignRevieweeList"
-    );
+    const toggleAssignRevieweeButton = document.getElementById("toggleAssignRevieweeList");
     const assignRevieweeList = document.getElementById("assignRevieweeList");
     if (toggleAssignRevieweeButton && assignRevieweeList) {
-        const showRevieweeList = localStorage.getItem(
-            "toggleAssignRevieweeList"
-        );
+        const showRevieweeList = localStorage.getItem("toggleAssignRevieweeList");
         if (showRevieweeList === "true") {
             assignRevieweeList.style.display = "block";
             toggleAssignRevieweeButton.textContent = "Hide Reviewee List";
@@ -206,23 +188,14 @@ document.addEventListener("DOMContentLoaded", function () {
             toggleAssignRevieweeButton.textContent = "Add Reviewee";
         }
 
-        toggleVisibility(
-            toggleAssignRevieweeButton,
-            assignRevieweeList,
-            "Add Reviewee",
-            "Hide Reviewee List"
-        );
+        toggleVisibility(toggleAssignRevieweeButton, assignRevieweeList, "Add Reviewee", "Hide Reviewee List");
     }
 
     // Toggle Assign Reviewer List
-    const toggleAssignReviewerButton = document.getElementById(
-        "toggleAssignReviewerList"
-    );
+    const toggleAssignReviewerButton = document.getElementById("toggleAssignReviewerList");
     const assignReviewerList = document.getElementById("assignReviewerList");
     if (toggleAssignReviewerButton && assignReviewerList) {
-        const showReviewerList = localStorage.getItem(
-            "toggleAssignReviewerList"
-        );
+        const showReviewerList = localStorage.getItem("toggleAssignReviewerList");
         if (showReviewerList === "true") {
             assignReviewerList.style.display = "block";
             toggleAssignReviewerButton.textContent = "Hide Reviewer List";
@@ -231,12 +204,7 @@ document.addEventListener("DOMContentLoaded", function () {
             toggleAssignReviewerButton.textContent = "Add Reviewer";
         }
 
-        toggleVisibility(
-            toggleAssignReviewerButton,
-            assignReviewerList,
-            "Add Reviewer",
-            "Hide Reviewer List"
-        );
+        toggleVisibility(toggleAssignReviewerButton, assignReviewerList, "Add Reviewer", "Hide Reviewer List");
     }
 
     const addCourseButton = document.getElementById("addCourseButton");
@@ -250,6 +218,52 @@ document.addEventListener("DOMContentLoaded", function () {
                 addCourseCard.classList.add("d-none");
                 addCourseButton.textContent = "Add Course";
             }
+        });
+    }
+
+    // Update Word Count and Quality Indicator for the Review
+    const reviewTextarea = document.getElementById("review");
+    const reviewQualityIndicator = document.getElementById("reviewQualityIndicator");
+    const wordCountIndicator = document.getElementById("wordCountIndicator");
+
+    if (reviewTextarea && reviewQualityIndicator && wordCountIndicator) {
+        reviewTextarea.addEventListener("input", function () {
+            updateWordCountAndQuality();
+        });
+    }
+
+    function updateWordCountAndQuality() {
+        const reviewText = reviewTextarea.value;
+        const wordCount = reviewText.split(/\s+/).filter((word) => word.length > 0).length;
+        wordCountIndicator.innerText = `Word Count: ${wordCount}`;
+
+        // Update quality indicator
+        if (wordCount < 5) {
+            reviewQualityIndicator.innerHTML = `<i class="bi bi-exclamation-triangle-fill text-warning"></i> - Too short, you can do better`;
+        } else if (wordCount < 10) {
+            reviewQualityIndicator.innerHTML = `<i class="bi bi-hand-thumbs-down-fill text-warning"></i> - Could be improved, always aim for more`;
+        } else if (wordCount < 15) {
+            reviewQualityIndicator.innerHTML = `<i class="bi bi-check-circle-fill text-success"></i> - Good job, you're on the right track`;
+        } else if (wordCount < 20) {
+            reviewQualityIndicator.innerHTML = `<i class="bi bi-star-fill text-warning"></i> - Better, already showing potential`;
+        } else {
+            reviewQualityIndicator.innerHTML = `<i class="bi bi-trophy-fill text-warning"></i> - Great Work, you're a star keep it up`;
+        }
+    }
+
+    // Concatenate all inputs into the 'review' field on submit
+    const reviewForm = document.getElementById("reviewForm");
+    if (reviewForm) {
+        reviewForm.addEventListener("submit", function () {
+            const mainReview = reviewTextarea.value.trim();
+            const positiveFeedback = document.getElementById("positive-feedback").value.trim();
+            const improvementFeedback = document.getElementById("improvement-feedback").value.trim();
+
+            // Concatenate all inputs into one review text
+            const concatenatedReview = `${mainReview}\n\nWhat did the student do well?\n${positiveFeedback}\n\nWhat could be improved?\n${improvementFeedback}`;
+
+            // Set the concatenated review back to the hidden review textarea
+            reviewTextarea.value = concatenatedReview;
         });
     }
 });
