@@ -15,11 +15,12 @@
         <div class="course-title px-3 py-2">
             <div class="d-flex align-items-center justify-content-between">
                 <div class="d-flex gap-4 ">
-                    <a href="{{ route('course-details', ['courseCode' => $course->course_code]) }}"
+                    <a href="{{ route('course-details', [
+                        'courseCode' => $course->course_code,
+                    ]) }}"
                         class="btn btn-sm h-25 btn-warning">Back</a>
                     <h3>{{ $course->course_code }} {{ $course->name }}</h3>
                 </div>
-                <!-- Button to toggle student list -->
                 <div>
                     @if ($assessment->type === 'student-select')
                         <button id="toggleStudentList" class="btn btn-sm btn-csw10 btn-danger">Show Students</button>
@@ -29,10 +30,8 @@
                 </div>
             </div>
         </div>
-
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <!-- Assessment Details Card -->
                 <div class="card my-3">
                     <div class="card-header cs-red text-white d-flex justify-content-between align-items-center">
                         <h4>Assessment Details</h4>
@@ -60,7 +59,6 @@
                         <p><strong>Review Type:</strong> {{ $assessment->type }}</p>
                     </div>
                 </div>
-
                 <div id="studentList" class="p-0" style="display: none;">
                     <div class="card my-3">
                         <div class="card-header cs-red text-white">
@@ -102,16 +100,13 @@
                                         </li>
                                     @endforeach
                                 </ul>
-                                <!-- Pagination Links -->
                                 <div class="mt-3 d-flex justify-content-center">
                                     {!! $students->appends(['showStudents' => request('showStudents')])->links('pagination::bootstrap-4') !!}
                                 </div>
-
                             @endif
                         </div>
                     </div>
                 </div>
-
                 @if ($selectedStudent)
                     <div class="card my-3">
                         <div class="card-header cs-red text-white d-flex justify-content-between align-items-center">
@@ -123,31 +118,28 @@
                             @if ($studentReviewsReceived->isEmpty())
                                 <p class="p-2">No reviews received yet.</p>
                             @else
-                            <ul class="list-group">
-                                @foreach ($studentReviewsReceived as $review)
-                                    <li class="list-group-item">
-                                        <p><strong>Reviewer:</strong> {{ $review->reviewer->name }}</p>
-                                        <p><strong>Review Text:</strong> {{ $review->review_text }}</p>
-                                        <p><strong>Rating:</strong>
-                                            <span class="review-stars">
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    @if ($i <= $review->rating)
-                                                        <i class="bi bi-star-fill text-warning"></i>
-                                                    @else
-                                                        <i class="bi bi-star text-muted"></i>
-                                                    @endif
-                                                @endfor
-                                            </span>
-                                        </p>
-                                    </li>
-                                @endforeach
-                            </ul>
-                            
+                                <ul class="list-group">
+                                    @foreach ($studentReviewsReceived as $review)
+                                        <li class="list-group-item">
+                                            <p><strong>Reviewer:</strong> {{ $review->reviewer->name }}</p>
+                                            <p><strong>Review Text:</strong> {{ $review->review_text }}</p>
+                                            <p><strong>Rating:</strong>
+                                                <span class="review-stars">
+                                                    @for ($i = 1; $i <= 5; $i++)
+                                                        @if ($i <= $review->rating)
+                                                            <i class="bi bi-star-fill text-warning"></i>
+                                                        @else
+                                                            <i class="bi bi-star text-muted"></i>
+                                                        @endif
+                                                    @endfor
+                                                </span>
+                                            </p>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             @endif
                         </div>
                     </div>
-                    <!-- Add Reviewer List Section -->
-
                     <div id="assignReviewerList" class="card p-0" style="display: none;">
                         <div class="card-header cs-red text-white">
                             <h4>Assign Reviewer</h4>
@@ -155,7 +147,6 @@
                         <div>
                             <input type="text" id="studentSearchAssignReviewer" class="form-control"
                                 placeholder="Search student by name or sNumber">
-
                         </div>
                         <div class="card-body p-0">
                             <ul class="list-group p-0">
@@ -167,26 +158,27 @@
                                                 <p><strong>Student Number:</strong> {{ $student->snumber }}</p>
                                             </div>
                                             <form
-                                                action="{{ route('assign-reviewer', ['courseCode' => $course->course_code, 'assessmentId' => $assessment->id]) }}"
+                                                action="{{ route('assign-reviewer', [
+                                                    'courseCode' => $course->course_code,
+                                                    'assessmentId' => $assessment->id,
+                                                ]) }}"
                                                 method="POST">
                                                 @csrf
                                                 <input type="hidden" name="student_id" value="{{ $student->id }}">
                                                 <button type="submit" class="btn btn-primary btn-sm disabled">Add
                                                     Reviewer</button>
                                             </form>
-
                                         </li>
                                     @endif
                                 @endforeach
                             </ul>
                         </div>
                     </div>
-
                     <div class="card my-3">
                         <div class="card-header cs-red text-white d-flex justify-content-between align-items-center">
                             <h4>Reviews Sent by {{ $selectedStudent->name }}</h4>
-                            <button id="toggleAssignRevieweeList" class="btn btn-sm btn-csw10 btn-warning">Add
-                                Reviewee</button>
+                            <button id="toggleAssignRevieweeList" class="btn btn-sm btn-csw10 btn-warning">
+                                Add Reviewee</button>
                         </div>
                         <div class="card-body p-0">
                             @if ($studentReviewsSent->isEmpty())
@@ -206,8 +198,6 @@
                     </div>
                 @endif
 
-
-
                 <!-- Add Reviewee List Section -->
                 <div id="assignRevieweeList" class="card p-0 my-3" style="display: none;">
                     <div class="card-header cs-red text-white">
@@ -216,7 +206,6 @@
                     <div>
                         <input type="text" id="studentSearchAssignReviewee" class="form-control"
                             placeholder="Search student by name or sNumber">
-
                     </div>
                     <div class="card-body p-0">
                         <ul class="list-group p-0">
@@ -228,14 +217,16 @@
                                             <p><strong>Student Number:</strong> {{ $student->snumber }}</p>
                                         </div>
                                         <form
-                                            action="{{ route('assign-reviewee', ['courseCode' => $course->course_code, 'assessmentId' => $assessment->id]) }}"
+                                            action="{{ route('assign-reviewee', [
+                                                'courseCode' => $course->course_code,
+                                                'assessmentId' => $assessment->id,
+                                            ]) }}"
                                             method="POST">
                                             @csrf
                                             <input type="hidden" name="student_id" value="{{ $student->id }}">
-                                            <button type="submit" class="btn btn-primary btn-sm disabled">Add
-                                                Reviewee</button>
+                                            <button type="submit" class="btn btn-primary btn-sm disabled">
+                                                Add Reviewee</button>
                                         </form>
-
                                     </li>
                                 @endif
                             @endforeach
