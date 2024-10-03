@@ -123,15 +123,26 @@
                             @if ($studentReviewsReceived->isEmpty())
                                 <p class="p-2">No reviews received yet.</p>
                             @else
-                                <ul class="list-group">
-                                    @foreach ($studentReviewsReceived as $review)
-                                        <li class="list-group-item">
-                                            <p><strong>Reviewer:</strong> {{ $review->reviewer->name }}</p>
-                                            <p><strong>Review Text:</strong> {{ $review->review_text }}</p>
-                                            <p><strong>Rating:</strong> {{ $review->rating }}</p>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                            <ul class="list-group">
+                                @foreach ($studentReviewsReceived as $review)
+                                    <li class="list-group-item">
+                                        <p><strong>Reviewer:</strong> {{ $review->reviewer->name }}</p>
+                                        <p><strong>Review Text:</strong> {{ $review->review_text }}</p>
+                                        <p><strong>Rating:</strong>
+                                            <span class="review-stars">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= $review->rating)
+                                                        <i class="bi bi-star-fill text-warning"></i>
+                                                    @else
+                                                        <i class="bi bi-star text-muted"></i>
+                                                    @endif
+                                                @endfor
+                                            </span>
+                                        </p>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            
                             @endif
                         </div>
                     </div>
