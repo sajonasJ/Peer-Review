@@ -42,7 +42,7 @@
                                 <label for="review">Your Review (at least 5 words)</label>
         
                                 <textarea id="review" name="review" class="form-control mt-2" rows="4" placeholder="Write your review here..."
-                                    minlength="5" required></textarea>
+                                    minlength="5" ></textarea>
                             </div>
 
                             <!-- Submit Button -->

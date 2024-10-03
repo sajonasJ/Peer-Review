@@ -24,12 +24,13 @@ class AuthController extends Controller
             // Manually log in the user
             Auth::guard('web')->login($student);
 
-
-            // Redirect to the home page
-            return redirect()->route('home');
+            // Redirect to the home page with a success message
+            return redirect()->route('home')
+                ->with('success', 'Logged in successfully! Welcome back, ' . $student->name . '!');
         }
 
-        // If the credentials do not match
-        return redirect()->route('login')->withErrors(['Invalid credentials, please try again.']);
+        // If the credentials do not match, redirect back to login with error message
+        return redirect()->route('login')
+            ->with('error', 'Invalid credentials, please try again.');
     }
 }

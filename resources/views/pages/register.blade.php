@@ -19,32 +19,28 @@
                             @csrf
                             <div class="form-group mb-3">
                                 <label for="name">Full Name</label>
-                                <input type="text" name="name" class="form-control" placeholder="Enter your name"
-                                    required>
+                                <input type="text" name="name" class="form-control" placeholder="Enter your name">
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="email">Email Address</label>
-                                <input type="email" name="email" class="form-control" placeholder="Enter your email"
-                                    required>
+                                <input type="email" name="email" class="form-control" placeholder="Enter your email">
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="snumber">sNumber</label>
-                                <input type="text" name="snumber" class="form-control" placeholder="Enter your sNumber"
-                                    required>
+                                <input type="text" name="snumber" class="form-control" placeholder="Enter your sNumber">
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="password">Password</label>
-                                <input type="password" name="password" class="form-control" placeholder="Create a password"
-                                    required>
+                                <input type="password" name="password" class="form-control" placeholder="Create a password">
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="password_confirmation">Confirm Password</label>
                                 <input type="password" name="password_confirmation" class="form-control"
-                                    placeholder="Re-type password" required>
+                                    placeholder="Re-type password">
                             </div>
 
                             <!-- Display Validation Errors -->

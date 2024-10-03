@@ -24,13 +24,13 @@
                             <div class="form-group mb-3">
                                 <label for="snumber">Enter your Staff Number</label>
                                 <input type="text" name="snumber" class="form-control" placeholder="Enter your sNumber"
-                                    required>
+                                    >
                             </div>
 
                             <div class="form-group mb-3">
                                 <label for="password">Password</label>
                                 <input type="password" name="password" class="form-control"
-                                    placeholder="Enter your password" required>
+                                    placeholder="Enter your password" >
                             </div>
 
                             <div class="form-group text-center">

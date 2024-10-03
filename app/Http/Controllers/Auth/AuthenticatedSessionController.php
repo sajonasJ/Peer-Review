@@ -3,58 +3,69 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-// use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Display the login view.
-     */
     public function create(): View
     {
         return view('pages.login');
     }
 
-    /**
-     * Handle an incoming authentication request.
-     */
     public function store(Request $request): RedirectResponse
     {
-        // Validate the incoming request data
-        $request->validate([
-            'snumber' => 'required|string',
-            'password' => 'required|string',
-        ]);
-
-        // Attempt to authenticate using the 'web' guard which is configured for students
-        if (Auth::guard('web')->attempt(['snumber' => $request->snumber, 'password' => $request->password], $request->filled('remember'))) {
-            $request->session()->regenerate();
-
-            // Redirect to intended page after successful login
-            return redirect()->intended('/home');
+        // Validation with custom error handling
+        try {
+            $request->validate([
+                'snumber' => 'required|string',
+                'password' => 'required|string',
+            ]);
+        } catch (ValidationException $e) {
+            return back()
+                ->with('error', 'Validation failed: Please provide both student number and password correctly.')
+                ->onlyInput('snumber');
         }
 
-        // If authentication fails, redirect back with errors
-        return back()->withErrors([
-            'snumber' => 'The provided credentials do not match our records.',
-        ])->onlyInput('snumber');
+        // Attempt authentication
+        try {
+            if (Auth::guard('web')->attempt([
+                'snumber' => $request->snumber,
+                'password' => $request->password
+            ], $request->filled('remember'))) {
+                $request->session()->regenerate();
+
+                return redirect()
+                    ->intended('/home')
+                    ->with('success', 'Logged in successfully! Welcome back, ' . Auth::user()->name . '!');
+            }
+
+            // Authentication failed
+            return back()
+                ->with('error', 'The provided credentials do not match our records.')
+                ->onlyInput('snumber');
+        } catch (\Exception $e) {
+            // Unexpected error during authentication
+            return back()
+                ->with('error', 'An unexpected error occurred during login. Please try again.');
+        }
     }
 
-    /**
-     * Destroy an authenticated session.
-     */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('web')->logout();
+        try {
+            Auth::guard('web')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect('/');
+            return redirect('/')
+                ->with('success', 'Logged out successfully.');
+        } catch (\Exception $e) {
+            return redirect('/')
+                ->with('error', 'An error occurred during logout. Please try again.');
+        }
     }
 }

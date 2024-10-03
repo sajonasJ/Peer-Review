@@ -54,7 +54,7 @@
                                 <div class="mb-3">
                                     <label for="courseFile" class="form-label">Upload Course File ( .json file )</label>
                                     <input type="file" name="courseFile" id="courseFile" class="form-control"
-                                        accept=".json" required>
+                                        accept=".json">
                                 </div>
 
                                 @if ($errors->any())
