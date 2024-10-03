@@ -16,12 +16,12 @@ Route::get('/', function () {
     return view('pages.login');
 })->name('login');
 
-// Registration routes grouped with 'guest' middleware
 Route::middleware('guest')->group(function () {
     Route::get(
         '/register',
         [RegisteredUserController::class, 'create']
     )->name('register');
+
     Route::post(
         '/register',
         [RegisteredUserController::class, 'store']
@@ -37,13 +37,11 @@ Route::post(
     [AuthenticatedSessionController::class, 'store']
 )->name('student.login');
 
-// Handle teacher login form submission
 Route::post(
     '/teacher/login',
     [TeacherAuthenticatedSessionController::class, 'store']
 )->name('teacher.login');
 
-// Handle teacher logout
 Route::post(
     '/teacher/logout',
     [TeacherAuthenticatedSessionController::class, 'destroy']
@@ -52,13 +50,12 @@ Route::post(
 Route::post(
     '/logout',
     [AuthenticatedSessionController::class, 'destroy']
-)
-    ->middleware('auth')
+)->middleware('auth')
     ->name('logout');
 
 Route::middleware(['auth:web,teacher'])->group(function () {
-    Route::get('/home', [CourseController::class, 'index'])->name('home');
-
+    Route::get('/home', [CourseController::class, 'index'])
+        ->name('home');
 
     Route::get('/course-details', function () {
         return view('pages.course-details');
@@ -68,71 +65,66 @@ Route::middleware(['auth:web,teacher'])->group(function () {
         [CourseController::class, 'show']
     )->name('course-details');
 
-    // Route to show the add assessment form
     Route::get(
         '/course-details/{courseCode}/add-assessment',
         [AssessmentController::class, 'create']
     )->name('add-assessment');
 
-    // Route to store the new assessment
     Route::post(
         '/course-details/{courseCode}/add-assessment',
         [AssessmentController::class, 'store']
     )->name('store-assessment');
 
-    // Route to display the details of a specific assessment
     Route::get(
         '/course-details/{courseCode}/assessment-details/{assessmentId}',
         [AssessmentController::class, 'show']
     )->name('assessment-details');
 
-    // Route to show the add review form
     Route::get(
         '/course-details/{courseCode}/add-review/{studentId}/{assessmentId}',
         [ReviewController::class, 'create']
     )->name('add-review');
 
-    // Route to store the new review
     Route::post(
         '/course-details/{courseCode}/add-review/{studentId}/{assessmentId}',
         [ReviewController::class, 'store']
     )->name('store-review');
 
-
-
-
-    // Route to update an existing assessment (using POST instead of PUT)
     Route::post(
         '/course-details/{courseCode}/assessment-details/{assessmentId}/update',
         [AssessmentController::class, 'update']
     )->name('update-assessment');
 
-
-    // Route to edit an existing assessment
     Route::get(
         '/course-details/{courseCode}/assessments/{assessmentId}/edit',
         [AssessmentController::class, 'edit']
     )->name('edit-assessment');
 
-    Route::post('/course-details/{courseCode}/enroll-student/{studentId}', [CourseController::class, 'enrollStudent'])->name('enroll-student');
+    Route::post(
+        '/course-details/{courseCode}/enroll-student/{studentId}',
+        [CourseController::class, 'enrollStudent']
+    )->name('enroll-student');
 
-    Route::post('/import-course-data', [CourseController::class, 'importCourseData'])->name('import-course-data');
-    Route::delete('/delete-course/{courseCode}', [CourseController::class, 'deleteCourse'])->name('delete-course');
+    Route::post(
+        '/import-course-data',
+        [CourseController::class, 'importCourseData']
+    )->name('import-course-data');
 
-    // Route to assign a reviewee to an assessment
-    // Route to assign a reviewee to an assessment
+    Route::delete(
+        '/delete-course/{courseCode}',
+        [CourseController::class, 'deleteCourse']
+    )->name('delete-course');
+
     Route::post(
         '/course-details/{courseCode}/assessment-details/{assessmentId}/assign-reviewee',
         [AssessmentController::class, 'assignReviewee']
     )->name('assign-reviewee');
 
-    // Route to assign a reviewer to an assessment
     Route::post(
         '/course-details/{courseCode}/assessment-details/{assessmentId}/assign-reviewer',
         [AssessmentController::class, 'assignReviewer']
     )->name('assign-reviewer');
 
-    // Route to view assessment (Student View)
     Route::get(
         '/course-details/{courseCode}/assessment/{assessmentId}/view',
         [AssessmentController::class, 'viewAssessment']
