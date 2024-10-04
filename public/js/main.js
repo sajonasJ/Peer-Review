@@ -232,30 +232,43 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function updateWordCountAndQuality() {
-        const reviewText = reviewTextarea.value;
-        const wordCount = reviewText.split(/\s+/).filter((word) => word.length > 0).length;
+    function updateWordCountAndQuality(textarea) {
+        // Get the word count and quality indicator for the current textarea
+        const wordCountIndicator = textarea.nextElementSibling; // Assuming <small> follows the <textarea>
+        const qualityIndicator = textarea.previousElementSibling.querySelector('.quality-indicator');
+
+        const wordCount = textarea.value.split(/\s+/).filter((word) => word.length > 0).length;
+
+        // Update word count indicator
         wordCountIndicator.innerText = `Word Count: ${wordCount}`;
 
         // Update quality indicator
         if (wordCount < 5) {
-            reviewQualityIndicator.innerHTML = `<i class="bi bi-exclamation-triangle-fill text-warning"></i> - Too short, you can do better`;
+            qualityIndicator.innerHTML = `<i class="bi bi-exclamation-triangle-fill text-warning"></i> - Too short, you can do better`;
         } else if (wordCount < 10) {
-            reviewQualityIndicator.innerHTML = `<i class="bi bi-hand-thumbs-down-fill text-warning"></i> - Could be improved, always aim for more`;
+            qualityIndicator.innerHTML = `<i class="bi bi-hand-thumbs-down-fill text-warning"></i> - Could be improved, always aim for more`;
         } else if (wordCount < 15) {
-            reviewQualityIndicator.innerHTML = `<i class="bi bi-check-circle-fill text-success"></i> - Good job, you're on the right track`;
+            qualityIndicator.innerHTML = `<i class="bi bi-check-circle-fill text-success"></i> - Good job, you're on the right track`;
         } else if (wordCount < 20) {
-            reviewQualityIndicator.innerHTML = `<i class="bi bi-star-fill text-warning"></i> - Better, already showing potential`;
+            qualityIndicator.innerHTML = `<i class="bi bi-star-fill text-warning"></i> - Better, already showing potential`;
         } else {
-            reviewQualityIndicator.innerHTML = `<i class="bi bi-trophy-fill text-warning"></i> - Great Work, you're a star keep it up`;
+            qualityIndicator.innerHTML = `<i class="bi bi-trophy-fill text-warning"></i> - Great Work, you're a star, keep it up`;
         }
     }
+
+    // Apply the word count and quality update to each textarea
+    const textareas = document.querySelectorAll('textarea');
+    textareas.forEach((textarea) => {
+        textarea.addEventListener('input', function () {
+            updateWordCountAndQuality(textarea);
+        });
+    });
 
     // Concatenate all inputs into the 'review' field on submit
     const reviewForm = document.getElementById("reviewForm");
     if (reviewForm) {
         reviewForm.addEventListener("submit", function () {
-            const mainReview = reviewTextarea.value.trim();
+            const mainReview = document.getElementById("review").value.trim();
             const positiveFeedback = document.getElementById("positive-feedback").value.trim();
             const improvementFeedback = document.getElementById("improvement-feedback").value.trim();
 
@@ -263,7 +276,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const concatenatedReview = `${mainReview}\n\nWhat did the student do well?\n${positiveFeedback}\n\nWhat could be improved?\n${improvementFeedback}`;
 
             // Set the concatenated review back to the hidden review textarea
-            reviewTextarea.value = concatenatedReview;
+            document.getElementById("review").value = concatenatedReview;
         });
     }
 });

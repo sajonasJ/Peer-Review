@@ -45,29 +45,43 @@
                                     <li>Avoid using harsh or discouraging language.</li>
                                 </ul>
                             </div>
+                            <!-- Review Text Area with Word Count and Quality Indicator -->
                             <div class="form-group mb-4">
                                 <h5>Reviewee: {{ $student->name }}</h5>
                                 <label for="review">Your Review (at least 5 words)
-                                    <span id="reviewQualityIndicator" class="ms-2 text-muted">
+                                    <span class="quality-indicator ms-2 text-muted">
                                         <i class="bi bi-exclamation-triangle-fill text-warning"></i> - Too Short
                                     </span>
                                 </label>
                                 <textarea id="review" name="review" class="form-control mt-2" rows="4" placeholder="Write your review here..."
                                     minlength="5">{{ old('review') }}</textarea>
-                                <small id="wordCountIndicator" class="text-muted">Word Count: 0</small>
+                                <small class="text-muted">Word Count: 0</small>
                             </div>
+
                             <!-- Positive Feedback Section -->
                             <div class="form-group mb-4">
-                                <label for="positive-feedback">What did the student do well?</label>
+                                <label for="positive-feedback">What did the student do well?
+                                    <span class="quality-indicator ms-2 text-muted">
+                                        <i class="bi bi-exclamation-triangle-fill text-warning"></i> - Too Short
+                                    </span>
+                                </label>
                                 <textarea id="positive-feedback" name="positive_feedback" class="form-control mt-2" rows="3"
                                     placeholder="Write what was done well...">{{ old('positive_feedback') }}</textarea>
+                                <small class="text-muted">Word Count: 0</small>
                             </div>
+
                             <!-- Improvement Feedback Section -->
                             <div class="form-group mb-4">
-                                <label for="improvement-feedback">What could be improved?</label>
+                                <label for="improvement-feedback">What could be improved?
+                                    <span class="quality-indicator ms-2 text-muted">
+                                        <i class="bi bi-exclamation-triangle-fill text-warning"></i> - Too Short
+                                    </span>
+                                </label>
                                 <textarea id="improvement-feedback" name="improvement_feedback" class="form-control mt-2" rows="3"
                                     placeholder="Write what could be improved...">{{ old('improvement_feedback') }}</textarea>
+                                <small class="text-muted">Word Count: 0</small>
                             </div>
+
                             <!-- Rating Input -->
                             <div class="form-group mb-4">
                                 <label for="rating">Rating (1 to 5)</label>
