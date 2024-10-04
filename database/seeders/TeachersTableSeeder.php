@@ -15,7 +15,5 @@ class TeachersTableSeeder extends Seeder
     {
         Teacher::factory()->count(5)->create();
         Teacher::factory()->predefinedTeacher()->create();
-
-
     }
 }

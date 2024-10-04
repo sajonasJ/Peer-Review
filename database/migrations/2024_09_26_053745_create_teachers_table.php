@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique(); 
+            $table->string('email')->unique();
             $table->string('snumber')->unique();
             $table->string('password');
             $table->rememberToken();
@@ -32,7 +32,7 @@ return new class extends Migration
         DB::statement('PRAGMA foreign_keys = OFF;');
 
         Schema::dropIfExists('teachers');
-    
+
         // Re-enable foreign key checks
         DB::statement('PRAGMA foreign_keys = ON;');
     }

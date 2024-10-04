@@ -13,8 +13,6 @@ class CoursesTableSeeder extends Seeder
     public function run()
     {
         Course::truncate();
-
-
         $courses = [
             ['course_code' => 'CS101', 'name' => 'Introduction to Computer Science'],
             ['course_code' => 'MATH201', 'name' => 'Calculus II'],

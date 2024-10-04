@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-    
+
 
     /**
      * Reverse the migrations.
@@ -31,7 +31,7 @@ return new class extends Migration
         DB::statement('PRAGMA foreign_keys = OFF;');
 
         Schema::dropIfExists('teacher_courses');
-    
+
         // Re-enable foreign key checks
         DB::statement('PRAGMA foreign_keys = ON;');
     }
