@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -20,11 +21,11 @@ class Course extends Model
     {
         return $this->belongsToMany(
             Student::class,
-            'student_courses',      // Pivot table name
-            'course_code',          // Foreign key on the pivot table for the Course model
-            'student_id',           // Foreign key on the pivot table for the Student model
-            'course_code',          // Local key on Course model (course_code)
-            'id'                    // Related key on Student model (primary key)
+            'student_courses',
+            'course_code',
+            'student_id',
+            'course_code',
+            'id'
         );
     }
 
@@ -33,11 +34,11 @@ class Course extends Model
     {
         return $this->belongsToMany(
             Teacher::class,
-            'teacher_courses',     // Pivot table name
-            'course_code',         // Foreign key on the pivot table for the Course model
-            'teacher_id',          // Foreign key on the pivot table for the Teacher model
-            'course_code',         // Local key on the Course model
-            'id'                   // Related key on Teacher model (primary key)
+            'teacher_courses',
+            'course_code',
+            'teacher_id',
+            'course_code',
+            'id'
         );
     }
 

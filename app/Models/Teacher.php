@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +20,8 @@ class Teacher extends Authenticatable
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     // Define the relationship to courses
@@ -27,11 +29,11 @@ class Teacher extends Authenticatable
     {
         return $this->belongsToMany(
             Course::class,
-            'teacher_courses',     // Pivot table name
-            'teacher_id',          // Foreign key on pivot table for the Teacher model
-            'course_code',         // Foreign key on pivot table for the Course model
-            'id',                  // Local key on Teacher model
-            'course_code'          // Local key on Course model
+            'teacher_courses',
+            'teacher_id',
+            'course_code',
+            'id',
+            'course_code'
         );
     }
 }

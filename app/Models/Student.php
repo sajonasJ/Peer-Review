@@ -30,21 +30,20 @@ class Student extends Authenticatable
     {
         return $this->belongsToMany(
             Course::class,
-            'student_courses',      // Pivot table name
-            'student_id',           // Foreign key on pivot table for the Student model
-            'course_code',          // Foreign key on pivot table for the Course model
-            'id',                   // Local key on Student model (primary key)
-            'course_code'           // Related key on Course model
+            'student_courses',
+            'student_id',
+            'course_code',
+            'id',
+            'course_code'
         );
     }
     public function reviewsGiven()
     {
         return $this->hasMany(Review::class, 'reviewer_id');
     }
-    
+
     public function reviewsReceived()
     {
         return $this->hasMany(Review::class, 'reviewee_id');
     }
-    
 }
