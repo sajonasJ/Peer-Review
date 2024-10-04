@@ -23,10 +23,8 @@
                 </div>
             </div>
         </div>
-
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <!-- Assessment Details Card -->
                 <div class="card my-3">
                     <div class="card-header cs-red text-white d-flex justify-content-between align-items-center">
                         <h4>Assessment Details</h4>
@@ -43,7 +41,6 @@
                         <p><strong>Review Type:</strong> {{ $assessment->type }}</p>
                     </div>
                 </div>
-
                 <!-- Reviews Given by the Student -->
                 <div class="card my-3">
                     <div class="card-header cs-red text-white">
@@ -73,7 +70,6 @@
                         @endif
                     </div>
                 </div>
-
                 <!-- Reviews Received by the Student -->
                 <div class="card my-3">
                     <div class="card-header cs-red text-white">
@@ -100,12 +96,9 @@
                                     </li>
                                 @endforeach
                             </ul>
-
                         @endif
                     </div>
                 </div>
-
-                <!-- Enrolled Students Section -->
                 <div id="studentList" class="p-0">
                     <div class="card my-3">
                         <div class="card-header cs-red text-white">
@@ -116,7 +109,6 @@
                                 placeholder="Search student by name or sNumber">
                         </div>
                         <div class="card-body p-0">
-
                             <ul class="list-group p-0">
                                 @foreach ($students as $student)
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -135,7 +127,6 @@
                                     </li>
                                 @endforeach
                             </ul>
-                            <!-- Pagination Links -->
                             <div class="mt-3 d-flex justify-content-center">
                                 {!! $students->appends([
                                         'showStudents' => request('showStudents'),

@@ -56,21 +56,18 @@
                                     minlength="5">{{ old('review') }}</textarea>
                                 <small id="wordCountIndicator" class="text-muted">Word Count: 0</small>
                             </div>
-
                             <!-- Positive Feedback Section -->
                             <div class="form-group mb-4">
                                 <label for="positive-feedback">What did the student do well?</label>
                                 <textarea id="positive-feedback" name="positive_feedback" class="form-control mt-2" rows="3"
                                     placeholder="Write what was done well...">{{ old('positive_feedback') }}</textarea>
                             </div>
-
                             <!-- Improvement Feedback Section -->
                             <div class="form-group mb-4">
                                 <label for="improvement-feedback">What could be improved?</label>
                                 <textarea id="improvement-feedback" name="improvement_feedback" class="form-control mt-2" rows="3"
                                     placeholder="Write what could be improved...">{{ old('improvement_feedback') }}</textarea>
                             </div>
-
                             <!-- Rating Input -->
                             <div class="form-group mb-4">
                                 <label for="rating">Rating (1 to 5)</label>

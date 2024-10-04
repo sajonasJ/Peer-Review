@@ -75,7 +75,6 @@ body {
     color: #ccc;
 }
 
-/* header */
 
 .top-header {
     background-color: rgb(62, 62, 62);
@@ -83,7 +82,6 @@ body {
     text-align: right;
 }
 
-/* Container for the header links */
 .top-header-links {
     display: inline-flex;
     align-items: center;
@@ -102,12 +100,10 @@ body {
     text-decoration: none;
 }
 
-/* Divider between links */
 .divider {
     color: #ffffff;
     margin: 0 0.5rem;
 }
-
 
 .top-section {
     background-color: rgb(62, 62, 62);
@@ -145,8 +141,6 @@ body {
     font-size: 1.8em;
 }
 
-/* navigation */
-/* Container for the navigation tabs */
 /* Container for the navigation tabs */
 .navigation-tabs {
     display: flex;
