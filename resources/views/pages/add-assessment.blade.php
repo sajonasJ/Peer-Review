@@ -51,6 +51,8 @@
                                 <input type="text" id="title" name="title" class="form-control"
                                     placeholder="Enter title (max 20 characters)" maxlength="20"
                                     value="{{ old('title', isset($assessment) ? $assessment->title : '') }}">
+
+
                                 @error('title')
                                     <div class="text-danger mt-1">{{ $message }}</div>
                                 @enderror
@@ -58,8 +60,9 @@
                             <!-- Assessment Instructions -->
                             <div class="form-group mb-3">
                                 <label for="instructions">Instructions</label>
-                                <textarea id="instructions" name="instructions" class="form-control" rows="4" placeholder="Enter instructions">{
-                                    { old('instructions', isset($assessment) ? $assessment->instruction : '') }}</textarea>
+                                <textarea id="instructions" name="instructions" class="form-control" rows="4" placeholder="Enter instructions">
+                                        {{ old('instructions', isset($assessment) ? $assessment->instruction : '') }}</textarea>
+
                                 @error('instructions')
                                     <div class="text-danger mt-1">{{ $message }}</div>
                                 @enderror
