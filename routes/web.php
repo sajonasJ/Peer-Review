@@ -11,11 +11,12 @@ use App\Http\Controllers\AssessmentController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\StudentController;
 
-
+// landing page
 Route::get('/', function () {
     return view('pages.login');
 })->name('login');
 
+// middleware for unauthenticated users registering
 Route::middleware('guest')->group(function () {
     Route::get(
         '/register',
@@ -28,14 +29,17 @@ Route::middleware('guest')->group(function () {
     );
 });
 
+//teacher logging in
 Route::get('/teaching-login', function () {
     return view('pages.teaching-login');
 })->name('teaching-login');
 
+// student logging in
 Route::post(
     '/student-login',
     [AuthenticatedSessionController::class, 'store']
 )->name('student.login');
+
 
 Route::post(
     '/teacher/login',
@@ -60,6 +64,7 @@ Route::middleware(['auth:web,teacher'])->group(function () {
     Route::get('/course-details', function () {
         return view('pages.course-details');
     })->name('course-details');
+
     Route::get(
         '/course-details/{courseCode}',
         [CourseController::class, 'show']
