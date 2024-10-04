@@ -244,15 +244,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Update quality indicator
         if (wordCount < 5) {
-            qualityIndicator.innerHTML = `<i class="bi bi-exclamation-triangle-fill text-warning"></i> - Too short, you can do better`;
+            qualityIndicator.innerHTML = `<i class="bi bi-exclamation-triangle-fill text-warning"></i> - Too short, think of what when well`;
         } else if (wordCount < 10) {
-            qualityIndicator.innerHTML = `<i class="bi bi-hand-thumbs-down-fill text-warning"></i> - Could be improved, always aim for more`;
+            qualityIndicator.innerHTML = `<i class="bi bi-hand-thumbs-down-fill text-warning"></i> - Could be improved, surely there is more to say`;
         } else if (wordCount < 15) {
             qualityIndicator.innerHTML = `<i class="bi bi-check-circle-fill text-success"></i> - Good job, you're on the right track`;
         } else if (wordCount < 20) {
-            qualityIndicator.innerHTML = `<i class="bi bi-star-fill text-warning"></i> - Better, already showing potential`;
+            qualityIndicator.innerHTML = `<i class="bi bi-star-fill text-warning"></i> - That is better, already showing potential as a mentor`;
         } else {
-            qualityIndicator.innerHTML = `<i class="bi bi-trophy-fill text-warning"></i> - Great Work, you're a star, keep it up`;
+            qualityIndicator.innerHTML = `<i class="bi bi-trophy-fill text-warning"></i> - Great Work, you're a star in making reviews`;
         }
     }
 

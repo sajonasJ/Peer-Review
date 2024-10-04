@@ -60,7 +60,7 @@
 
                             <!-- Positive Feedback Section -->
                             <div class="form-group mb-4">
-                                <label for="positive-feedback">What did the student do well?
+                                <label for="positive-feedback">What did the student do well?  (at least 5 words)
                                     <span class="quality-indicator ms-2 text-muted">
                                         <i class="bi bi-exclamation-triangle-fill text-warning"></i> - Too Short
                                     </span>
@@ -72,7 +72,7 @@
 
                             <!-- Improvement Feedback Section -->
                             <div class="form-group mb-4">
-                                <label for="improvement-feedback">What could be improved?
+                                <label for="improvement-feedback">What could be improved?  (at least 5 words)
                                     <span class="quality-indicator ms-2 text-muted">
                                         <i class="bi bi-exclamation-triangle-fill text-warning"></i> - Too Short
                                     </span>

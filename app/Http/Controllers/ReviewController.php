@@ -50,8 +50,8 @@ class ReviewController extends Controller
     {
         $request->validate([
             'review' => 'required|string|min:5',
-            'positive_feedback' => 'required|string|min:1',
-            'improvement_feedback' => 'required|string|min:1',
+            'positive_feedback' => 'required|string|min:5',
+            'improvement_feedback' => 'required|string|min:5',
             'rating' => 'required|integer|min:1|max:5',
         ]);
 
