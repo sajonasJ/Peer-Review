@@ -34,9 +34,11 @@
                         <p><strong>Instructions:</strong> {{ $assessment->instruction }}</p>
                         <p><strong>Number of Reviews:</strong> {{ $assessment->num_reviews }}</p>
                         <p><strong>Maximum Score:</strong> {{ $assessment->max_score }}</p>
-                        <p><strong>Due Date:</strong> {{ \Carbon\Carbon::parse($assessment->due_date)->format('d F, Y') }}
+                        <p><strong>Due Date:</strong>
+                            {{ \Carbon\Carbon::parse($assessment->due_date)->format('d F, Y') }}
                         </p>
-                        <p><strong>Due Time:</strong> {{ \Carbon\Carbon::parse($assessment->due_time)->format('h:i A') }}
+                        <p><strong>Due Time:</strong>
+                            {{ \Carbon\Carbon::parse($assessment->due_time)->format('h:i A') }}
                         </p>
                         <p><strong>Review Type:</strong> {{ $assessment->type }}</p>
                     </div>
